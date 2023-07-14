@@ -3,6 +3,7 @@ import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { AppRoute } from '../../const';
 
 type AppProps = {
@@ -17,6 +18,7 @@ function App({ offersNumber }: AppProps): JSX.Element {
         <Route path={AppRoute.Login} element={<LoginPage />}></Route>
         <Route path={AppRoute.Favorites} element={<FavoritesPage />}></Route>
         <Route path={AppRoute.Offer} element={<OfferPage />}></Route>
+        <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

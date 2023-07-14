@@ -1,0 +1,9 @@
+.no-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 600;
+}
