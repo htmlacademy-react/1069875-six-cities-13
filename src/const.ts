@@ -11,7 +11,13 @@ const AuthorizationStatus = {
   Unknown: 'UNKNOWN',
 } as const;
 
+const RatingConfig = {
+  MaxRating: 5,
+  MaxPercent: 100,
+} as const;
+
 export {
   AppRoute,
   AuthorizationStatus,
+  RatingConfig,
 };
