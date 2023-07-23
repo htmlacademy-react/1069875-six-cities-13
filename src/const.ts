@@ -1,3 +1,12 @@
+const Cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+] as const;
+
 const AppRoute = {
   Root: '/',
   Login: '/login',
@@ -21,9 +30,4 @@ const CardMode = {
   Favorite: 'favorite',
 } as const;
 
-export {
-  AppRoute,
-  AuthorizationStatus,
-  RatingConfig,
-  CardMode,
-};
+export { Cities, AppRoute, AuthorizationStatus, RatingConfig, CardMode };
