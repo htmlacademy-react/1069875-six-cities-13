@@ -16,8 +16,14 @@ const RatingConfig = {
   MaxPercent: 100,
 } as const;
 
+const CardMode = {
+  Default: 'default',
+  Favorite: 'favorite',
+} as const;
+
 export {
   AppRoute,
   AuthorizationStatus,
   RatingConfig,
+  CardMode,
 };

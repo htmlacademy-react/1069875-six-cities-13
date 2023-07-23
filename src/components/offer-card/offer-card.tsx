@@ -1,12 +1,15 @@
 import { Offer } from '../../types/offer';
 import { startStringWithCapital, transformRatingToPercent } from '../../utils';
+import { CardMode } from '../../const';
+import CardModeDiffs from './card-mode-diffs';
 
 type OfferCardProps = {
   offer: Offer;
-  onMouseOver: () => void;
+  onMouseOver?: () => void;
+  mode?: typeof CardMode[keyof typeof CardMode];
 };
 
-function OfferCard({ offer, onMouseOver }: OfferCardProps): JSX.Element {
+function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardProps): JSX.Element {
   const {
     id,
     title,
@@ -17,9 +20,11 @@ function OfferCard({ offer, onMouseOver }: OfferCardProps): JSX.Element {
     isFavorite,
     rating,
   } = offer;
+
+  const {CardClass, ImgBoxClass, ImgSize, InfoBoxClass} = CardModeDiffs[mode];
   return (
     <article
-      className="cities__card place-card"
+      className={`${CardClass} place-card`}
       id={id}
       onMouseOver={onMouseOver}
     >
@@ -28,18 +33,18 @@ function OfferCard({ offer, onMouseOver }: OfferCardProps): JSX.Element {
           <span>Premium</span>
         </div>
       ) : null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${ImgBoxClass} place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width={260}
-            height={200}
+            width={ImgSize.Width}
+            height={ImgSize.Height}
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${InfoBoxClass ?? ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">€{price}</b>
