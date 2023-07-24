@@ -1,7 +1,11 @@
-import { Fragment } from 'react';
+import { useState, ChangeEvent, Fragment } from 'react';
 import { Rating } from '../../const';
 
 function FormReview(): JSX.Element {
+  const [review, setReview] = useState({
+    rating: 0,
+    comment: '',
+  });
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -16,9 +20,12 @@ function FormReview(): JSX.Element {
               <input
                 className="form__rating-input visually-hidden"
                 name="rating"
-                defaultValue={numberKey}
+                value={numberKey}
                 id={`${numberKey}-stars`}
                 type="radio"
+                onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
+                  setReview({ ...review, rating: Number(target.value) });
+                }}
               />
               <label
                 htmlFor={`${numberKey}-stars`}
@@ -37,7 +44,10 @@ function FormReview(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={review.comment}
+        onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+          setReview({ ...review, comment: target.value });
+        }}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
