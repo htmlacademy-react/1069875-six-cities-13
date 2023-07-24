@@ -1,7 +1,8 @@
 import { Offer } from '../../types/offer';
 import { startStringWithCapital, transformRatingToPercent } from '../../utils';
-import { CardMode } from '../../const';
+import { AppRoute, CardMode } from '../../const';
 import CardModeDiffs from './card-mode-diffs';
+import { Link } from 'react-router-dom';
 
 type OfferCardProps = {
   offer: Offer;
@@ -34,7 +35,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
         </div>
       ) : null}
       <div className={`${ImgBoxClass} place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -42,7 +43,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
             height={ImgSize.Height}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className={`${InfoBoxClass ?? ''} place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -69,7 +70,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.Offer}>{title}</Link>
         </h2>
         <p className="place-card__type">{startStringWithCapital(type)}</p>
       </div>

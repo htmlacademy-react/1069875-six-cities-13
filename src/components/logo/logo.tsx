@@ -1,4 +1,5 @@
-import { LogoMode } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, LogoMode } from '../../const';
 import LogoModeDiffs from './logo-mode-diffs';
 
 type LogoProps = {
@@ -8,7 +9,7 @@ type LogoProps = {
 
 function Logo({ mode, isNotActive = false}: LogoProps): JSX.Element {
   return (
-    <a className={`${mode}__logo-link ${isNotActive ? '' : ('header__logo-link--active')}`}>
+    <Link to={AppRoute.Root} className={`${mode}__logo-link ${isNotActive ? '' : ('header__logo-link--active')}`}>
       <img
         className={`${mode}__logo`}
         src="img/logo.svg"
@@ -16,7 +17,7 @@ function Logo({ mode, isNotActive = false}: LogoProps): JSX.Element {
         width={LogoModeDiffs[mode].Width}
         height={LogoModeDiffs[mode].Height}
       />
-    </a>
+    </Link>
   );
 }
 
