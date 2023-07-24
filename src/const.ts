@@ -30,4 +30,9 @@ const CardMode = {
   Favorite: 'favorite',
 } as const;
 
-export { Cities, AppRoute, AuthorizationStatus, RatingConfig, CardMode };
+const LogoMode = {
+  Header: 'header',
+  Footer: 'footer',
+} as const;
+
+export { Cities, AppRoute, AuthorizationStatus, RatingConfig, CardMode, LogoMode };
