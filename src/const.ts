@@ -35,4 +35,12 @@ const LogoMode = {
   Footer: 'footer',
 } as const;
 
-export { Cities, AppRoute, AuthorizationStatus, RatingConfig, CardMode, LogoMode };
+const Rating = {
+  1: 'terribly',
+  2: 'badly',
+  3: 'not bad',
+  4: 'good',
+  5: 'perfect',
+} as const;
+
+export { Cities, AppRoute, AuthorizationStatus, RatingConfig, CardMode, LogoMode, Rating };
