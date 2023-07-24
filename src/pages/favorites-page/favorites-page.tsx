@@ -1,7 +1,8 @@
 import PageHeader from '../../components/page-header/page-header';
 import OfferCard from '../../components/offer-card/offer-card';
+import Logo from '../../components/logo/logo';
 import { Offer } from '../../types/offer';
-import { Cities, CardMode } from '../../const';
+import { Cities, CardMode, LogoMode } from '../../const';
 
 type FavoritesPageProps = {
   offers: Offer[];
@@ -49,15 +50,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width={64}
-            height={33}
-          />
-        </a>
+        <Logo mode={LogoMode.Footer} />
       </footer>
     </div>
   );

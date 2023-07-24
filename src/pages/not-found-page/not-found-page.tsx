@@ -1,4 +1,6 @@
+import Logo from '../../components/logo/logo';
 import PageHeader from '../../components/page-header/page-header';
+import { LogoMode } from '../../const';
 import './not-found-style.css';
 
 function NotFoundPage(): JSX.Element {
@@ -12,15 +14,7 @@ function NotFoundPage(): JSX.Element {
       </main>
 
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img
-            className="footer__logo"
-            src="img/logo.svg"
-            alt="6 cities logo"
-            width={64}
-            height={33}
-          />
-        </a>
+        <Logo mode={LogoMode.Footer}/>
       </footer>
     </div>
   );
