@@ -1,20 +1,28 @@
+import { useState } from 'react';
 import PageHeader from '../../components/page-header/page-header';
 import LocationsTabs from '../../components/locations-tabs/locations-tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import { Offer } from '../../types/offer';
+import { Cities } from '../../const';
 
 type MainPageProps = {
   offers: Offer[];
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
+  const [activeCity, setActiveCity] = useState<typeof Cities[number]>(Cities[0]);
+
+  const handleLocationTabClick = (city: typeof Cities[number]) => {
+    setActiveCity(city);
+  };
+
   return (
     <div className="page page--gray page--main">
       <PageHeader isMainPage/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <LocationsTabs />
+          <LocationsTabs activeCity={activeCity} onClick={handleLocationTabClick}/>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
