@@ -1,4 +1,4 @@
-import { Offer } from '../../types/offer';
+import { Offer } from '../../types/types';
 import { startStringWithCapital, transformRatingToPercent } from '../../utils';
 import { AppRoute } from '../../const/server';
 import { CardMode } from '../../const/modes';

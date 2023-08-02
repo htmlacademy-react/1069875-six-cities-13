@@ -6,7 +6,7 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const/server';
-import { Offer } from '../../types/offer';
+import { Offer } from '../../types/types';
 
 type AppProps = {
   offers: Offer[];

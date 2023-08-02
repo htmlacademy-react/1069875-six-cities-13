@@ -1,7 +1,7 @@
 import PageHeader from '../../components/page-header/page-header';
 import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
-import { Offer } from '../../types/offer';
+import { Offer } from '../../types/types';
 import { Cities } from '../../const/cities';
 import { CardMode, LogoMode } from '../../const/modes';
 
