@@ -2,7 +2,8 @@ import PageHeader from '../../components/page-header/page-header';
 import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
 import { Offer } from '../../types/offer';
-import { Cities, CardMode, LogoMode } from '../../const';
+import { Cities } from '../../const/cities';
+import { CardMode, LogoMode } from '../../const/modes';
 
 type FavoritesPageProps = {
   offers: Offer[];

@@ -1,6 +1,6 @@
 import Logo from '../../components/logo/logo';
 import PageHeader from '../../components/page-header/page-header';
-import { LogoMode } from '../../const';
+import { LogoMode } from '../../const/modes';
 import './not-found-style.css';
 
 function NotFoundPage(): JSX.Element {

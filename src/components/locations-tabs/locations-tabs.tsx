@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Cities } from '../../const';
+import { Cities } from '../../const/cities';
 
 type LocationsTabsProps = {
   activeCity: typeof Cities[number];
