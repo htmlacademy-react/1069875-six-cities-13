@@ -10,9 +10,9 @@ type MainPageProps = {
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
-  const [activeCity, setActiveCity] = useState<typeof Cities[number]>(Cities[0]);
+  const [activeCity, setActiveCity] = useState(Object.keys(Cities)[0]);
 
-  const handleLocationTabClick = (city: typeof Cities[number]) => {
+  const handleLocationTabClick = (city: string) => {
     setActiveCity(city);
   };
 

@@ -20,7 +20,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {Cities.map((cityName) => {
+              {Object.keys(Cities).map((cityName) => {
                 const cityOffers = favoriteOffers.filter(
                   ({ city }) => city.name === cityName
                 );
