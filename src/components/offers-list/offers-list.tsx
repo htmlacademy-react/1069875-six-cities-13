@@ -1,14 +1,12 @@
-import { useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
 import { Offer } from '../../types/types';
 
 type OffersListProps = {
   offers: Offer[];
+  onOfferOver: (id: string) => void;
 };
 
-function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<null|string>(null);
-
+function OffersList({ offers, onOfferOver }: OffersListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
@@ -16,7 +14,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
           key={offer.id}
           offer={offer}
           onMouseOver={() => {
-            setActiveCard(offer.id);
+            onOfferOver(offer.id);
           }}
         />
       ))}

@@ -8,4 +8,9 @@ const LogoMode = {
   Footer: 'footer',
 } as const;
 
-export { CardMode, LogoMode };
+const MarkerMode = {
+  Active: 'active',
+  Default: 'default',
+} as const;
+
+export { CardMode, LogoMode, MarkerMode };

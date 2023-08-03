@@ -12,6 +12,7 @@ type MainPageProps = {
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
   const [activeCity, setActiveCity] = useState(Object.keys(Cities)[0]);
+  const [activeOffer, setActiveOffer] = useState<null|string>(null);
 
   const handleLocationTabClick = (city: string) => {
     setActiveCity(city);
@@ -56,10 +57,10 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OffersList offers={offers}/>
+              <OffersList offers={offers} onOfferOver={setActiveOffer}/>
             </section>
             <div className="cities__right-section">
-              <Map city={Cities[activeCity]} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
+              <Map city={Cities[activeCity]} activePoint={activeOffer} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
             </div>
           </div>
         </div>

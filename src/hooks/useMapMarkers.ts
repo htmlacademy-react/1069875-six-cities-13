@@ -1,8 +1,16 @@
-import { Map, Marker, layerGroup } from 'leaflet';
+import { Map, Marker, layerGroup, Icon } from 'leaflet';
 import { useEffect } from 'react';
 import { Location } from '../types/types';
+import { MarkerMode } from '../const/modes';
 
-function useMapMarkers(map: Map | null, points: Location[]): void {
+type useMapMarkersProps = {
+  map: Map | null;
+  points: Array<Location & {id: string}>;
+  icons: {[name: string]: Icon};
+  activePoint: string|null;
+};
+
+function useMapMarkers({map, points, activePoint, icons}: useMapMarkersProps): void {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup();
@@ -12,7 +20,7 @@ function useMapMarkers(map: Map | null, points: Location[]): void {
           lng: point.longitude,
         });
 
-        marker.addTo(markerLayer);
+        marker.setIcon(activePoint !== null && point.id === activePoint ? icons[MarkerMode.Active] : icons[MarkerMode.Default]).addTo(markerLayer);
       });
       markerLayer.addTo(map);
 
@@ -20,7 +28,7 @@ function useMapMarkers(map: Map | null, points: Location[]): void {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, points]);
+  }, [map, points, activePoint, icons]);
 }
 
 export default useMapMarkers;
