@@ -1,4 +1,10 @@
-const Cities = {
+import { Location } from '../types/types';
+
+type Cities = {
+  [name: string]: Location;
+};
+
+const Cities: Cities = {
   'Paris': {
     latitude: 48.85661,
     longitude: 2.351499,

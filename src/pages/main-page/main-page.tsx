@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PageHeader from '../../components/page-header/page-header';
 import LocationsTabs from '../../components/locations-tabs/locations-tabs';
 import OffersList from '../../components/offers-list/offers-list';
+import Map from '../../components/map/map';
 import { Offer } from '../../types/types';
 import { Cities } from '../../const/cities';
 
@@ -58,7 +59,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map city={Cities[activeCity]} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
             </div>
           </div>
         </div>
