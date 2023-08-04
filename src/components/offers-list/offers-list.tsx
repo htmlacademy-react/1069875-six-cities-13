@@ -7,13 +7,13 @@ import { OffersListMode } from '../../const/modes';
 type OffersListProps = {
   mode: typeof OffersListMode[keyof typeof OffersListMode];
   offers: OfferT[];
-  onOfferOver?: (id: string) => void;
+  onMouseMove?: (id: string|null) => void;
 };
 
 function OffersList({
   mode,
   offers,
-  onOfferOver,
+  onMouseMove,
 }: OffersListProps): JSX.Element {
   const { StyleClass } = OffersListModeDiffs[mode];
   return (
@@ -22,8 +22,14 @@ function OffersList({
         cn(
           'places__list',
           `${StyleClass}__list`,
-          {'tabs__content': onOfferOver},
+          {'tabs__content': onMouseMove},
         )
+      }
+      onMouseOut={
+        onMouseMove &&
+        (() => {
+          onMouseMove(null);
+        })
       }
     >
       {offers.map((offer) => (
@@ -31,9 +37,9 @@ function OffersList({
           key={offer.id}
           offer={offer}
           onMouseOver={
-            onOfferOver &&
+            onMouseMove &&
             (() => {
-              onOfferOver(offer.id);
+              onMouseMove(offer.id);
             })
           }
         />

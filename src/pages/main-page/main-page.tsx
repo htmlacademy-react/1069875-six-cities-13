@@ -58,7 +58,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OffersList offers={offers} onOfferOver={setActiveOffer}/>
+              <OffersList offers={offers} onMouseMove={setActiveOffer}/>
             </section>
             <div className="cities__right-section">
               <Map mode={MapMode.MainPage} city={Cities[activeCity]} activePoint={activeOffer} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
