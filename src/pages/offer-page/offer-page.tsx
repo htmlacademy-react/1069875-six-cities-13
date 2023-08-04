@@ -1,8 +1,10 @@
 import FormReview from '../../components/form-review/form-review';
 import PageHeader from '../../components/page-header/page-header';
 import Reviews from '../../components/reviews-list/reviews-list';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import { OfferFull } from '../../types/types';
 import { startStringWithCapital, transformRatingToPercent } from '../../utils';
+import { BookmarkMode } from '../../const/modes';
 
 type OfferPageProps = {
   offer: OfferFull;
@@ -52,17 +54,7 @@ function OfferPage({ offer }: OfferPageProps): JSX.Element {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button
-                  className={`place-card__bookmark-button button ${
-                    isFavorite ? 'place-card__bookmark-button--active' : ''
-                  }`}
-                  type="button"
-                >
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton mode={BookmarkMode.Page} isActive={isFavorite}/>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

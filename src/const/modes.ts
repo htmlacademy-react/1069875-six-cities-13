@@ -13,4 +13,9 @@ const MarkerMode = {
   Default: 'default',
 } as const;
 
-export { CardMode, LogoMode, MarkerMode };
+const BookmarkMode = {
+  Card: 'card',
+  Page: 'page',
+} as const;
+
+export { CardMode, LogoMode, MarkerMode, BookmarkMode };
