@@ -19,3 +19,18 @@ export type Offer = {
   rating: number;
   previewImage: string;
 };
+
+type OfferAddition = {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  images: string[];
+  maxAdults: number;
+};
+
+export type OfferFull = Omit<Offer, 'previewImage'> & OfferAddition;

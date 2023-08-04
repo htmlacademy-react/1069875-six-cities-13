@@ -1,4 +1,4 @@
-import { Offer } from '../types/types';
+import { Offer, OfferFull } from '../types/types';
 
 export const offers: Offer[] = [
   {
@@ -94,3 +94,18 @@ export const offers: Offer[] = [
     rating: 3.8,
   },
 ];
+
+export const fullOffer: OfferFull = {
+  ...offers[0],
+  description:
+    'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+  bedrooms: 3,
+  goods: ['Heating', 'Wi-Fi', 'Fridge'],
+  host: {
+    name: 'Max Smith',
+    avatarUrl: 'img/avatar-max.jpg',
+    isPro: true,
+  },
+  images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
+  maxAdults: 4,
+};
