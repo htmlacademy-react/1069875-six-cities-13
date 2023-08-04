@@ -3,12 +3,12 @@ import PageHeader from '../../components/page-header/page-header';
 import Reviews from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import RatingStars from '../../components/rating-stars/rating-stars';
-import { OfferFull } from '../../types/types';
+import { OfferFullT } from '../../types/types';
 import { startStringWithCapital } from '../../utils';
 import { BookmarkMode, RatingStarsMode } from '../../const/modes';
 
 type OfferPageProps = {
-  offer: OfferFull;
+  offer: OfferFullT;
 };
 
 function OfferPage({ offer }: OfferPageProps): JSX.Element {

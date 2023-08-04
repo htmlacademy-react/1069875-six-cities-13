@@ -3,11 +3,11 @@ import PageHeader from '../../components/page-header/page-header';
 import LocationsTabs from '../../components/locations-tabs/locations-tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { Offer } from '../../types/types';
+import { OfferT } from '../../types/types';
 import { Cities } from '../../const/cities';
 
 type MainPageProps = {
-  offers: Offer[];
+  offers: OfferT[];
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {

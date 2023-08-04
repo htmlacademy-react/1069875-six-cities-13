@@ -1,6 +1,6 @@
-import { Offer, OfferFull } from '../types/types';
+import { OfferT, OfferFullT } from '../types/types';
 
-export const offers: Offer[] = [
+export const offers: OfferT[] = [
   {
     id: '937e13a8-d128-42fc-9b67-b8b29e41b0dc',
     title: 'The Joshua Tree House',
@@ -95,7 +95,7 @@ export const offers: Offer[] = [
   },
 ];
 
-export const fullOffer: OfferFull = {
+export const fullOffer: OfferFullT = {
   ...offers[0],
   description:
     'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',

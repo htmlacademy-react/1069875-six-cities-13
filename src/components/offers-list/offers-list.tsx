@@ -1,8 +1,8 @@
 import OfferCard from '../offer-card/offer-card';
-import { Offer } from '../../types/types';
+import { OfferT } from '../../types/types';
 
 type OffersListProps = {
-  offers: Offer[];
+  offers: OfferT[];
   onOfferOver: (id: string) => void;
 };
 

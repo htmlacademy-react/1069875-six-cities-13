@@ -1,6 +1,6 @@
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import RatingStars from '../rating-stars/rating-stars';
-import { Offer } from '../../types/types';
+import { OfferT } from '../../types/types';
 import { startStringWithCapital } from '../../utils';
 import { AppRoute } from '../../const/server';
 import { CardMode, BookmarkMode, RatingStarsMode } from '../../const/modes';
@@ -8,7 +8,7 @@ import CardModeDiffs from './card-mode-diffs';
 import { Link } from 'react-router-dom';
 
 type OfferCardProps = {
-  offer: Offer;
+  offer: OfferT;
   onMouseOver?: () => void;
   mode?: typeof CardMode[keyof typeof CardMode];
 };

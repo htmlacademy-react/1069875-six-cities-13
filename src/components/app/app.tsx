@@ -6,11 +6,11 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const/server';
-import { Offer } from '../../types/types';
+import { OfferT } from '../../types/types';
 import { fullOffer } from '../../mocks/offers';
 
 type AppProps = {
-  offers: Offer[];
+  offers: OfferT[];
 };
 
 function App({ offers }: AppProps): JSX.Element {

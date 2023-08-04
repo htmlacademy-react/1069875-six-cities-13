@@ -1,26 +1,26 @@
-export type Location = {
+export type LocationT = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-export type Offer = {
+export type OfferT = {
   id: string;
   title: string;
   type: string;
   price: number;
   city: {
     name: string;
-    location: Location;
+    location: LocationT;
   };
-  location: Location;
+  location: LocationT;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
   previewImage: string;
 };
 
-type OfferAddition = {
+type OfferAdditionT = {
   description: string;
   bedrooms: number;
   goods: string[];
@@ -33,4 +33,5 @@ type OfferAddition = {
   maxAdults: number;
 };
 
-export type OfferFull = Omit<Offer, 'previewImage'> & OfferAddition;
+export type OfferFullT = Omit<OfferT, 'previewImage'> & OfferAdditionT;
+
