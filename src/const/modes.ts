@@ -24,4 +24,9 @@ const RatingStarsMode = {
   Review: 'review',
 } as const;
 
-export { CardMode, LogoMode, MarkerMode, BookmarkMode, RatingStarsMode };
+const MapMode = {
+  MainPage: 'main-page',
+  OfferPage: 'offer-page',
+} as const;
+
+export { CardMode, LogoMode, MarkerMode, BookmarkMode, RatingStarsMode, MapMode };

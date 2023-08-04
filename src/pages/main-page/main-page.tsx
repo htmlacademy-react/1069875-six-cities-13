@@ -5,6 +5,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { OfferT } from '../../types/types';
 import { Cities } from '../../const/cities';
+import { MapMode } from '../../const/modes';
 
 type MainPageProps = {
   offers: OfferT[];
@@ -60,7 +61,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <OffersList offers={offers} onOfferOver={setActiveOffer}/>
             </section>
             <div className="cities__right-section">
-              <Map city={Cities[activeCity]} activePoint={activeOffer} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
+              <Map mode={MapMode.MainPage} city={Cities[activeCity]} activePoint={activeOffer} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
             </div>
           </div>
         </div>
