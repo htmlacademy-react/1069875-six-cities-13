@@ -1,8 +1,9 @@
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import RatingStars from '../rating-stars/rating-stars';
 import { Offer } from '../../types/types';
-import { startStringWithCapital, transformRatingToPercent } from '../../utils';
+import { startStringWithCapital } from '../../utils';
 import { AppRoute } from '../../const/server';
-import { CardMode, BookmarkMode } from '../../const/modes';
+import { CardMode, BookmarkMode, RatingStarsMode } from '../../const/modes';
 import CardModeDiffs from './card-mode-diffs';
 import { Link } from 'react-router-dom';
 
@@ -55,12 +56,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
           </div>
           <BookmarkButton mode={BookmarkMode.Card} isActive={isFavorite}/>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: `${transformRatingToPercent(rating)}%` }} />
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <RatingStars mode={RatingStarsMode.Card} rating={rating}/>
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer}>{title}</Link>
         </h2>

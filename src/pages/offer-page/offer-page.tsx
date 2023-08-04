@@ -2,9 +2,10 @@ import FormReview from '../../components/form-review/form-review';
 import PageHeader from '../../components/page-header/page-header';
 import Reviews from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
+import RatingStars from '../../components/rating-stars/rating-stars';
 import { OfferFull } from '../../types/types';
-import { startStringWithCapital, transformRatingToPercent } from '../../utils';
-import { BookmarkMode } from '../../const/modes';
+import { startStringWithCapital } from '../../utils';
+import { BookmarkMode, RatingStarsMode } from '../../const/modes';
 
 type OfferPageProps = {
   offer: OfferFull;
@@ -56,15 +57,7 @@ function OfferPage({ offer }: OfferPageProps): JSX.Element {
                 <h1 className="offer__name">{title}</h1>
                 <BookmarkButton mode={BookmarkMode.Page} isActive={isFavorite}/>
               </div>
-              <div className="offer__rating rating">
-                <div className="offer__stars rating__stars">
-                  <span
-                    style={{ width: `${transformRatingToPercent(rating)}%` }}
-                  />
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="offer__rating-value rating__value">{rating}</span>
-              </div>
+              <RatingStars mode={RatingStarsMode.Page} rating={rating}/>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
                   {startStringWithCapital(type)}
