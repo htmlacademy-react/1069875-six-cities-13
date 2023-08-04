@@ -28,7 +28,7 @@ function App({ offers }: AppProps): JSX.Element {
           }
         >
         </Route>
-        <Route path={AppRoute.Offer} element={<OfferPage offer={fullOffer} reviews={reviews} />}></Route>
+        <Route path={AppRoute.Offer} element={<OfferPage offer={fullOffer} reviews={reviews} offersNearby={offers.slice(1)}/>}></Route>
         <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
     </BrowserRouter>

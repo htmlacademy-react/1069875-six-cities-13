@@ -3,17 +3,20 @@ import PageHeader from '../../components/page-header/page-header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import RatingStars from '../../components/rating-stars/rating-stars';
-import { OfferFullT, ReviewT } from '../../types/types';
+import Map from '../../components/map/map';
+import { OfferFullT, OfferT, ReviewT } from '../../types/types';
 import { startStringWithCapital } from '../../utils';
-import { BookmarkMode, RatingStarsMode } from '../../const/modes';
+import { BookmarkMode, RatingStarsMode, MapMode } from '../../const/modes';
 
 type OfferPageProps = {
   offer: OfferFullT;
   reviews: ReviewT[];
+  offersNearby: OfferT[];
 };
 
-function OfferPage({ offer, reviews }: OfferPageProps): JSX.Element {
+function OfferPage({ offer, reviews, offersNearby }: OfferPageProps): JSX.Element {
   const {
+    id,
     title,
     isPremium,
     images,
@@ -26,6 +29,7 @@ function OfferPage({ offer, reviews }: OfferPageProps): JSX.Element {
     goods,
     host,
     description,
+    city,
   } = offer;
   const { name, avatarUrl, isPro } = host;
 
@@ -112,7 +116,7 @@ function OfferPage({ offer, reviews }: OfferPageProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map" />
+          <Map mode={MapMode.OfferPage} city={city.location} activePoint={id} points={[...offersNearby, offer].map((offerNearby) => ({...offerNearby.location, id: offerNearby.id}))} />
         </section>
         <div className="container">
           <section className="near-places places">
