@@ -5,7 +5,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { OfferT } from '../../types/types';
 import { Cities } from '../../const/cities';
-import { MapMode } from '../../const/modes';
+import { MapMode, OffersListMode } from '../../const/modes';
 
 type MainPageProps = {
   offers: OfferT[];
@@ -58,7 +58,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <OffersList offers={offers} onMouseMove={setActiveOffer}/>
+              <OffersList mode={OffersListMode.All} offers={offers} onMouseMove={setActiveOffer}/>
             </section>
             <div className="cities__right-section">
               <Map mode={MapMode.MainPage} city={Cities[activeCity]} activePoint={activeOffer} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />

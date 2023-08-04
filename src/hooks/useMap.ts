@@ -1,10 +1,10 @@
 import { Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { Location } from '../types/types';
+import { LocationT } from '../types/types';
 
 function useMap(
   containerRef: MutableRefObject<HTMLElement | null>,
-  city: Location
+  city: LocationT
 ): null | Map {
   const [map, setMap] = useState<null | Map>(null);
   const isRendered = useRef<boolean>(false);

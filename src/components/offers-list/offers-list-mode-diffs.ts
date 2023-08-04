@@ -10,10 +10,10 @@ type OffersListModeDiffs = {
 
 const OffersListModeDiffs: OffersListModeDiffs = {
   [OffersListMode.All]: {
-    StyleClass: 'cities',
+    StyleClass: 'cities__places-list',
   },
   [OffersListMode.Nearby]: {
-    StyleClass: 'near-places',
+    StyleClass: 'near-places__list',
   },
 };
 

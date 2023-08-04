@@ -20,8 +20,7 @@ function OffersList({
     <div
       className={
         cn(
-          'places__list',
-          `${StyleClass}__list`,
+          `places__list ${StyleClass}`,
           {'tabs__content': onMouseMove},
         )
       }
