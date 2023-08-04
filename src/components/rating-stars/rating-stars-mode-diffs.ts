@@ -18,6 +18,10 @@ const RatingStarsModeDiffs: RatingStarsModeDiffs = {
     StyleClass: 'offer',
     WithNumber: true,
   },
+  [RatingStarsMode.Review]: {
+    StyleClass: 'reviews',
+    WithNumber: false,
+  },
 };
 
 export default RatingStarsModeDiffs;

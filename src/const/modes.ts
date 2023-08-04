@@ -21,6 +21,7 @@ const BookmarkMode = {
 const RatingStarsMode = {
   Card: 'card',
   Page: 'page',
+  Review: 'review',
 } as const;
 
 export { CardMode, LogoMode, MarkerMode, BookmarkMode, RatingStarsMode };
