@@ -8,6 +8,7 @@ import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const/server';
 import { OfferT } from '../../types/types';
 import { fullOffer } from '../../mocks/offers';
+import { reviews } from '../../mocks/reviews';
 
 type AppProps = {
   offers: OfferT[];
@@ -27,7 +28,7 @@ function App({ offers }: AppProps): JSX.Element {
           }
         >
         </Route>
-        <Route path={AppRoute.Offer} element={<OfferPage offer={fullOffer} />}></Route>
+        <Route path={AppRoute.Offer} element={<OfferPage offer={fullOffer} reviews={reviews} />}></Route>
         <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
     </BrowserRouter>

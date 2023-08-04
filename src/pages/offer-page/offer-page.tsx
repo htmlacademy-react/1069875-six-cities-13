@@ -1,17 +1,18 @@
 import FormReview from '../../components/form-review/form-review';
 import PageHeader from '../../components/page-header/page-header';
-import Reviews from '../../components/reviews-list/reviews-list';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import RatingStars from '../../components/rating-stars/rating-stars';
-import { OfferFullT } from '../../types/types';
+import { OfferFullT, ReviewT } from '../../types/types';
 import { startStringWithCapital } from '../../utils';
 import { BookmarkMode, RatingStarsMode } from '../../const/modes';
 
 type OfferPageProps = {
   offer: OfferFullT;
+  reviews: ReviewT[];
 };
 
-function OfferPage({ offer }: OfferPageProps): JSX.Element {
+function OfferPage({ offer, reviews }: OfferPageProps): JSX.Element {
   const {
     title,
     isPremium,
@@ -104,9 +105,9 @@ function OfferPage({ offer }: OfferPageProps): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
+                  Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <Reviews />
+                <ReviewsList reviews={reviews} />
                 <FormReview />
               </section>
             </div>
