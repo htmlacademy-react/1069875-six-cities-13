@@ -1,8 +1,7 @@
 import { CardMode } from '../../const/modes';
 
 type CardModeDiff = {
-    CardClass: string;
-    ImgBoxClass: string;
+    StyleClass: string;
     ImgSize: {
       Width: number;
       Height: number;
@@ -16,8 +15,7 @@ type CardModeDiffs = {
 
 const CardModeDiffs: CardModeDiffs = {
   [CardMode.Default]: {
-    CardClass: 'cities__card',
-    ImgBoxClass: 'cities__image-wrapper',
+    StyleClass: 'cities',
     ImgSize: {
       Width: 260,
       Height: 200,
@@ -25,8 +23,7 @@ const CardModeDiffs: CardModeDiffs = {
     InfoBoxClass: null,
   },
   [CardMode.Favorite]: {
-    CardClass: 'favorites__card',
-    ImgBoxClass: 'favorites__image-wrapper',
+    StyleClass: 'favorites',
     InfoBoxClass: 'favorites__card-info',
     ImgSize: {
       Width: 150,

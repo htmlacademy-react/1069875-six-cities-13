@@ -25,10 +25,10 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
     rating,
   } = offer;
 
-  const {CardClass, ImgBoxClass, ImgSize, InfoBoxClass} = CardModeDiffs[mode];
+  const {StyleClass, ImgSize, InfoBoxClass} = CardModeDiffs[mode];
   return (
     <article
-      className={`${CardClass} place-card`}
+      className={`${StyleClass}__card place-card`}
       id={id}
       onMouseOver={onMouseOver}
     >
@@ -37,7 +37,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
           <span>Premium</span>
         </div>
       ) : null}
-      <div className={`${ImgBoxClass} place-card__image-wrapper`}>
+      <div className={`${StyleClass}__image-wrapper place-card__image-wrapper`}>
         <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
