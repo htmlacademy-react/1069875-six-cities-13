@@ -1,6 +1,7 @@
 const CardMode = {
   Default: 'default',
   Favorite: 'favorite',
+  Nearby: 'nearby',
 } as const;
 
 const LogoMode = {
