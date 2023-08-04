@@ -30,4 +30,9 @@ const MapMode = {
   OfferPage: 'offer-page',
 } as const;
 
-export { CardMode, LogoMode, MarkerMode, BookmarkMode, RatingStarsMode, MapMode };
+const OffersListMode = {
+  All: 'all',
+  Nearby: 'nearby',
+} as const;
+
+export { CardMode, LogoMode, MarkerMode, BookmarkMode, RatingStarsMode, MapMode, OffersListMode };
