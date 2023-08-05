@@ -1,11 +1,11 @@
 import { Map, Marker, layerGroup, Icon } from 'leaflet';
 import { useEffect } from 'react';
-import { Location } from '../types/types';
+import { LocationT } from '../types/types';
 import { MarkerMode } from '../const/modes';
 
 type useMapMarkersProps = {
   map: Map | null;
-  points: Array<Location & {id: string}>;
+  points: Array<LocationT & {id: string}>;
   icons: {[name: string]: Icon};
   activePoint: string|null;
 };

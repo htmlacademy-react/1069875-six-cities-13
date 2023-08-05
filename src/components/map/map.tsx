@@ -2,21 +2,25 @@ import 'leaflet/dist/leaflet.css';
 import { useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import useMapMarkers from '../../hooks/useMapMarkers';
-import { Location } from '../../types/types';
+import { LocationT } from '../../types/types';
 import MarkerIcon from './marker-icon';
+import MapModeDiffs from './map-mode-diffs';
+import { MapMode } from '../../const/modes';
 
 type MapProps = {
-  city: Location;
+  mode: typeof MapMode[keyof typeof MapMode];
+  city: LocationT;
   activePoint: string|null;
-  points: Array<Location & {id: string}>;
+  points: Array<LocationT & {id: string}>;
 }
 
-function Map({ city, activePoint, points }: MapProps): JSX.Element {
+function Map({ mode, city, activePoint, points }: MapProps): JSX.Element {
+  const { StyleClass } = MapModeDiffs[mode];
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   useMapMarkers({map, points, activePoint, icons: MarkerIcon});
   return (
-    <section className="cities__map map" ref={mapRef} />
+    <section className={`${StyleClass}__map map`} ref={mapRef} />
   );
 }
 

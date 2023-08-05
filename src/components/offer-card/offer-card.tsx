@@ -1,12 +1,14 @@
-import { Offer } from '../../types/types';
-import { startStringWithCapital, transformRatingToPercent } from '../../utils';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import RatingStars from '../rating-stars/rating-stars';
+import { OfferT } from '../../types/types';
+import { startStringWithCapital } from '../../utils';
 import { AppRoute } from '../../const/server';
-import { CardMode } from '../../const/modes';
+import { CardMode, BookmarkMode, RatingStarsMode } from '../../const/modes';
 import CardModeDiffs from './card-mode-diffs';
 import { Link } from 'react-router-dom';
 
 type OfferCardProps = {
-  offer: Offer;
+  offer: OfferT;
   onMouseOver?: () => void;
   mode?: typeof CardMode[keyof typeof CardMode];
 };
@@ -23,10 +25,10 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
     rating,
   } = offer;
 
-  const {CardClass, ImgBoxClass, ImgSize, InfoBoxClass} = CardModeDiffs[mode];
+  const {StyleClass, ImgSize, InfoBoxClass} = CardModeDiffs[mode];
   return (
     <article
-      className={`${CardClass} place-card`}
+      className={`${StyleClass}__card place-card`}
       id={id}
       onMouseOver={onMouseOver}
     >
@@ -35,7 +37,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
           <span>Premium</span>
         </div>
       ) : null}
-      <div className={`${ImgBoxClass} place-card__image-wrapper`}>
+      <div className={`${StyleClass}__image-wrapper place-card__image-wrapper`}>
         <Link to={AppRoute.Offer}>
           <img
             className="place-card__image"
@@ -52,24 +54,9 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${
-              isFavorite ? 'place-card__bookmark-button--active' : ''
-            }`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <BookmarkButton mode={BookmarkMode.Card} isActive={isFavorite}/>
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{ width: `${transformRatingToPercent(rating)}%` }} />
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
+        <RatingStars mode={RatingStarsMode.Card} rating={rating}/>
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer}>{title}</Link>
         </h2>

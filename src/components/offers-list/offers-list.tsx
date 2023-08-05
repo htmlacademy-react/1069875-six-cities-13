@@ -1,21 +1,46 @@
+import cn from 'classnames';
 import OfferCard from '../offer-card/offer-card';
-import { Offer } from '../../types/types';
+import { OfferT } from '../../types/types';
+import OffersListModeDiffs from './offers-list-mode-diffs';
+import { OffersListMode } from '../../const/modes';
 
 type OffersListProps = {
-  offers: Offer[];
-  onOfferOver: (id: string) => void;
+  mode: typeof OffersListMode[keyof typeof OffersListMode];
+  offers: OfferT[];
+  onMouseMove?: (id: string|null) => void;
 };
 
-function OffersList({ offers, onOfferOver }: OffersListProps): JSX.Element {
+function OffersList({
+  mode,
+  offers,
+  onMouseMove,
+}: OffersListProps): JSX.Element {
+  const { StyleClass } = OffersListModeDiffs[mode];
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div
+      className={
+        cn(
+          `places__list ${StyleClass}`,
+          {'tabs__content': onMouseMove},
+        )
+      }
+      onMouseOut={
+        onMouseMove &&
+        (() => {
+          onMouseMove(null);
+        })
+      }
+    >
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
           offer={offer}
-          onMouseOver={() => {
-            onOfferOver(offer.id);
-          }}
+          onMouseOver={
+            onMouseMove &&
+            (() => {
+              onMouseMove(offer.id);
+            })
+          }
         />
       ))}
     </div>

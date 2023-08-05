@@ -1,6 +1,7 @@
 const CardMode = {
   Default: 'default',
   Favorite: 'favorite',
+  Nearby: 'nearby',
 } as const;
 
 const LogoMode = {
@@ -13,4 +14,25 @@ const MarkerMode = {
   Default: 'default',
 } as const;
 
-export { CardMode, LogoMode, MarkerMode };
+const BookmarkMode = {
+  Card: 'card',
+  Page: 'page',
+} as const;
+
+const RatingStarsMode = {
+  Card: 'card',
+  Page: 'page',
+  Review: 'review',
+} as const;
+
+const MapMode = {
+  MainPage: 'main-page',
+  OfferPage: 'offer-page',
+} as const;
+
+const OffersListMode = {
+  All: 'all',
+  Nearby: 'nearby',
+} as const;
+
+export { CardMode, LogoMode, MarkerMode, BookmarkMode, RatingStarsMode, MapMode, OffersListMode };
