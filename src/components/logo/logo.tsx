@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, LogoMode } from '../../const';
+import { AppRoute } from '../../const/server';
+import { LogoMode } from '../../const/modes';
 import LogoModeDiffs from './logo-mode-diffs';
 
 type LogoProps = {

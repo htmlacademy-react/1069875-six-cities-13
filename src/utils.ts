@@ -1,4 +1,4 @@
-import { RatingConfig } from './const';
+import { RatingConfig } from './const/rating';
 
 function transformRatingToPercent(rating: number): number {
   return Math.round(rating) / RatingConfig.MaxRating * RatingConfig.MaxPercent;

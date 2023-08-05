@@ -1,8 +1,9 @@
 import PageHeader from '../../components/page-header/page-header';
 import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
-import { Offer } from '../../types/offer';
-import { Cities, CardMode, LogoMode } from '../../const';
+import { Offer } from '../../types/types';
+import { Cities } from '../../const/cities';
+import { CardMode, LogoMode } from '../../const/modes';
 
 type FavoritesPageProps = {
   offers: Offer[];
@@ -19,7 +20,7 @@ function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {Cities.map((cityName) => {
+              {Object.keys(Cities).map((cityName) => {
                 const cityOffers = favoriteOffers.filter(
                   ({ city }) => city.name === cityName
                 );

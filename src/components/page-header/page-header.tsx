@@ -1,6 +1,6 @@
 import Logo from '../logo/logo';
 import PageNav from '../page-nav/page-nav';
-import { LogoMode } from '../../const';
+import { LogoMode } from '../../const/modes';
 
 type PageHeaderProps = {
   isNavActive?: boolean;

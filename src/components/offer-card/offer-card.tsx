@@ -1,6 +1,7 @@
-import { Offer } from '../../types/offer';
+import { Offer } from '../../types/types';
 import { startStringWithCapital, transformRatingToPercent } from '../../utils';
-import { AppRoute, CardMode } from '../../const';
+import { AppRoute } from '../../const/server';
+import { CardMode } from '../../const/modes';
 import CardModeDiffs from './card-mode-diffs';
 import { Link } from 'react-router-dom';
 

@@ -1,4 +1,4 @@
-import { LogoMode } from '../../const';
+import { LogoMode } from '../../const/modes';
 
 type LogoModeDiffs = {
   [mode: string]: {

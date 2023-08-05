@@ -1,4 +1,4 @@
-import { CardMode } from '../../const';
+import { CardMode } from '../../const/modes';
 
 type CardModeDiff = {
     CardClass: string;

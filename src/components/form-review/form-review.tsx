@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, Fragment } from 'react';
-import { Rating } from '../../const';
+import { Rating } from '../../const/rating';
 
 function FormReview(): JSX.Element {
   const [review, setReview] = useState({
