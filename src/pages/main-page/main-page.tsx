@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PageHeader from '../../components/page-header/page-header';
-import LocationsTabs from '../../components/locations-tabs/locations-tabs';
+import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { OfferT } from '../../types/types';
@@ -25,7 +25,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <LocationsTabs activeCity={activeCity} onClick={handleLocationTabClick}/>
+          <LocationTabs activeCity={activeCity} onClick={handleLocationTabClick}/>
         </div>
         <div className="cities">
           <div className="cities__places-container container">

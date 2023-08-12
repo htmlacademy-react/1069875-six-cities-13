@@ -1,12 +1,12 @@
 import cn from 'classnames';
 import { Cities } from '../../const/cities';
 
-type LocationsTabsProps = {
+type LocationTabsProps = {
   activeCity: string;
   onClick: (city: string) => void;
 }
 
-function LocationsTabs({ activeCity, onClick }: LocationsTabsProps): JSX.Element {
+function LocationTabs({ activeCity, onClick }: LocationTabsProps): JSX.Element {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
@@ -22,4 +22,4 @@ function LocationsTabs({ activeCity, onClick }: LocationsTabsProps): JSX.Element
   );
 }
 
-export default LocationsTabs;
+export default LocationTabs;
