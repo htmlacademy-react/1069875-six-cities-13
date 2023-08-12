@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import { useRef } from 'react';
 import useMap from '../../hooks/useMap';
+import useMapView from '../../hooks/useMapView';
 import useMapMarkers from '../../hooks/useMapMarkers';
 import { LocationT } from '../../types/types';
 import MarkerIcon from './marker-icon';
@@ -18,6 +19,7 @@ function Map({ mode, city, activePoint, points }: MapProps): JSX.Element {
   const { StyleClass } = MapModeDiffs[mode];
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  useMapView(map, city);
   useMapMarkers({map, points, activePoint, icons: MarkerIcon});
   return (
     <section className={`${StyleClass}__map map`} ref={mapRef} />

@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 import { LocationT } from '../types/types';
 import { MarkerMode } from '../const/modes';
 
-type useMapMarkersProps = {
+type useMapViewProps = {
   map: Map | null;
   points: Array<LocationT & {id: string}>;
   icons: {[name: string]: Icon};
   activePoint: string|null;
 };
 
-function useMapMarkers({map, points, activePoint, icons}: useMapMarkersProps): void {
+function useMapView({map, points, activePoint, icons}: useMapViewProps): void {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup();
@@ -31,4 +31,4 @@ function useMapMarkers({map, points, activePoint, icons}: useMapMarkersProps): v
   }, [map, points, activePoint, icons]);
 }
 
-export default useMapMarkers;
+export default useMapView;

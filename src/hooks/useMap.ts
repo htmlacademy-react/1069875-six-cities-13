@@ -11,7 +11,7 @@ function useMap(
 
   useEffect(() => {
     if (containerRef.current !== null && !isRendered.current) {
-      const instance = new Map(containerRef.current);
+      const instance = new Map(containerRef.current).setView([city.latitude, city.longitude], city.zoom);
 
       const layer = new TileLayer(
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -26,9 +26,7 @@ function useMap(
       isRendered.current = true;
     }
 
-    map?.setView([city.latitude, city.longitude], city.zoom);
-
-  }, [containerRef, city, map]);
+  }, [containerRef, city]);
 
   return map;
 }
