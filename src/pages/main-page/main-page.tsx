@@ -4,7 +4,7 @@ import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import { OfferT } from '../../types/types';
-import { Cities } from '../../const/cities';
+import { City, CityLocation } from '../../const/cities';
 import { MapMode, OffersListMode } from '../../const/modes';
 
 type MainPageProps = {
@@ -12,10 +12,10 @@ type MainPageProps = {
 };
 
 function MainPage({ offers }: MainPageProps): JSX.Element {
-  const [activeCity, setActiveCity] = useState(Object.keys(Cities)[0]);
+  const [activeCity, setActiveCity] = useState(Object.values(City)[0]);
   const [activeOffer, setActiveOffer] = useState<null|string>(null);
 
-  const handleLocationTabClick = (city: string) => {
+  const handleLocationTabClick = (city: typeof City[keyof typeof City]) => {
     setActiveCity(city);
   };
 
@@ -61,7 +61,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
               <OffersList mode={OffersListMode.All} offers={offers} onMouseMove={setActiveOffer}/>
             </section>
             <div className="cities__right-section">
-              <Map mode={MapMode.MainPage} city={Cities[activeCity]} activePoint={activeOffer} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
+              <Map mode={MapMode.MainPage} city={CityLocation[activeCity]} activePoint={activeOffer} points={offers.map((offer) => ({...offer.location, id: offer.id}))} />
             </div>
           </div>
         </div>
