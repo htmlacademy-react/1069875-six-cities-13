@@ -3,6 +3,7 @@ import { changeCity, getCityOffers } from './action';
 import { City } from '../const/cities';
 import { offers } from '../mocks/offers';
 import { OfferT } from '../types/types';
+import { getOffersByCity } from '../scripts/offers';
 
 type initialStateT = {
   city: typeof City[keyof typeof City];
@@ -13,7 +14,7 @@ type initialStateT = {
 const initialState: initialStateT = {
   city: Object.values(City)[0],
   offers: offers,
-  cityOffers: [],
+  cityOffers: getOffersByCity(offers, Object.values(City)[0]),
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,7 +24,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.city = city;
     })
     .addCase(getCityOffers, (state) => {
-      state.cityOffers = offers;
+      state.cityOffers = getOffersByCity(offers, state.city);
     });
 });
 
