@@ -1,16 +1,12 @@
 import PageHeader from '../../components/page-header/page-header';
 import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
-import { OfferT } from '../../types/types';
 import { City } from '../../const/cities';
 import { CardMode, LogoMode } from '../../const/modes';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesPageProps = {
-  offers: OfferT[];
-};
-
-function FavoritesPage({ offers }: FavoritesPageProps): JSX.Element {
-  const favoriteOffers = offers.filter(({ isFavorite }) => isFavorite);
+function FavoritesPage(): JSX.Element {
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
 
   return (
     <div className="page">
