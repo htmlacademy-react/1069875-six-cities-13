@@ -1,15 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getCityOffers, getFavoriteOffers } from './action';
+import { changeCity, getCityOffers, getFavoriteOffers, getFullOffer, getReviews, getNearbyOffers } from './action';
 import { City } from '../const/cities';
-import { offers } from '../mocks/offers';
-import { OfferT } from '../types/types';
+import { offers, fullOffer } from '../mocks/offers';
+import { OfferT, OfferFullT, ReviewT } from '../types/types';
 import { getOffersByCity, getOffersByFavor } from '../scripts/offers';
+import { reviews } from '../mocks/reviews';
 
 type initialStateT = {
   city: typeof City[keyof typeof City];
   offers: OfferT[];
   cityOffers: OfferT[];
   favoriteOffers: OfferT[];
+  fullOffer: OfferFullT;
+  reviews: ReviewT[];
+  nearbyOffers: OfferT[];
 };
 
 const initialState: initialStateT = {
@@ -17,6 +21,9 @@ const initialState: initialStateT = {
   offers: offers,
   cityOffers: getOffersByCity(offers, Object.values(City)[0]),
   favoriteOffers: getOffersByFavor(offers),
+  fullOffer: fullOffer,
+  reviews: reviews,
+  nearbyOffers: offers.slice(1),
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -30,6 +37,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getFavoriteOffers, (state) => {
       state.cityOffers = getOffersByFavor(offers);
+    })
+    .addCase(getFullOffer, (state) => {
+      state.fullOffer = fullOffer;
+    })
+    .addCase(getReviews, (state) => {
+      state.reviews = reviews;
+    })
+    .addCase(getNearbyOffers, (state) => {
+      state.nearbyOffers = offers.slice(1);
     });
 });
 
