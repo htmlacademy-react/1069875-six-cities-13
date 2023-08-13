@@ -3,20 +3,21 @@ import PageHeader from '../../components/page-header/page-header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
-import { OfferT } from '../../types/types';
 import { City, CityLocation } from '../../const/cities';
 import { MapMode, OffersListMode } from '../../const/modes';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity, getCityOffers } from '../../store/action';
 
-type MainPageProps = {
-  offers: OfferT[];
-};
-
-function MainPage({ offers }: MainPageProps): JSX.Element {
-  const [activeCity, setActiveCity] = useState(Object.values(City)[0]);
+function MainPage(): JSX.Element {
+  const activeCity = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.cityOffers);
   const [activeOffer, setActiveOffer] = useState<null|string>(null);
 
+  const dispatch = useAppDispatch();
+
   const handleLocationTabClick = (city: typeof City[keyof typeof City]) => {
-    setActiveCity(city);
+    dispatch(changeCity({ city }));
+    dispatch(getCityOffers());
   };
 
   return (
@@ -31,7 +32,7 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in {activeCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
