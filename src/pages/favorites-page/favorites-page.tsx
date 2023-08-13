@@ -5,9 +5,10 @@ import Logo from '../../components/logo/logo';
 import { City } from '../../const/cities';
 import { CardMode, LogoMode } from '../../const/modes';
 import { useAppSelector } from '../../hooks';
+import { getOffersByFavor } from '../../scripts/offers';
 
 function FavoritesPage(): JSX.Element {
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const favoriteOffers = getOffersByFavor(useAppSelector((state) => state.offers));
 
   return (
     <div

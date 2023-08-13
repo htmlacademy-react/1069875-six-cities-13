@@ -7,18 +7,18 @@ import Map from '../../components/map/map';
 import { City, CityLocation } from '../../const/cities';
 import { MapMode, OffersListMode } from '../../const/modes';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity, getCityOffers } from '../../store/action';
+import { changeCity } from '../../store/action';
+import { getOffersByCity } from '../../scripts/offers';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.cityOffers);
+  const offers = getOffersByCity(useAppSelector((state) => state.offers), activeCity);
   const [activeOffer, setActiveOffer] = useState<null | string>(null);
 
   const dispatch = useAppDispatch();
 
   const handleLocationTabClick = (city: typeof City[keyof typeof City]) => {
     dispatch(changeCity({ city }));
-    dispatch(getCityOffers());
   };
 
   return (
