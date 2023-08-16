@@ -3,13 +3,12 @@ import { changeCity, getCityOffers, getFavoriteOffers, getFullOffer, getReviews,
 import { City } from '../const/cities';
 import { offers, fullOffer } from '../mocks/offers';
 import { OfferT, OfferFullT, ReviewT } from '../types/types';
-import { getOffersByCity, getOffersByFavor } from '../scripts/offers';
+import { getOffersByFavor } from '../scripts/offers';
 import { reviews } from '../mocks/reviews';
 
 type initialStateT = {
   city: typeof City[keyof typeof City];
   offers: OfferT[];
-  cityOffers: OfferT[];
   favoriteOffers: OfferT[];
   fullOffer: OfferFullT;
   reviews: ReviewT[];
@@ -19,7 +18,6 @@ type initialStateT = {
 const initialState: initialStateT = {
   city: Object.values(City)[0],
   offers: offers,
-  cityOffers: getOffersByCity(offers, Object.values(City)[0]),
   favoriteOffers: getOffersByFavor(offers),
   fullOffer: fullOffer,
   reviews: reviews,
