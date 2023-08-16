@@ -4,18 +4,16 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import RatingStars from '../../components/rating-stars/rating-stars';
 import Map from '../../components/map/map';
-import { OfferFullT, OfferT, ReviewT } from '../../types/types';
 import { startStringWithCapital } from '../../utils';
 import { BookmarkMode, RatingStarsMode, MapMode, OffersListMode } from '../../const/modes';
+import { useAppSelector } from '../../hooks';
 import OffersList from '../../components/offers-list/offers-list';
 
-type OfferPageProps = {
-  offer: OfferFullT;
-  reviews: ReviewT[];
-  offersNearby: OfferT[];
-};
+function OfferPage(): JSX.Element {
+  const offer = useAppSelector((state) => state.fullOffer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const offersNearby = useAppSelector((state) => state.nearbyOffers);
 
-function OfferPage({ offer, reviews, offersNearby }: OfferPageProps): JSX.Element {
   const {
     id,
     title,

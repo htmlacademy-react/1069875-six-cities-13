@@ -1,16 +1,16 @@
 import cn from 'classnames';
-import { Cities } from '../../const/cities';
+import { City } from '../../const/cities';
 
-type LocationsTabsProps = {
-  activeCity: string;
-  onClick: (city: string) => void;
+type LocationTabsProps = {
+  activeCity: typeof City[keyof typeof City];
+  onClick: (city: typeof City[keyof typeof City]) => void;
 }
 
-function LocationsTabs({ activeCity, onClick }: LocationsTabsProps): JSX.Element {
+function LocationTabs({ activeCity, onClick }: LocationTabsProps): JSX.Element {
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {Object.keys(Cities).map((city) => (
+        {Object.values(City).map((city) => (
           <li key={`location-${city}`} onClick={() => onClick(city)} className="locations__item">
             <a className={cn('locations__item-link tabs__item', {'tabs__item--active': activeCity === city})}>
               <span>{city}</span>
@@ -22,4 +22,4 @@ function LocationsTabs({ activeCity, onClick }: LocationsTabsProps): JSX.Element
   );
 }
 
-export default LocationsTabs;
+export default LocationTabs;

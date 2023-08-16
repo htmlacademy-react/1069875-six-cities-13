@@ -6,29 +6,22 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute, AuthorizationStatus } from '../../const/server';
-import { OfferT } from '../../types/types';
-import { fullOffer } from '../../mocks/offers';
-import { reviews } from '../../mocks/reviews';
 
-type AppProps = {
-  offers: OfferT[];
-};
-
-function App({ offers }: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<MainPage offers={offers} />}></Route>
+        <Route path={AppRoute.Root} element={<MainPage />}></Route>
         <Route path={AppRoute.Login} element={<LoginPage />}></Route>
         <Route path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage offers={offers} />
+              <FavoritesPage />
             </PrivateRoute>
           }
         >
         </Route>
-        <Route path={AppRoute.Offer} element={<OfferPage offer={fullOffer} reviews={reviews} offersNearby={offers.slice(1)}/>}></Route>
+        <Route path={AppRoute.Offer} element={<OfferPage />}></Route>
         <Route path='*' element={<NotFoundPage />}></Route>
       </Routes>
     </BrowserRouter>
