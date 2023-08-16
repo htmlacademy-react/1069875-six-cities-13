@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getCityOffers, getFavoriteOffers, getFullOffer, getReviews, getNearbyOffers } from './action';
+import { changeCity, getOffers, getFavoriteOffers, getFullOffer, getReviews, getNearbyOffers } from './action';
 import { City } from '../const/cities';
 import { offers, fullOffer } from '../mocks/offers';
 import { OfferT, OfferFullT, ReviewT } from '../types/types';
@@ -30,11 +30,11 @@ const reducer = createReducer(initialState, (builder) => {
       const { city } = action.payload;
       state.city = city;
     })
-    .addCase(getCityOffers, (state) => {
-      state.cityOffers = getOffersByCity(offers, state.city);
+    .addCase(getOffers, (state) => {
+      state.offers = offers;
     })
     .addCase(getFavoriteOffers, (state) => {
-      state.cityOffers = getOffersByFavor(offers);
+      state.favoriteOffers = getOffersByFavor(offers);
     })
     .addCase(getFullOffer, (state) => {
       state.fullOffer = fullOffer;
