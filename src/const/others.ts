@@ -3,4 +3,11 @@ const DateFormat = {
   ForHuman: 'MMMM YYYY',
 } as const;
 
-export { DateFormat };
+const SortingType = {
+  Default: 'Popular',
+  PriceInc: 'Price: low to high',
+  PriceDec: 'Price: high to low',
+  Rating: 'Top rated first',
+};
+
+export { DateFormat, SortingType };
