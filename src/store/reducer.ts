@@ -2,12 +2,13 @@ import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, getOffers, getFavoriteOffers, getFullOffer, getReviews, getNearbyOffers } from './action';
 import { City } from '../const/cities';
 import { OfferT, OfferFullT, ReviewT } from '../types/types';
+import { FULL_OFFER_EXAMPLE } from '../const/full-offer-example';
 
 type initialStateT = {
   city: typeof City[keyof typeof City];
   offers: OfferT[];
   favoriteOffers: OfferT[];
-  fullOffer: OfferFullT | null;
+  fullOffer: OfferFullT;
   reviews: ReviewT[];
   nearbyOffers: OfferT[];
 };
@@ -16,7 +17,7 @@ const initialState: initialStateT = {
   city: Object.values(City)[0],
   offers: [],
   favoriteOffers: [],
-  fullOffer: null,
+  fullOffer: FULL_OFFER_EXAMPLE,
   reviews: [],
   nearbyOffers: [],
 };
