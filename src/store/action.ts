@@ -13,3 +13,13 @@ export const getFullOffer = createAction<OfferFullT>('offer/getOffer');
 export const getReviews = createAction<ReviewT[]>('offer/getReviews');
 
 export const getNearbyOffers = createAction<OfferT[]>('offer/getNearbyOffers');
+
+export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
+
+export const setFavoriteOffersDataLoadingStatus = createAction<boolean>('data/setFavoriteOffersDataLoadingStatus');
+
+export const setOfferDataLoadingStatus = createAction<boolean>('data/setOfferDataLoadingStatus');
+
+export const setReviewsDataLoadingStatus = createAction<boolean>('data/setReviewsDataLoadingStatus');
+
+export const setNearbyOffersDataLoadingStatus = createAction<boolean>('data/setNearbyOffersDataLoadingStatus');
