@@ -1,3 +1,6 @@
+const BACKEND_URL = 'https://13.design.pages.academy/six-cities';
+const REQUEST_TIMEOUT = 5000;
+
 const AppRoute = {
   Root: '/',
   Login: '/login',
@@ -11,4 +14,4 @@ const AuthorizationStatus = {
   Unknown: 'UNKNOWN',
 } as const;
 
-export { AppRoute, AuthorizationStatus };
+export { BACKEND_URL, REQUEST_TIMEOUT, AppRoute, AuthorizationStatus };
