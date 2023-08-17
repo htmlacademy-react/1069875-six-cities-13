@@ -1,27 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, getOffers, getFavoriteOffers, getFullOffer, getReviews, getNearbyOffers } from './action';
 import { City } from '../const/cities';
-import { offers, fullOffer } from '../mocks/offers';
 import { OfferT, OfferFullT, ReviewT } from '../types/types';
-import { getOffersByFavor } from '../scripts/offers';
-import { reviews } from '../mocks/reviews';
 
 type initialStateT = {
   city: typeof City[keyof typeof City];
   offers: OfferT[];
   favoriteOffers: OfferT[];
-  fullOffer: OfferFullT;
+  fullOffer: OfferFullT | null;
   reviews: ReviewT[];
   nearbyOffers: OfferT[];
 };
 
 const initialState: initialStateT = {
   city: Object.values(City)[0],
-  offers: offers,
-  favoriteOffers: getOffersByFavor(offers),
-  fullOffer: fullOffer,
-  reviews: reviews,
-  nearbyOffers: offers.slice(1),
+  offers: [],
+  favoriteOffers: [],
+  fullOffer: null,
+  reviews: [],
+  nearbyOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -30,20 +27,20 @@ const reducer = createReducer(initialState, (builder) => {
       const { city } = action.payload;
       state.city = city;
     })
-    .addCase(getOffers, (state) => {
-      state.offers = offers;
+    .addCase(getOffers, (state, action) => {
+      state.offers = action.payload;
     })
-    .addCase(getFavoriteOffers, (state) => {
-      state.favoriteOffers = getOffersByFavor(offers);
+    .addCase(getFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
     })
-    .addCase(getFullOffer, (state) => {
-      state.fullOffer = fullOffer;
+    .addCase(getFullOffer, (state, action) => {
+      state.fullOffer = action.payload;
     })
-    .addCase(getReviews, (state) => {
-      state.reviews = reviews;
+    .addCase(getReviews, (state, action) => {
+      state.reviews = action.payload;
     })
-    .addCase(getNearbyOffers, (state) => {
-      state.nearbyOffers = offers.slice(1);
+    .addCase(getNearbyOffers, (state, action) => {
+      state.nearbyOffers = action.payload;
     });
 });
 
