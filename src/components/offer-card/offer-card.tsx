@@ -38,7 +38,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
         </div>
       ) : null}
       <div className={`${StyleClass}__image-wrapper place-card__image-wrapper`}>
-        <Link to={AppRoute.Offer}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}

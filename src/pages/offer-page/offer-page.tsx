@@ -19,17 +19,21 @@ import {
 } from '../../store/api-action';
 import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-function OfferPage(): JSX.Element | undefined {
+function OfferPage(): JSX.Element/* | undefined*/ {
+  const { offerId } = useParams();
+
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.fullOffer);
   const reviews = useAppSelector((state) => state.reviews);
   const offersNearby = useAppSelector((state) => state.nearbyOffers);
+
   useEffect(() => {
-    dispatch(fetchOfferAction('a8b6d9b9-4f20-49b0-84a2-c536f614e914'));
-    dispatch(fetchReviewsAction('a8b6d9b9-4f20-49b0-84a2-c536f614e914'));
-    dispatch(fetchNearbyOffersAction('a8b6d9b9-4f20-49b0-84a2-c536f614e914'));
-  }, [dispatch]);
+    dispatch(fetchOfferAction(offerId));
+    dispatch(fetchReviewsAction(offerId));
+    dispatch(fetchNearbyOffersAction(offerId));
+  }, [dispatch, offerId]);
 
   const {
     id,
