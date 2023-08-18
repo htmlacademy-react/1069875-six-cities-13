@@ -10,7 +10,7 @@ import UIBlocker from '../../components/ui-blocker/ui-blocker';
 import { useAppSelector } from '../../hooks';
 
 function App(): JSX.Element {
-  const isDataLoading = useAppSelector((state) => Object.values(state.isDataLoading).every((value) => value));
+  const isDataLoading = useAppSelector((state) => Object.values(state.isDataLoading).some((value) => value));
 
   return (
     <>

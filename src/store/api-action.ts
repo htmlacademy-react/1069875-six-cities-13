@@ -50,9 +50,10 @@ export const fetchOfferAction = createAsyncThunk<
   asyncThunkConfig
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
   dispatch(setOfferDataLoadingStatus(true));
-  const { data } = await api.get<OfferFullT>(APIRoute.Offer.Info(id));
+  const { data } = await api
+    .get<OfferFullT>(APIRoute.Offer.Info(id))
+    .finally(() => dispatch(setOfferDataLoadingStatus(false)));
   dispatch(getFullOffer(data));
-  dispatch(setOfferDataLoadingStatus(false));
 });
 
 export const fetchReviewsAction = createAsyncThunk<
@@ -61,9 +62,10 @@ export const fetchReviewsAction = createAsyncThunk<
   asyncThunkConfig
 >('data/fetchReviews', async (id, { dispatch, extra: api }) => {
   dispatch(setReviewsDataLoadingStatus(true));
-  const { data } = await api.get<ReviewT[]>(APIRoute.Offer.Reviews(id));
+  const { data } = await api
+    .get<ReviewT[]>(APIRoute.Offer.Reviews(id))
+    .finally(() => dispatch(setReviewsDataLoadingStatus(false)));
   dispatch(getReviews(data));
-  dispatch(setReviewsDataLoadingStatus(false));
 });
 
 export const fetchNearbyOffersAction = createAsyncThunk<
@@ -72,7 +74,8 @@ export const fetchNearbyOffersAction = createAsyncThunk<
   asyncThunkConfig
 >('data/fetchNearbyOffers', async (id, { dispatch, extra: api }) => {
   dispatch(setNearbyOffersDataLoadingStatus(true));
-  const { data } = await api.get<OfferT[]>(APIRoute.Offer.NearbyOffers(id));
+  const { data } = await api
+    .get<OfferT[]>(APIRoute.Offer.NearbyOffers(id))
+    .finally(() => dispatch(setNearbyOffersDataLoadingStatus(false)));
   dispatch(getNearbyOffers(data));
-  dispatch(setNearbyOffersDataLoadingStatus(false));
 });
