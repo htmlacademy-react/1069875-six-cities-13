@@ -21,7 +21,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function OfferPage(): JSX.Element/* | undefined*/ {
+function OfferPage(): JSX.Element {
   const { offerId } = useParams();
 
   const dispatch = useAppDispatch();
