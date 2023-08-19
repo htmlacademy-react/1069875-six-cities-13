@@ -4,9 +4,12 @@ import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
 import { City } from '../../const/cities';
 import { CardMode, LogoMode } from '../../const/modes';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { fetchFavoriteOffersAction } from '../../store/api-action';
 
 function FavoritesPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(fetchFavoriteOffersAction());
   const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
 
   return (
