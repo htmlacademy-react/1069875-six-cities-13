@@ -3,7 +3,7 @@ import PageHeader from '../../components/page-header/page-header';
 function LoginPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
-      <PageHeader isNavActive={false}/>
+      <PageHeader isUserMenuActive={false}/>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
