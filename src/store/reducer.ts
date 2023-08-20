@@ -4,6 +4,8 @@ import {
   changeAuthorizationStatus,
   getOffers,
   getFavoriteOffers,
+  setFavoriteOffersCount,
+  setFavoriteOffersStatus,
   getFullOffer,
   getReviews,
   getNearbyOffers,
@@ -20,6 +22,8 @@ type initialStateT = {
   city: typeof City[keyof typeof City];
   offers: OfferT[];
   favoriteOffers: OfferT[];
+  favoriteOffersCount: number;
+  isFavoriteOffersActual: boolean;
   fullOffer: OfferFullT;
   reviews: ReviewT[];
   nearbyOffers: OfferT[];
@@ -35,6 +39,8 @@ const initialState: initialStateT = {
   city: Object.values(City)[0],
   offers: [],
   favoriteOffers: [],
+  favoriteOffersCount: 0,
+  isFavoriteOffersActual: false,
   fullOffer: FULL_OFFER_EXAMPLE,
   reviews: [],
   nearbyOffers: [],
@@ -59,6 +65,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;
+    })
+    .addCase(setFavoriteOffersCount, (state, action) => {
+      state.favoriteOffersCount = action.payload;
+    })
+    .addCase(setFavoriteOffersStatus, (state, action) => {
+      state.isFavoriteOffersActual = action.payload;
     })
     .addCase(getFullOffer, (state, action) => {
       state.fullOffer = action.payload;

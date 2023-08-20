@@ -7,6 +7,8 @@ import { APIRoute, AuthorizationStatus } from '../const/server';
 import {
   getOffers,
   getFavoriteOffers,
+  setFavoriteOffersCount,
+  setFavoriteOffersStatus,
   getFullOffer,
   getReviews,
   getNearbyOffers,
@@ -43,6 +45,8 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   const { data } = await api.get<OfferT[]>(APIRoute.Favorite);
   dispatch(getFavoriteOffers(data));
   dispatch(setFavoriteOffersDataLoadingStatus(false));
+  dispatch(setFavoriteOffersCount(data.length));
+  dispatch(setFavoriteOffersStatus(true));
 });
 
 export const fetchOfferAction = createAsyncThunk<

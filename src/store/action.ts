@@ -11,6 +11,10 @@ export const getOffers = createAction<OfferT[]>('main/getOffers');
 
 export const getFavoriteOffers = createAction<OfferT[]>('favorite/getOffers');
 
+export const setFavoriteOffersCount = createAction<number>('favorite/getOffersCount');
+
+export const setFavoriteOffersStatus = createAction<boolean>('favorite/isDataActual');
+
 export const getFullOffer = createAction<OfferFullT>('offer/getOffer');
 
 export const getReviews = createAction<ReviewT[]>('offer/getReviews');
