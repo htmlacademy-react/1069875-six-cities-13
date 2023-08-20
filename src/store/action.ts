@@ -8,7 +8,7 @@ export const setCity = createAction<typeof City[keyof typeof City]>('main/change
 
 export const setAuthorizationStatus = createAction<typeof AuthorizationStatus[keyof typeof AuthorizationStatus]>('user/changeAuthorizationStatus');
 
-export const setUserData = createAction<Omit<AuthUserT, 'token'>>('user/getOffers');
+export const setUserData = createAction<Omit<AuthUserT, 'token'> | null>('user/getOffers');
 
 export const getOffers = createAction<OfferT[]>('main/getOffers');
 
