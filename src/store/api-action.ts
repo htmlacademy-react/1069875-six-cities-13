@@ -16,6 +16,7 @@ import {
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
   setAuthorizationStatus,
+  setUserData,
 } from './action';
 import { dropToken, saveToken } from '../services/token';
 
@@ -92,10 +93,10 @@ export const checkAuthAction = createAsyncThunk<
 export const loginAction = createAsyncThunk<void, AuthDataT, asyncThunkConfig>(
   'user/login',
   async (authData, { dispatch, extra: api }) => {
-    const {
-      data: { token },
-    } = await api.post<AuthUserT>(APIRoute.Login, authData);
+    const { data } = await api.post<AuthUserT>(APIRoute.Login, authData);
+    const { token, ...userInfo } = data;
     saveToken(token);
+    setUserData(userInfo);
     dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   }
 );

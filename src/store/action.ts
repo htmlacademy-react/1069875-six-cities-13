@@ -2,12 +2,13 @@ import { createAction } from '@reduxjs/toolkit';
 import { City } from '../const/cities';
 import { AuthorizationStatus } from '../const/server';
 import { OfferFullT, OfferT, ReviewT } from '../types/types';
+import { AuthUserT } from '../types/user';
 
 export const setCity = createAction<typeof City[keyof typeof City]>('main/changeCity');
 
 export const setAuthorizationStatus = createAction<typeof AuthorizationStatus[keyof typeof AuthorizationStatus]>('user/changeAuthorizationStatus');
 
-export const changeAuthorizationStatus = createAction<typeof AuthorizationStatus[keyof typeof AuthorizationStatus]>('main/changeAuthorizationStatus');
+export const setUserData = createAction<Omit<AuthUserT, 'token'>>('user/getOffers');
 
 export const getOffers = createAction<OfferT[]>('main/getOffers');
 

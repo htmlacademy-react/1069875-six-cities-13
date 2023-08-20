@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   setCity,
   setAuthorizationStatus,
+  setUserData,
   getOffers,
   getFavoriteOffers,
   setFavoriteOffersCount,
@@ -16,6 +17,7 @@ import {
 import { City } from '../const/cities';
 import { AuthorizationStatus } from '../const/server';
 import { OfferT, OfferFullT, ReviewT } from '../types/types';
+import { AuthUserT } from '../types/user';
 import { FULL_OFFER_EXAMPLE } from '../const/full-offer-example';
 
 type initialStateT = {
@@ -33,6 +35,7 @@ type initialStateT = {
     offer: boolean;
   };
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+  userData: Omit<AuthUserT, 'token'> | null;
 };
 
 const initialState: initialStateT = {
@@ -50,6 +53,7 @@ const initialState: initialStateT = {
     offer: false,
   },
   authorizationStatus: AuthorizationStatus.Unknown,
+  userData: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -59,6 +63,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
     })
     .addCase(getOffers, (state, action) => {
       state.offers = action.payload;
