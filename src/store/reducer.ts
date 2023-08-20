@@ -9,8 +9,6 @@ import {
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
-  setReviewsDataLoadingStatus,
-  setNearbyOffersDataLoadingStatus,
 } from './action';
 import { City } from '../const/cities';
 import { OfferT, OfferFullT, ReviewT } from '../types/types';
@@ -27,8 +25,6 @@ type initialStateT = {
     offers: boolean;
     favoriteOffers: boolean;
     offer: boolean;
-    reviews: boolean;
-    nearbyOffers: boolean;
   };
 };
 
@@ -43,16 +39,13 @@ const initialState: initialStateT = {
     offers: false,
     favoriteOffers: false,
     offer: false,
-    reviews: false,
-    nearbyOffers: false,
   },
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
-      const { city } = action.payload;
-      state.city = city;
+      state.city = action.payload;
     })
     .addCase(getOffers, (state, action) => {
       state.offers = action.payload;
@@ -77,12 +70,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOfferDataLoadingStatus, (state, action) => {
       state.isDataLoading.offer = action.payload;
-    })
-    .addCase(setReviewsDataLoadingStatus, (state, action) => {
-      state.isDataLoading.reviews = action.payload;
-    })
-    .addCase(setNearbyOffersDataLoadingStatus, (state, action) => {
-      state.isDataLoading.nearbyOffers = action.payload;
     });
 });
 

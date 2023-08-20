@@ -12,11 +12,7 @@ import {
   OffersListMode,
 } from '../../const/modes';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import {
-  fetchOfferAction,
-  fetchReviewsAction,
-  fetchNearbyOffersAction,
-} from '../../store/api-action';
+import { fetchOfferAction } from '../../store/api-action';
 import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -30,9 +26,7 @@ function OfferPage(): JSX.Element {
   const offersNearby = useAppSelector((state) => state.nearbyOffers);
 
   useEffect(() => {
-    dispatch(fetchOfferAction(offerId));
-    dispatch(fetchReviewsAction(offerId));
-    dispatch(fetchNearbyOffersAction(offerId));
+    dispatch(fetchOfferAction(offerId as string));
   }, [dispatch, offerId]);
 
   const {

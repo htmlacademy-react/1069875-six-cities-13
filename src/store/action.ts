@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { City } from '../const/cities';
 import { OfferFullT, OfferT, ReviewT } from '../types/types';
 
-export const changeCity = createAction<{ city: typeof City[keyof typeof City]}>('main/changeCity');
+export const changeCity = createAction<typeof City[keyof typeof City]>('main/changeCity');
 
 export const getOffers = createAction<OfferT[]>('main/getOffers');
 
@@ -19,7 +19,3 @@ export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersD
 export const setFavoriteOffersDataLoadingStatus = createAction<boolean>('data/setFavoriteOffersDataLoadingStatus');
 
 export const setOfferDataLoadingStatus = createAction<boolean>('data/setOfferDataLoadingStatus');
-
-export const setReviewsDataLoadingStatus = createAction<boolean>('data/setReviewsDataLoadingStatus');
-
-export const setNearbyOffersDataLoadingStatus = createAction<boolean>('data/setNearbyOffersDataLoadingStatus');
