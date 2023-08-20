@@ -1,13 +1,21 @@
 import PageHeader from '../../components/page-header/page-header';
 import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-action';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const/server';
 
 function LoginPage(): JSX.Element {
   const emailInput = useRef<HTMLInputElement | null>(null);
   const passwordInput = useRef<HTMLInputElement | null>(null);
+  const isUserAuth = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.Auth;
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  if (isUserAuth) {
+    navigate(AppRoute.Root);
+  }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
