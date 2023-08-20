@@ -19,6 +19,7 @@ import {
   setUserData,
 } from './action';
 import { dropToken, saveToken } from '../services/token';
+import lodash from 'lodash';
 
 type asyncThunkConfig = {
   dispatch: AppDispatch;
@@ -83,7 +84,8 @@ export const checkAuthAction = createAsyncThunk<
   asyncThunkConfig
 >('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
   try {
-    await api.get(APIRoute.Login);
+    const { data } = await api.get<AuthUserT>(APIRoute.Login);
+    dispatch(setUserData(lodash.omit(data, 'token')));
     dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   } catch {
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
