@@ -3,7 +3,9 @@ import { City } from '../const/cities';
 import { AuthorizationStatus } from '../const/server';
 import { OfferFullT, OfferT, ReviewT } from '../types/types';
 
-export const changeCity = createAction<typeof City[keyof typeof City]>('main/changeCity');
+export const setCity = createAction<typeof City[keyof typeof City]>('main/changeCity');
+
+export const setAuthorizationStatus = createAction<typeof AuthorizationStatus[keyof typeof AuthorizationStatus]>('user/changeAuthorizationStatus');
 
 export const changeAuthorizationStatus = createAction<typeof AuthorizationStatus[keyof typeof AuthorizationStatus]>('main/changeAuthorizationStatus');
 

@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-  changeCity,
-  changeAuthorizationStatus,
+  setCity,
+  setAuthorizationStatus,
   getOffers,
   getFavoriteOffers,
   setFavoriteOffersCount,
@@ -54,10 +54,10 @@ const initialState: initialStateT = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state, action) => {
+    .addCase(setCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(changeAuthorizationStatus, (state, action) => {
+    .addCase(setAuthorizationStatus, (state, action) => {
       state.authorizationStatus = action.payload;
     })
     .addCase(getOffers, (state, action) => {

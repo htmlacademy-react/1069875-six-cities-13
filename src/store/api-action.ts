@@ -15,7 +15,7 @@ import {
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
-  changeAuthorizationStatus,
+  setAuthorizationStatus,
 } from './action';
 import { dropToken, saveToken } from '../services/token';
 
@@ -83,9 +83,9 @@ export const checkAuthAction = createAsyncThunk<
 >('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
   try {
     await api.get(APIRoute.Login);
-    dispatch(changeAuthorizationStatus(AuthorizationStatus.Auth));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   } catch {
-    dispatch(changeAuthorizationStatus(AuthorizationStatus.NoAuth));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
   }
 });
 
@@ -96,7 +96,7 @@ export const loginAction = createAsyncThunk<void, AuthDataT, asyncThunkConfig>(
       data: { token },
     } = await api.post<AuthUserT>(APIRoute.Login, authData);
     saveToken(token);
-    dispatch(changeAuthorizationStatus(AuthorizationStatus.Auth));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
   }
 );
 
@@ -105,6 +105,6 @@ export const logoutAction = createAsyncThunk<void, undefined, asyncThunkConfig>(
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(changeAuthorizationStatus(AuthorizationStatus.NoAuth));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
   }
 );
