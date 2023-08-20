@@ -10,7 +10,7 @@ import { MapMode, OffersListMode } from '../../const/modes';
 import { SortingType } from '../../const/others';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCity } from '../../store/action';
-import { getOffersByCity, getOffersSorted } from '../../scripts/offers';
+import { getOffersByCity, getOffersSorted } from '../../utils/offers';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);

@@ -7,9 +7,6 @@ export const getOffersByCity = (
   city: typeof City[keyof typeof City]
 ): OfferT[] => offers.filter((offer) => offer.city.name === city);
 
-export const getOffersByFavor = (offers: OfferT[]): OfferT[] =>
-  offers.filter(({ isFavorite }) => isFavorite);
-
 export const getOffersSorted = (offers: OfferT[], sorting: string): OfferT[] =>
   SortingFunction[sorting]
     ? [...offers].sort(SortingFunction[sorting])
