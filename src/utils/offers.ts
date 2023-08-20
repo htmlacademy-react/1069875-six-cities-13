@@ -1,4 +1,4 @@
-import { OfferT } from '../types/types';
+import { OfferT } from '../types/offer';
 import { City } from '../const/cities';
 import { SortingFunction } from './sorting';
 

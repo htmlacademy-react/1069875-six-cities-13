@@ -1,7 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 import { City } from '../const/cities';
 import { AuthorizationStatus } from '../const/server';
-import { OfferFullT, OfferT, ReviewT } from '../types/types';
+import { OfferFullT, OfferT } from '../types/offer';
+import { ReviewT } from '../types/review';
 import { AuthUserT } from '../types/user';
 
 export const setCity = createAction<typeof City[keyof typeof City]>('main/changeCity');

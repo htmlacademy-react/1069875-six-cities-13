@@ -16,7 +16,8 @@ import {
 } from './action';
 import { City } from '../const/cities';
 import { AuthorizationStatus } from '../const/server';
-import { OfferT, OfferFullT, ReviewT } from '../types/types';
+import { OfferT, OfferFullT } from '../types/offer';
+import { ReviewT } from '../types/review';
 import { AuthUserT } from '../types/user';
 import { FULL_OFFER_EXAMPLE } from '../const/full-offer-example';
 

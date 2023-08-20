@@ -1,6 +1,6 @@
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import RatingStars from '../rating-stars/rating-stars';
-import { OfferT } from '../../types/types';
+import { OfferT } from '../../types/offer';
 import { AppRoute } from '../../const/server';
 import { CardMode, BookmarkMode, RatingStarsMode } from '../../const/modes';
 import CardModeDiffs from './card-mode-diffs';

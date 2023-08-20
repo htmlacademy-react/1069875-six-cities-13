@@ -1,6 +1,6 @@
 import { Map } from 'leaflet';
 import { useEffect } from 'react';
-import { LocationT } from '../types/types';
+import { LocationT } from '../types/location';
 
 function useMapView(
   map: Map|null,

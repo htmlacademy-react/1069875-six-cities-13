@@ -1,5 +1,5 @@
 import { SortingType } from '../const/others';
-import { OfferT } from '../types/types';
+import { OfferT } from '../types/offer';
 
 export const SortingFunction = {
   [SortingType.PriceInc]: (itemA: OfferT, itemB: OfferT) =>

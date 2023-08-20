@@ -1,6 +1,6 @@
 import { Map, Marker, layerGroup, Icon } from 'leaflet';
 import { useEffect } from 'react';
-import { LocationT } from '../types/types';
+import { LocationT } from '../types/location';
 import { MarkerMode } from '../const/modes';
 
 type useMapViewProps = {

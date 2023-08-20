@@ -1,10 +1,5 @@
 import { UserT } from './user';
-
-export type LocationT = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-};
+import { LocationT } from './location';
 
 export type OfferT = {
   id: string;
@@ -32,11 +27,3 @@ type OfferAdditionT = {
 };
 
 export type OfferFullT = Omit<OfferT, 'previewImage'> & OfferAdditionT;
-
-export type ReviewT = {
-  id: string;
-  date: string;
-  user: UserT;
-  comment: string;
-  rating: number;
-};

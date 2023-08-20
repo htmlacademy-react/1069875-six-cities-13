@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import OfferCard from '../offer-card/offer-card';
-import { OfferT } from '../../types/types';
+import { OfferT } from '../../types/offer';
 import OffersListModeDiffs from './offers-list-mode-diffs';
 import { OffersListMode } from '../../const/modes';
 
