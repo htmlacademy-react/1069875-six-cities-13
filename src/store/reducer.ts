@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   changeCity,
+  changeAuthorizationStatus,
   getOffers,
   getFavoriteOffers,
   getFullOffer,
@@ -11,6 +12,7 @@ import {
   setOfferDataLoadingStatus,
 } from './action';
 import { City } from '../const/cities';
+import { AuthorizationStatus } from '../const/server';
 import { OfferT, OfferFullT, ReviewT } from '../types/types';
 import { FULL_OFFER_EXAMPLE } from '../const/full-offer-example';
 
@@ -26,6 +28,7 @@ type initialStateT = {
     favoriteOffers: boolean;
     offer: boolean;
   };
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
 };
 
 const initialState: initialStateT = {
@@ -40,12 +43,16 @@ const initialState: initialStateT = {
     favoriteOffers: false,
     offer: false,
   },
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(changeAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     })
     .addCase(getOffers, (state, action) => {
       state.offers = action.payload;

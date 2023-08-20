@@ -1,8 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 import { City } from '../const/cities';
+import { AuthorizationStatus } from '../const/server';
 import { OfferFullT, OfferT, ReviewT } from '../types/types';
 
 export const changeCity = createAction<typeof City[keyof typeof City]>('main/changeCity');
+
+export const changeAuthorizationStatus = createAction<typeof AuthorizationStatus[keyof typeof AuthorizationStatus]>('main/changeAuthorizationStatus');
 
 export const getOffers = createAction<OfferT[]>('main/getOffers');
 
