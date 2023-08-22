@@ -10,4 +10,9 @@ const SortingType = {
   Rating: 'Top rated first',
 } as const;
 
-export { DateFormat, SortingType };
+const ReviewTextLength = {
+  Min: 50,
+  Max: 300,
+} as const;
+
+export { DateFormat, SortingType, ReviewTextLength };
