@@ -1,4 +1,5 @@
 const REVIEWS_MAX_COUNT = 10;
+const NEARBY_OFFERS_MAX_COUNT = 3;
 
 const DateFormat = {
   Default: 'YYYY-MM-DD',
@@ -17,4 +18,4 @@ const ReviewTextLength = {
   Max: 300,
 } as const;
 
-export { REVIEWS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength };
+export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength };

@@ -19,6 +19,7 @@ import lodash from 'lodash';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { AuthorizationStatus } from '../../const/server';
 import { getLastReviews } from '../../utils/reviews';
+import { getRandomNearbyOffers } from '../../utils/offers';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -26,7 +27,7 @@ function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.fullOffer);
   const reviews = useAppSelector((state) => state.reviews);
-  const offersNearby = useAppSelector((state) => state.nearbyOffers);
+  const offersNearby = getRandomNearbyOffers(useAppSelector((state) => state.nearbyOffers));
   const hasError = useAppSelector((state) => state.offerError);
   const isUserAuth = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
 
