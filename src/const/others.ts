@@ -8,6 +8,6 @@ const SortingType = {
   PriceInc: 'Price: low to high',
   PriceDec: 'Price: high to low',
   Rating: 'Top rated first',
-};
+} as const;
 
 export { DateFormat, SortingType };
