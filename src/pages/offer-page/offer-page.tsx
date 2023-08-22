@@ -20,6 +20,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import { AuthorizationStatus } from '../../const/server';
 import { getLastReviews } from '../../utils/reviews';
 import { getRandomNearbyOffers } from '../../utils/offers';
+import { getPointsFromOffers } from '../../utils/map-points';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -148,10 +149,7 @@ function OfferPage(): JSX.Element {
             mode={MapMode.OfferPage}
             city={city.location}
             activePoint={id}
-            points={[...offersNearby, offer].map((offerNearby) => ({
-              ...offerNearby.location,
-              id: offerNearby.id,
-            }))}
+            points={getPointsFromOffers([...offersNearby, offer])}
           />
         </section>
         {city.name ? (
