@@ -13,6 +13,7 @@ import {
   getFullOffer,
   getReviews,
   getNearbyOffers,
+  setOfferErrorStatus,
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
@@ -58,6 +59,7 @@ export const fetchOfferAction = createAsyncThunk<
   asyncThunkConfig
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
   dispatch(setOfferDataLoadingStatus(true));
+  dispatch(setOfferErrorStatus(false));
 
   try {
     const { data: offer } = await api.get<OfferFullT>(APIRoute.Offer.Info(id));
@@ -73,6 +75,7 @@ export const fetchOfferAction = createAsyncThunk<
     );
     dispatch(getNearbyOffers(nearbyOffers));
   } catch {
+    dispatch(setOfferErrorStatus(true));
     dispatch(setOfferDataLoadingStatus(false));
   }
 

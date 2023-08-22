@@ -10,6 +10,7 @@ import {
   getFullOffer,
   getReviews,
   getNearbyOffers,
+  setOfferErrorStatus,
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
@@ -30,6 +31,7 @@ type initialStateT = {
   fullOffer: OfferFullT;
   reviews: ReviewT[];
   nearbyOffers: OfferT[];
+  offerError: boolean;
   isDataLoading: {
     offers: boolean;
     favoriteOffers: boolean;
@@ -48,6 +50,7 @@ const initialState: initialStateT = {
   fullOffer: FULL_OFFER_EXAMPLE,
   reviews: [],
   nearbyOffers: [],
+  offerError: false,
   isDataLoading: {
     offers: false,
     favoriteOffers: false,
@@ -88,6 +91,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
+    })
+    .addCase(setOfferErrorStatus, (state, action) => {
+      state.offerError = action.payload;
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isDataLoading.offers = action.payload;

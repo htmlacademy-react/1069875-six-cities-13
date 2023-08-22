@@ -16,6 +16,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import lodash from 'lodash';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -24,10 +25,15 @@ function OfferPage(): JSX.Element {
   const offer = useAppSelector((state) => state.fullOffer);
   const reviews = useAppSelector((state) => state.reviews);
   const offersNearby = useAppSelector((state) => state.nearbyOffers);
+  const hasError = useAppSelector((state) => state.offerError);
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId as string));
   }, [dispatch, offerId]);
+
+  if (hasError) {
+    return (<NotFoundPage />);
+  }
 
   const {
     id,
