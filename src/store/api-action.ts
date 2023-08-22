@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { OfferT, OfferFullT } from '../types/offer';
-import { ReviewT } from '../types/review';
+import { ReviewT, ReviewDataT } from '../types/review';
 import { AuthDataT, AuthUserT } from '../types/user';
 import { APIRoute, AuthorizationStatus } from '../const/server';
 import {
@@ -14,6 +14,8 @@ import {
   getReviews,
   getNearbyOffers,
   setOfferErrorStatus,
+  addReview,
+  setReviewDataSendingStatus,
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
@@ -114,5 +116,21 @@ export const logoutAction = createAsyncThunk<void, undefined, asyncThunkConfig>(
     dropToken();
     dispatch(setUserData(null));
     dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+  }
+);
+
+export const sendReviewAction = createAsyncThunk<boolean, {id: string; review: ReviewDataT}, asyncThunkConfig>(
+  'data/sendReview',
+  async ({ id, review}, { dispatch, extra: api }) => {
+    dispatch(setReviewDataSendingStatus(true));
+    try {
+      const { data } = await api.post<ReviewT>(APIRoute.Offer.Reviews(id), review);
+      dispatch(addReview(data));
+    } catch {
+      dispatch(setReviewDataSendingStatus(false));
+      return false;
+    }
+    dispatch(setReviewDataSendingStatus(false));
+    return true;
   }
 );

@@ -27,6 +27,10 @@ export const getNearbyOffers = createAction<OfferT[]>('offer/getNearbyOffers');
 
 export const setOfferErrorStatus = createAction<boolean>('offer/setOfferErrorStatus');
 
+export const addReview = createAction<ReviewT>('offer/addReview');
+
+export const setReviewDataSendingStatus = createAction<boolean>('data/setReviewDataSendingStatus');
+
 export const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
 
 export const setFavoriteOffersDataLoadingStatus = createAction<boolean>('data/setFavoriteOffersDataLoadingStatus');
