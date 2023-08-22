@@ -18,6 +18,7 @@ import { useParams } from 'react-router-dom';
 import lodash from 'lodash';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { AuthorizationStatus } from '../../const/server';
+import { getLastReviews } from '../../utils/reviews';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -137,7 +138,7 @@ function OfferPage(): JSX.Element {
                   Reviews ·{' '}
                   <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={getLastReviews(reviews)} />
                 {isUserAuth ? <FormReview offerId={id} /> : null}
               </section>
             </div>

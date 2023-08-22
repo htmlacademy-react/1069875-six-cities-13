@@ -1,3 +1,5 @@
+const REVIEWS_MAX_COUNT = 10;
+
 const DateFormat = {
   Default: 'YYYY-MM-DD',
   ForHuman: 'MMMM YYYY',
@@ -15,4 +17,4 @@ const ReviewTextLength = {
   Max: 300,
 } as const;
 
-export { DateFormat, SortingType, ReviewTextLength };
+export { REVIEWS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength };
