@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import lodash from 'lodash';
 import NotFoundPage from '../not-found-page/not-found-page';
+import { AuthorizationStatus } from '../../const/server';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -26,6 +27,7 @@ function OfferPage(): JSX.Element {
   const reviews = useAppSelector((state) => state.reviews);
   const offersNearby = useAppSelector((state) => state.nearbyOffers);
   const hasError = useAppSelector((state) => state.offerError);
+  const isUserAuth = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId as string));
@@ -136,7 +138,7 @@ function OfferPage(): JSX.Element {
                   <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewsList reviews={reviews} />
-                <FormReview />
+                {isUserAuth ? <FormReview offerId={id} /> : null}
               </section>
             </div>
           </div>
