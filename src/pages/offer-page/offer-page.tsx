@@ -17,20 +17,21 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import lodash from 'lodash';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { AuthorizationStatus } from '../../const/server';
 import { getLastReviews } from '../../utils/reviews';
 import { getRandomNearbyOffers } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
+import { getNearbyOffers, getOffer, getReviews, hasOfferError } from '../../store/offer-data/selectors';
+import { isUserAuth } from '../../store/user-data/selectors';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
 
   const dispatch = useAppDispatch();
-  const offer = useAppSelector((state) => state.fullOffer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const offersNearby = getRandomNearbyOffers(useAppSelector((state) => state.nearbyOffers));
-  const hasError = useAppSelector((state) => state.offerError);
-  const isUserAuth = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
+  const offer = useAppSelector(getOffer);
+  const reviews = useAppSelector(getReviews);
+  const offersNearby = getRandomNearbyOffers(useAppSelector(getNearbyOffers));
+  const hasError = useAppSelector(hasOfferError);
+  const isAuth = useAppSelector(isUserAuth);
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId as string));
@@ -141,7 +142,7 @@ function OfferPage(): JSX.Element {
                   <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewsList reviews={getLastReviews(reviews)} />
-                {isUserAuth ? <FormReview offerId={id} /> : null}
+                {isAuth ? <FormReview offerId={id} /> : null}
               </section>
             </div>
           </div>

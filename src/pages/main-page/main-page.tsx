@@ -9,13 +9,14 @@ import { City, CityLocation } from '../../const/cities';
 import { MapMode, OffersListMode } from '../../const/modes';
 import { SortingType } from '../../const/others';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCity } from '../../store/action';
+import { setCity } from '../../store/main-data/main-data';
 import { getOffersByCity, getOffersSorted } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
+import { getCurrentCity, getOffers } from '../../store/main-data/selectors';
 
 function MainPage(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = getOffersByCity(useAppSelector((state) => state.offers), activeCity);
+  const activeCity = useAppSelector(getCurrentCity);
+  const offers = getOffersByCity(useAppSelector(getOffers), activeCity);
   const [activeOffer, setActiveOffer] = useState<null | string>(null);
   const [activeSorting, setActiveSorting] = useState<typeof SortingType[keyof typeof SortingType]>(SortingType.Default);
 

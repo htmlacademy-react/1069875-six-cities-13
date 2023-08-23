@@ -3,17 +3,18 @@ import { FormEvent, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-action';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const/server';
+import { AppRoute } from '../../const/server';
+import { isUserAuth } from '../../store/user-data/selectors';
 
 function LoginPage(): JSX.Element {
   const emailInput = useRef<HTMLInputElement | null>(null);
   const passwordInput = useRef<HTMLInputElement | null>(null);
-  const isUserAuth = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.Auth;
+  const isAuth = useAppSelector(isUserAuth);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  if (isUserAuth) {
+  if (isAuth) {
     navigate(AppRoute.Root);
   }
 

@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/server';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-action';
+import { getUserData } from '../../store/user-data/selectors';
+import { getFavoriteOffersCount } from '../../store/favorite-data/selectors';
 
 function UserMenu(): JSX.Element {
-  const userData = useAppSelector((state) => state.userData);
-  const favoritesOffersCount = useAppSelector((state) => state.favoriteOffersCount);
+  const userData = useAppSelector(getUserData);
+  const favoritesOffersCount = useAppSelector(getFavoriteOffersCount);
 
   const dispatch = useAppDispatch();
 
