@@ -10,6 +10,9 @@ import {
   getFullOffer,
   getReviews,
   getNearbyOffers,
+  setOfferErrorStatus,
+  addReview,
+  setReviewDataSendingStatus,
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
@@ -30,11 +33,13 @@ type initialStateT = {
   fullOffer: OfferFullT;
   reviews: ReviewT[];
   nearbyOffers: OfferT[];
+  offerError: boolean;
   isDataLoading: {
     offers: boolean;
     favoriteOffers: boolean;
     offer: boolean;
   };
+  isReviewSending: boolean;
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
   userData: Omit<AuthUserT, 'token'> | null;
 };
@@ -48,11 +53,13 @@ const initialState: initialStateT = {
   fullOffer: FULL_OFFER_EXAMPLE,
   reviews: [],
   nearbyOffers: [],
+  offerError: false,
   isDataLoading: {
     offers: false,
     favoriteOffers: false,
     offer: false,
   },
+  isReviewSending: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
 };
@@ -88,6 +95,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getNearbyOffers, (state, action) => {
       state.nearbyOffers = action.payload;
+    })
+    .addCase(setOfferErrorStatus, (state, action) => {
+      state.offerError = action.payload;
+    })
+    .addCase(addReview, (state, action) => {
+      state.reviews.push(action.payload);
+    })
+    .addCase(setReviewDataSendingStatus, (state, action) => {
+      state.isReviewSending = action.payload;
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isDataLoading.offers = action.payload;

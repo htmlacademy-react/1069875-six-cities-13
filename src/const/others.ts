@@ -1,3 +1,6 @@
+const REVIEWS_MAX_COUNT = 10;
+const NEARBY_OFFERS_MAX_COUNT = 3;
+
 const DateFormat = {
   Default: 'YYYY-MM-DD',
   ForHuman: 'MMMM YYYY',
@@ -8,6 +11,11 @@ const SortingType = {
   PriceInc: 'Price: low to high',
   PriceDec: 'Price: high to low',
   Rating: 'Top rated first',
-};
+} as const;
 
-export { DateFormat, SortingType };
+const ReviewTextLength = {
+  Min: 50,
+  Max: 300,
+} as const;
+
+export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength };

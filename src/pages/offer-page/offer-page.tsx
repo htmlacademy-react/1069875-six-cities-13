@@ -16,6 +16,11 @@ import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import lodash from 'lodash';
+import NotFoundPage from '../not-found-page/not-found-page';
+import { AuthorizationStatus } from '../../const/server';
+import { getLastReviews } from '../../utils/reviews';
+import { getRandomNearbyOffers } from '../../utils/offers';
+import { getPointsFromOffers } from '../../utils/map-points';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -23,11 +28,17 @@ function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.fullOffer);
   const reviews = useAppSelector((state) => state.reviews);
-  const offersNearby = useAppSelector((state) => state.nearbyOffers);
+  const offersNearby = getRandomNearbyOffers(useAppSelector((state) => state.nearbyOffers));
+  const hasError = useAppSelector((state) => state.offerError);
+  const isUserAuth = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId as string));
   }, [dispatch, offerId]);
+
+  if (hasError) {
+    return (<NotFoundPage />);
+  }
 
   const {
     id,
@@ -129,8 +140,8 @@ function OfferPage(): JSX.Element {
                   Reviews ·{' '}
                   <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewsList reviews={reviews} />
-                <FormReview />
+                <ReviewsList reviews={getLastReviews(reviews)} />
+                {isUserAuth ? <FormReview offerId={id} /> : null}
               </section>
             </div>
           </div>
@@ -138,10 +149,7 @@ function OfferPage(): JSX.Element {
             mode={MapMode.OfferPage}
             city={city.location}
             activePoint={id}
-            points={[...offersNearby, offer].map((offerNearby) => ({
-              ...offerNearby.location,
-              id: offerNearby.id,
-            }))}
+            points={getPointsFromOffers([...offersNearby, offer])}
           />
         </section>
         {city.name ? (

@@ -2,6 +2,7 @@ import { SortingType } from '../const/others';
 import { OfferT } from '../types/offer';
 
 export const SortingFunction = {
+  [SortingType.Default]: undefined,
   [SortingType.PriceInc]: (itemA: OfferT, itemB: OfferT) =>
     itemA.price - itemB.price
   ,

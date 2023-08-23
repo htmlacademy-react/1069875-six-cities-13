@@ -1,14 +1,37 @@
-import { useState, ChangeEvent, Fragment } from 'react';
+import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
 import { Rating } from '../../const/rating';
+import { ReviewTextLength } from '../../const/others';
+import { ReviewDataT } from '../../types/review';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { sendReviewAction } from '../../store/api-action';
 
-function FormReview(): JSX.Element {
-  const [review, setReview] = useState({
-    rating: 0,
-    comment: '',
-  });
+type FormReviewProps = {
+  offerId: string;
+};
+
+const EMPTY_FORM = {
+  rating: 0,
+  comment: '',
+};
+
+function FormReview({ offerId }: FormReviewProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isSending = useAppSelector((state) => state.isReviewSending);
+
+  const [review, setReview] = useState<ReviewDataT>(EMPTY_FORM);
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
+    dispatch(sendReviewAction({ id: offerId, review })).then(({payload}) => {
+      if (payload) {
+        setReview(EMPTY_FORM);
+      }
+    });
+  };
+
+  const isSubmitAvailable = (): boolean => !!review.rating && review.comment.length >= ReviewTextLength.Min;
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -26,6 +49,8 @@ function FormReview(): JSX.Element {
                 onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
                   setReview({ ...review, rating: Number(target.value) });
                 }}
+                disabled={isSending}
+                checked={review.rating === Number(numberKey)}
               />
               <label
                 htmlFor={`${numberKey}-stars`}
@@ -45,9 +70,12 @@ function FormReview(): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review.comment}
+        minLength={ReviewTextLength.Min}
+        maxLength={ReviewTextLength.Max}
         onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
           setReview({ ...review, comment: target.value });
         }}
+        disabled={isSending}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -58,9 +86,9 @@ function FormReview(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          disabled={!isSubmitAvailable() || isSending}
         >
-          Submit
+          {isSending ? 'Saving...' : 'Submit'}
         </button>
       </div>
     </form>

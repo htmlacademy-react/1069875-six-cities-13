@@ -11,6 +11,7 @@ import { SortingType } from '../../const/others';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setCity } from '../../store/action';
 import { getOffersByCity, getOffersSorted } from '../../utils/offers';
+import { getPointsFromOffers } from '../../utils/map-points';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
@@ -56,10 +57,7 @@ function MainPage(): JSX.Element {
                   mode={MapMode.MainPage}
                   city={CityLocation[activeCity]}
                   activePoint={activeOffer}
-                  points={offers.map((offer) => ({
-                    ...offer.location,
-                    id: offer.id,
-                  }))}
+                  points={getPointsFromOffers(offers)}
                 />
               </div>
             </div>
