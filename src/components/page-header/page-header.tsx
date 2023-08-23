@@ -1,13 +1,13 @@
 import Logo from '../logo/logo';
-import PageNav from '../page-nav/page-nav';
+import UserMenu from '../user-menu/user-menu';
 import { LogoMode } from '../../const/modes';
 
 type PageHeaderProps = {
-  isNavActive?: boolean;
+  isUserMenuActive?: boolean;
   isMainPage?: boolean;
 };
 
-function PageHeader({ isNavActive = true, isMainPage = false }: PageHeaderProps): JSX.Element {
+function PageHeader({ isUserMenuActive = true, isMainPage = false }: PageHeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -15,7 +15,7 @@ function PageHeader({ isNavActive = true, isMainPage = false }: PageHeaderProps)
           <div className="header__left">
             <Logo mode={LogoMode.Header} isNotActive={isMainPage}/>
           </div>
-          {isNavActive && <PageNav />}
+          {isUserMenuActive && <UserMenu />}
         </div>
       </div>
     </header>

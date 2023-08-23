@@ -1,8 +1,5 @@
-export type LocationT = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-};
+import { UserT } from './user';
+import { LocationT } from './location';
 
 export type OfferT = {
   id: string;
@@ -30,17 +27,3 @@ type OfferAdditionT = {
 };
 
 export type OfferFullT = Omit<OfferT, 'previewImage'> & OfferAdditionT;
-
-type UserT = {
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-};
-
-export type ReviewT = {
-  id: string;
-  date: string;
-  user: UserT;
-  comment: string;
-  rating: number;
-};

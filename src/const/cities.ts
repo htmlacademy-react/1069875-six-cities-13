@@ -1,4 +1,4 @@
-import { LocationT } from '../types/types';
+import { LocationT } from '../types/location';
 
 const City = {
   Paris: 'Paris',

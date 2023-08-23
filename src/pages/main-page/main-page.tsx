@@ -9,8 +9,8 @@ import { City, CityLocation } from '../../const/cities';
 import { MapMode, OffersListMode } from '../../const/modes';
 import { SortingType } from '../../const/others';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity } from '../../store/action';
-import { getOffersByCity, getOffersSorted } from '../../scripts/offers';
+import { setCity } from '../../store/action';
+import { getOffersByCity, getOffersSorted } from '../../utils/offers';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector((state) => state.city);
@@ -21,7 +21,7 @@ function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleLocationTabClick = (city: typeof City[keyof typeof City]) => {
-    dispatch(changeCity({ city }));
+    dispatch(setCity(city));
     setActiveSorting(SortingType.Default);
   };
 

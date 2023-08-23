@@ -9,7 +9,10 @@ import { fetchFavoriteOffersAction } from '../../store/api-action';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  dispatch(fetchFavoriteOffersAction());
+  const isDataActual = useAppSelector((state) => state.isFavoriteOffersActual);
+  if (!isDataActual) {
+    dispatch(fetchFavoriteOffersAction());
+  }
   const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
 
   return (

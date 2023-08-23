@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import RatingStars from '../rating-stars/rating-stars';
-import { ReviewT } from '../../types/types';
+import { ReviewT } from '../../types/review';
 import { DateFormat } from '../../const/others';
 import { RatingStarsMode } from '../../const/modes';
 

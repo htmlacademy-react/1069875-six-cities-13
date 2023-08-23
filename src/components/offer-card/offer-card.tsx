@@ -1,11 +1,11 @@
 import BookmarkButton from '../bookmark-button/bookmark-button';
 import RatingStars from '../rating-stars/rating-stars';
-import { OfferT } from '../../types/types';
-import { startStringWithCapital } from '../../utils';
+import { OfferT } from '../../types/offer';
 import { AppRoute } from '../../const/server';
 import { CardMode, BookmarkMode, RatingStarsMode } from '../../const/modes';
 import CardModeDiffs from './card-mode-diffs';
 import { Link } from 'react-router-dom';
+import lodash from 'lodash';
 
 type OfferCardProps = {
   offer: OfferT;
@@ -60,7 +60,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer}>{title}</Link>
         </h2>
-        <p className="place-card__type">{startStringWithCapital(type)}</p>
+        <p className="place-card__type">{lodash.capitalize(type)}</p>
       </div>
     </article>
   );

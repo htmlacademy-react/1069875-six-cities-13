@@ -1,25 +1,32 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-  changeCity,
+  setCity,
+  setAuthorizationStatus,
+  setUserData,
   getOffers,
   getFavoriteOffers,
+  setFavoriteOffersCount,
+  setFavoriteOffersStatus,
   getFullOffer,
   getReviews,
   getNearbyOffers,
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
-  setReviewsDataLoadingStatus,
-  setNearbyOffersDataLoadingStatus,
 } from './action';
 import { City } from '../const/cities';
-import { OfferT, OfferFullT, ReviewT } from '../types/types';
+import { AuthorizationStatus } from '../const/server';
+import { OfferT, OfferFullT } from '../types/offer';
+import { ReviewT } from '../types/review';
+import { AuthUserT } from '../types/user';
 import { FULL_OFFER_EXAMPLE } from '../const/full-offer-example';
 
 type initialStateT = {
   city: typeof City[keyof typeof City];
   offers: OfferT[];
   favoriteOffers: OfferT[];
+  favoriteOffersCount: number;
+  isFavoriteOffersActual: boolean;
   fullOffer: OfferFullT;
   reviews: ReviewT[];
   nearbyOffers: OfferT[];
@@ -27,15 +34,17 @@ type initialStateT = {
     offers: boolean;
     favoriteOffers: boolean;
     offer: boolean;
-    reviews: boolean;
-    nearbyOffers: boolean;
   };
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+  userData: Omit<AuthUserT, 'token'> | null;
 };
 
 const initialState: initialStateT = {
   city: Object.values(City)[0],
   offers: [],
   favoriteOffers: [],
+  favoriteOffersCount: 0,
+  isFavoriteOffersActual: false,
   fullOffer: FULL_OFFER_EXAMPLE,
   reviews: [],
   nearbyOffers: [],
@@ -43,22 +52,33 @@ const initialState: initialStateT = {
     offers: false,
     favoriteOffers: false,
     offer: false,
-    reviews: false,
-    nearbyOffers: false,
   },
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userData: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeCity, (state, action) => {
-      const { city } = action.payload;
-      state.city = city;
+    .addCase(setCity, (state, action) => {
+      state.city = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
     })
     .addCase(getOffers, (state, action) => {
       state.offers = action.payload;
     })
     .addCase(getFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;
+    })
+    .addCase(setFavoriteOffersCount, (state, action) => {
+      state.favoriteOffersCount = action.payload;
+    })
+    .addCase(setFavoriteOffersStatus, (state, action) => {
+      state.isFavoriteOffersActual = action.payload;
     })
     .addCase(getFullOffer, (state, action) => {
       state.fullOffer = action.payload;
@@ -77,12 +97,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOfferDataLoadingStatus, (state, action) => {
       state.isDataLoading.offer = action.payload;
-    })
-    .addCase(setReviewsDataLoadingStatus, (state, action) => {
-      state.isDataLoading.reviews = action.payload;
-    })
-    .addCase(setNearbyOffersDataLoadingStatus, (state, action) => {
-      state.isDataLoading.nearbyOffers = action.payload;
     });
 });
 

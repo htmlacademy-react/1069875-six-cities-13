@@ -1,4 +1,4 @@
-import { OfferFullT } from '../types/types';
+import { OfferFullT } from '../types/offer';
 
 export const FULL_OFFER_EXAMPLE: OfferFullT = {
   id: '',

@@ -1,20 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { OfferT, OfferFullT, ReviewT } from '../types/types';
-import { APIRoute } from '../const/server';
+import { OfferT, OfferFullT } from '../types/offer';
+import { ReviewT } from '../types/review';
+import { AuthDataT, AuthUserT } from '../types/user';
+import { APIRoute, AuthorizationStatus } from '../const/server';
 import {
   getOffers,
   getFavoriteOffers,
+  setFavoriteOffersCount,
+  setFavoriteOffersStatus,
   getFullOffer,
   getReviews,
   getNearbyOffers,
   setOffersDataLoadingStatus,
   setFavoriteOffersDataLoadingStatus,
   setOfferDataLoadingStatus,
-  setReviewsDataLoadingStatus,
-  setNearbyOffersDataLoadingStatus,
+  setAuthorizationStatus,
+  setUserData,
 } from './action';
+import { dropToken, saveToken } from '../services/token';
+import lodash from 'lodash';
 
 type asyncThunkConfig = {
   dispatch: AppDispatch;
@@ -42,6 +48,8 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   const { data } = await api.get<OfferT[]>(APIRoute.Favorite);
   dispatch(getFavoriteOffers(data));
   dispatch(setFavoriteOffersDataLoadingStatus(false));
+  dispatch(setFavoriteOffersCount(data.length));
+  dispatch(setFavoriteOffersStatus(true));
 });
 
 export const fetchOfferAction = createAsyncThunk<
@@ -50,32 +58,58 @@ export const fetchOfferAction = createAsyncThunk<
   asyncThunkConfig
 >('data/fetchOffer', async (id, { dispatch, extra: api }) => {
   dispatch(setOfferDataLoadingStatus(true));
-  const { data } = await api
-    .get<OfferFullT>(APIRoute.Offer.Info(id))
-    .finally(() => dispatch(setOfferDataLoadingStatus(false)));
-  dispatch(getFullOffer(data));
+
+  try {
+    const { data: offer } = await api.get<OfferFullT>(APIRoute.Offer.Info(id));
+    dispatch(getFullOffer(offer));
+
+    const { data: reviews } = await api.get<ReviewT[]>(
+      APIRoute.Offer.Reviews(id)
+    );
+    dispatch(getReviews(reviews));
+
+    const { data: nearbyOffers } = await api.get<OfferT[]>(
+      APIRoute.Offer.NearbyOffers(id)
+    );
+    dispatch(getNearbyOffers(nearbyOffers));
+  } catch {
+    dispatch(setOfferDataLoadingStatus(false));
+  }
+
+  dispatch(setOfferDataLoadingStatus(false));
 });
 
-export const fetchReviewsAction = createAsyncThunk<
+export const checkAuthAction = createAsyncThunk<
   void,
-  string,
+  undefined,
   asyncThunkConfig
->('data/fetchReviews', async (id, { dispatch, extra: api }) => {
-  dispatch(setReviewsDataLoadingStatus(true));
-  const { data } = await api
-    .get<ReviewT[]>(APIRoute.Offer.Reviews(id))
-    .finally(() => dispatch(setReviewsDataLoadingStatus(false)));
-  dispatch(getReviews(data));
+>('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
+  try {
+    const { data } = await api.get<AuthUserT>(APIRoute.Login);
+    dispatch(setUserData(lodash.omit(data, 'token')));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+  } catch {
+    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+  }
 });
 
-export const fetchNearbyOffersAction = createAsyncThunk<
-  void,
-  string,
-  asyncThunkConfig
->('data/fetchNearbyOffers', async (id, { dispatch, extra: api }) => {
-  dispatch(setNearbyOffersDataLoadingStatus(true));
-  const { data } = await api
-    .get<OfferT[]>(APIRoute.Offer.NearbyOffers(id))
-    .finally(() => dispatch(setNearbyOffersDataLoadingStatus(false)));
-  dispatch(getNearbyOffers(data));
-});
+export const loginAction = createAsyncThunk<void, AuthDataT, asyncThunkConfig>(
+  'user/login',
+  async (authData, { dispatch, extra: api }) => {
+    const { data } = await api.post<AuthUserT>(APIRoute.Login, authData);
+    const { token, ...userInfo } = data;
+    saveToken(token);
+    dispatch(setUserData(userInfo));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+  }
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, asyncThunkConfig>(
+  'user/logout',
+  async (_arg, { dispatch, extra: api }) => {
+    await api.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(setUserData(null));
+    dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+  }
+);

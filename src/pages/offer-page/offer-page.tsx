@@ -4,7 +4,6 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import RatingStars from '../../components/rating-stars/rating-stars';
 import Map from '../../components/map/map';
-import { startStringWithCapital } from '../../utils';
 import {
   BookmarkMode,
   RatingStarsMode,
@@ -12,14 +11,11 @@ import {
   OffersListMode,
 } from '../../const/modes';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import {
-  fetchOfferAction,
-  fetchReviewsAction,
-  fetchNearbyOffersAction,
-} from '../../store/api-action';
+import { fetchOfferAction } from '../../store/api-action';
 import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import lodash from 'lodash';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -30,9 +26,7 @@ function OfferPage(): JSX.Element {
   const offersNearby = useAppSelector((state) => state.nearbyOffers);
 
   useEffect(() => {
-    dispatch(fetchOfferAction(offerId));
-    dispatch(fetchReviewsAction(offerId));
-    dispatch(fetchNearbyOffersAction(offerId));
+    dispatch(fetchOfferAction(offerId as string));
   }, [dispatch, offerId]);
 
   const {
@@ -88,7 +82,7 @@ function OfferPage(): JSX.Element {
               <RatingStars mode={RatingStarsMode.Page} rating={rating} />
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {startStringWithCapital(type)}
+                  {lodash.capitalize(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms} Bedrooms

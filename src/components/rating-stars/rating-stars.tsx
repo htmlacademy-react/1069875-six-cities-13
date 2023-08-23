@@ -1,6 +1,6 @@
 import RatingStarsModeDiffs from './rating-stars-mode-diffs';
 import { RatingStarsMode } from '../../const/modes';
-import { transformRatingToPercent } from '../../utils';
+import { transformRatingToPercent } from '../../utils/rating';
 
 type RatingStarsProps = {
   mode: typeof RatingStarsMode[keyof typeof RatingStarsMode];

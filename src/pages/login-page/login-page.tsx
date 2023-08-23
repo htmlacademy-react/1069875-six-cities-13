@@ -1,17 +1,52 @@
 import PageHeader from '../../components/page-header/page-header';
+import { FormEvent, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loginAction } from '../../store/api-action';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const/server';
 
 function LoginPage(): JSX.Element {
+  const emailInput = useRef<HTMLInputElement | null>(null);
+  const passwordInput = useRef<HTMLInputElement | null>(null);
+  const isUserAuth = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.Auth;
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  if (isUserAuth) {
+    navigate(AppRoute.Root);
+  }
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
+
+    if (emailInput.current && passwordInput.current) {
+      dispatch(
+        loginAction({
+          email: emailInput.current.value,
+          password: passwordInput.current.value,
+        })
+      );
+    }
+  };
+
   return (
     <div className="page page--gray page--login">
-      <PageHeader isNavActive={false}/>
+      <PageHeader isUserMenuActive={false} />
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              onSubmit={handleSubmit}
+              className="login__form form"
+              action="#"
+              method="post"
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
+                  ref={emailInput}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -22,6 +57,7 @@ function LoginPage(): JSX.Element {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
+                  ref={passwordInput}
                   className="login__input form__input"
                   type="password"
                   name="password"

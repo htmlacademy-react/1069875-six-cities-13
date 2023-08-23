@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import useMap from '../../hooks/useMap';
 import useMapView from '../../hooks/useMapView';
 import useMapMarkers from '../../hooks/useMapMarkers';
-import { LocationT } from '../../types/types';
+import { LocationT } from '../../types/location';
 import MarkerIcon from './marker-icon';
 import MapModeDiffs from './map-mode-diffs';
 import { MapMode } from '../../const/modes';

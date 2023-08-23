@@ -1,5 +1,6 @@
 const BACKEND_URL = 'https://13.design.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
+const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
 type Status = 0 | 1;
 
@@ -29,4 +30,4 @@ const AuthorizationStatus = {
   Unknown: 'UNKNOWN',
 } as const;
 
-export { BACKEND_URL, REQUEST_TIMEOUT, APIRoute, AppRoute, AuthorizationStatus };
+export { BACKEND_URL, REQUEST_TIMEOUT, AUTH_TOKEN_KEY_NAME, APIRoute, AppRoute, AuthorizationStatus };
