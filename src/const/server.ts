@@ -14,7 +14,7 @@ const APIRoute = {
     NearbyOffers: (id: string) => `/offers/${id}/nearby`,
     Reviews: (id: string) => `/comments/${id}`,
     FavoriteStatus: (id: string, status: Status) => `/favorite/${id}/${status}`,
-  }
+  },
 } as const;
 
 const AppRoute = {
@@ -30,4 +30,19 @@ const AuthorizationStatus = {
   Unknown: 'UNKNOWN',
 } as const;
 
-export { BACKEND_URL, REQUEST_TIMEOUT, AUTH_TOKEN_KEY_NAME, APIRoute, AppRoute, AuthorizationStatus };
+const NameSpace = {
+  UserData: 'USER_DATA',
+  MainData: 'MAIN_DATA',
+  OfferData: 'OFFER_DATA',
+  FavoriteData: 'FAVORITE_DATA',
+} as const;
+
+export {
+  BACKEND_URL,
+  REQUEST_TIMEOUT,
+  AUTH_TOKEN_KEY_NAME,
+  APIRoute,
+  AppRoute,
+  AuthorizationStatus,
+  NameSpace,
+};
