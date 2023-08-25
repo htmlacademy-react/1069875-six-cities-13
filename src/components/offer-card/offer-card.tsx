@@ -6,6 +6,7 @@ import { CardMode, BookmarkMode, RatingStarsMode } from '../../const/modes';
 import CardModeDiffs from './card-mode-diffs';
 import { Link } from 'react-router-dom';
 import lodash from 'lodash';
+import { memo } from 'react';
 
 type OfferCardProps = {
   offer: OfferT;
@@ -66,4 +67,6 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
   );
 }
 
-export default OfferCard;
+const OfferCardMemo = memo(OfferCard);
+
+export default OfferCardMemo;
