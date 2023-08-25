@@ -1,6 +1,7 @@
 import {store} from '../store/index.js';
 import { City } from '../const/cities';
 import { AuthorizationStatus } from '../const/server';
+import { SortingType } from '../const/others';
 import { OfferT, OfferFullT } from '../types/offer';
 import { ReviewT } from '../types/review';
 import { AuthUserT } from '../types/user';
@@ -18,6 +19,8 @@ export type MainDataT = {
   city: typeof City[keyof typeof City];
   offers: OfferT[];
   isDataLoading: boolean;
+  activeSorting: typeof SortingType[keyof typeof SortingType];
+  activeOffer: string | null;
 };
 
 export type OfferDataT = {

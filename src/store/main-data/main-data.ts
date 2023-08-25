@@ -2,12 +2,15 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/server';
 import { MainDataT } from '../../types/state';
 import { City } from '../../const/cities';
+import { SortingType } from '../../const/others';
 import { fetchOffersAction } from '../api-action';
 
 const initialState: MainDataT = {
   city: Object.values(City)[0],
   offers: [],
   isDataLoading: false,
+  activeSorting: SortingType.Default,
+  activeOffer: null,
 };
 
 export const mainData = createSlice({
@@ -16,7 +19,13 @@ export const mainData = createSlice({
   reducers: {
     setCity: (state, action: PayloadAction<typeof City[keyof typeof City]>) => {
       state.city = action.payload;
-    }
+    },
+    setActiveSorting: (state, action: PayloadAction<typeof SortingType[keyof typeof SortingType]>) => {
+      state.activeSorting = action.payload;
+    },
+    setActiveOffer: (state, action: PayloadAction<string | null>) => {
+      state.activeOffer = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -33,4 +42,4 @@ export const mainData = createSlice({
   },
 });
 
-export const { setCity } = mainData.actions;
+export const { setCity, setActiveSorting, setActiveOffer } = mainData.actions;
