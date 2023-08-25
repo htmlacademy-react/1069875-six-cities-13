@@ -1,19 +1,24 @@
 import Review from '../review/review';
-import { ReviewT } from '../../types/review';
+import { getReviews } from '../../store/offer-data/selectors';
+import { useAppSelector } from '../../hooks';
+import { getLastReviews } from '../../utils/reviews';
 
-type ReviewsListProps = {
-  reviews: ReviewT[];
-};
-
-function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
+function ReviewsList(): JSX.Element {
+  const reviews = useAppSelector(getReviews);
+  const lastReviews = getLastReviews(reviews);
   return (
-    <ul className="reviews__list">
-      {reviews.map((review) => (
-        <li key={`review-${review.id}`} className="reviews__item">
-          <Review review={review} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <h2 className="reviews__title">
+        Reviews · <span className="reviews__amount">{reviews.length}</span>
+      </h2>
+      <ul className="reviews__list">
+        {lastReviews.map((review) => (
+          <li key={`review-${review.id}`} className="reviews__item">
+            <Review review={review} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
