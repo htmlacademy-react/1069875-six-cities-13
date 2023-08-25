@@ -17,10 +17,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import lodash from 'lodash';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { getLastReviews } from '../../utils/reviews';
 import { getRandomNearbyOffers } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
-import { getNearbyOffers, getOffer, getReviews, hasOfferError } from '../../store/offer-data/selectors';
+import { getNearbyOffers, getOffer, hasOfferError } from '../../store/offer-data/selectors';
 import { isUserAuth } from '../../store/user-data/selectors';
 
 function OfferPage(): JSX.Element {
@@ -28,7 +27,6 @@ function OfferPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const offer = useAppSelector(getOffer);
-  const reviews = useAppSelector(getReviews);
   const offersNearby = getRandomNearbyOffers(useAppSelector(getNearbyOffers));
   const hasError = useAppSelector(hasOfferError);
   const isAuth = useAppSelector(isUserAuth);
@@ -137,11 +135,7 @@ function OfferPage(): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews ·{' '}
-                  <span className="reviews__amount">{reviews.length}</span>
-                </h2>
-                <ReviewsList reviews={getLastReviews(reviews)} />
+                <ReviewsList />
                 {isAuth ? <FormReview offerId={id} /> : null}
               </section>
             </div>
@@ -149,7 +143,6 @@ function OfferPage(): JSX.Element {
           <Map
             mode={MapMode.OfferPage}
             city={city.location}
-            activePoint={id}
             points={getPointsFromOffers([...offersNearby, offer])}
           />
         </section>
@@ -159,7 +152,7 @@ function OfferPage(): JSX.Element {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <OffersList mode={OffersListMode.Nearby} offers={offersNearby} />
+              <OffersList mode={OffersListMode.Nearby} offers={offersNearby} isInteractive={false} />
             </section>
           </div>
         ) : null}
