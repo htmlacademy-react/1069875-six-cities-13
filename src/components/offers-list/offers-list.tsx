@@ -26,7 +26,7 @@ function OffersList({
 
   const sortedOffers = useMemo(() => getOffersSorted(offers, activeSorting), [offers, activeSorting]);
 
-  const handleMouseMove = useCallback((id: string | null) => {
+  const handleMouseOver = useCallback((id: string) => {
     dispatch(setActiveOffer(id));
   }, [dispatch]);
 
@@ -41,7 +41,7 @@ function OffersList({
       onMouseOut={
         isInteractive ?
           (() => {
-            handleMouseMove(null);
+            dispatch(setActiveOffer(null));
           })
           :
           undefined
@@ -53,9 +53,7 @@ function OffersList({
           offer={offer}
           onMouseOver={
             isInteractive ?
-              (() => {
-                handleMouseMove(offer.id);
-              })
+              handleMouseOver
               :
               undefined
           }

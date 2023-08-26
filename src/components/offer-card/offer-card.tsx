@@ -10,7 +10,7 @@ import { memo } from 'react';
 
 type OfferCardProps = {
   offer: OfferT;
-  onMouseOver?: () => void;
+  onMouseOver?: (id: string) => void;
   mode?: typeof CardMode[keyof typeof CardMode];
 };
 
@@ -31,7 +31,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
     <article
       className={`${StyleClass}__card place-card`}
       id={id}
-      onMouseOver={onMouseOver}
+      onMouseOver={onMouseOver ? () => onMouseOver(id) : undefined}
     >
       {isPremium ? (
         <div className="place-card__mark">
