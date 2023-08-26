@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/server';
 import { FULL_OFFER_EXAMPLE } from '../../const/full-offer-example';
 import { OfferDataT } from '../../types/state';
-import { fetchOfferAction, sendReviewAction } from '../api-action';
+import { fetchOfferAction, sendReviewAction, setOfferStatusAction } from '../api-action';
 
 const initialState: OfferDataT = {
   fullOffer: FULL_OFFER_EXAMPLE,
@@ -46,6 +46,12 @@ export const offerData = createSlice({
       .addCase(sendReviewAction.rejected, (state) => {
         state.isReviewSending = false;
         state.reviewError = true;
+      })
+      .addCase(setOfferStatusAction.fulfilled, (state, action) => {
+        const offer = action.payload;
+        if (offer.id === state.fullOffer.id) {
+          state.fullOffer.isFavorite = offer.isFavorite;
+        }
       });
   },
 });
