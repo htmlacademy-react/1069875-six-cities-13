@@ -7,14 +7,15 @@ import { CardMode, LogoMode } from '../../const/modes';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-action';
 import { getFavoriteOffers, isFavoriteDataActual } from '../../store/favorite-data/selectors';
+import { useEffect } from 'react';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const isDataActual = useAppSelector(isFavoriteDataActual);
-  if (!isDataActual) {
-    dispatch(fetchFavoriteOffersAction());
-  }
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch, isDataActual]);
 
   return (
     <div

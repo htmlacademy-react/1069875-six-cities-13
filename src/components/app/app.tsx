@@ -7,11 +7,13 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute } from '../../const/server';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { isUserAuth } from '../../store/user-data/selectors';
 import { isOffersLoading } from '../../store/main-data/selectors';
 import { isOfferLoading } from '../../store/offer-data/selectors';
 import { isFavoriteOffersLoading } from '../../store/favorite-data/selectors';
+import { checkAuthAction, fetchOffersAction, fetchFavoriteOffersAction } from '../../store/api-action';
+import { useEffect } from 'react';
 
 function App(): JSX.Element {
   const offersLoading = useAppSelector(isOffersLoading);
@@ -19,6 +21,13 @@ function App(): JSX.Element {
   const favoriteLoading = useAppSelector(isFavoriteOffersLoading);
   const isDataLoading = offersLoading || offerLoading || favoriteLoading;
   const authorizationStatus = useAppSelector(isUserAuth);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkAuthAction());
+    dispatch(fetchOffersAction());
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch]);
 
   return (
     <>
