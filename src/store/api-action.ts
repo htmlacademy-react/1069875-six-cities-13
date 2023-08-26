@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../types/state';
+import { AppDispatch, State, StatusDataT } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { OfferT, OfferFullT } from '../types/offer';
+import { OfferT, OfferFullT, OfferAdditionT } from '../types/offer';
 import { ReviewT, ReviewDataT } from '../types/review';
 import { AuthDataT, AuthUserT } from '../types/user';
 import { APIRoute } from '../const/server';
@@ -28,6 +28,15 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   asyncThunkConfig
 >('data/fetchFavoriteOffers', async (_arg, { extra: api }) => {
   const { data } = await api.get<OfferT[]>(APIRoute.Favorite);
+  return data;
+});
+
+export const setOfferStatusAction = createAsyncThunk<
+  OfferT & OfferAdditionT,
+  StatusDataT,
+  asyncThunkConfig
+>('data/setOfferStatus', async ({id, status}, { extra: api }) => {
+  const { data } = await api.post<OfferT & OfferAdditionT>(APIRoute.Offer.FavoriteStatus(id, status));
   return data;
 });
 
