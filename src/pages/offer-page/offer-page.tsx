@@ -86,6 +86,7 @@ function OfferPage(): JSX.Element {
                 <h1 className="offer__name">{title}</h1>
                 <BookmarkButton
                   mode={BookmarkMode.Page}
+                  id={id}
                   isActive={isFavorite}
                 />
               </div>
