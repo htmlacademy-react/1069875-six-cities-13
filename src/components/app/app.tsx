@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -14,6 +14,8 @@ import { isOfferLoading } from '../../store/offer-data/selectors';
 import { isFavoriteOffersLoading } from '../../store/favorite-data/selectors';
 import { checkAuthAction, fetchOffersAction } from '../../store/api-action';
 import { useEffect } from 'react';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const offersLoading = useAppSelector(isOffersLoading);
@@ -31,7 +33,7 @@ function App(): JSX.Element {
   return (
     <>
       {isDataLoading ? <UIBlocker /> : null}
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Root} element={<MainPage />}></Route>
           <Route path={AppRoute.Login} element={<LoginPage />}></Route>
@@ -46,7 +48,7 @@ function App(): JSX.Element {
           <Route path={`${AppRoute.Offer}/:offerId`} element={<OfferPage />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </>
   );
 }
