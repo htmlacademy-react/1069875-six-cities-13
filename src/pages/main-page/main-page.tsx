@@ -7,7 +7,7 @@ import Map from '../../components/map/map';
 import Sorting from '../../components/sorting/sorting';
 import { CityLocation } from '../../const/cities';
 import { MapMode, OffersListMode } from '../../const/modes';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useActiveOffer } from '../../hooks';
 import { getOffersByCity } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
 import { getCurrentCity, getOffers } from '../../store/main-data/selectors';
@@ -48,6 +48,7 @@ function MainPage(): JSX.Element {
                   mode={MapMode.MainPage}
                   city={CityLocation[activeCity]}
                   points={getPointsFromOffers(offers)}
+                  currentPoint={useActiveOffer}
                 />
               </div>
             </div>

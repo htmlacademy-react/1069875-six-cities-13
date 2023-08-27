@@ -48,7 +48,6 @@ function OfferPage(): JSX.Element {
     bedrooms,
     maxAdults,
     price,
-    isFavorite,
     rating,
     goods,
     host,
@@ -145,6 +144,7 @@ function OfferPage(): JSX.Element {
             mode={MapMode.OfferPage}
             city={city.location}
             points={getPointsFromOffers([...offersNearby, offer])}
+            currentPoint={id}
           />
         </section>
         {city.name ? (
