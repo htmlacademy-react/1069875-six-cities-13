@@ -4,9 +4,10 @@ import { AxiosInstance } from 'axios';
 import { OfferT, OfferFullT, OfferAdditionT } from '../types/offer';
 import { ReviewT, ReviewDataT } from '../types/review';
 import { AuthDataT, AuthUserT } from '../types/user';
-import { APIRoute } from '../const/server';
+import { APIRoute, AppRoute } from '../const/server';
 import { dropToken, saveToken } from '../services/token';
 import { addReview } from './offer-data/offer-data';
+import { redirectToRoute } from './action';
 
 type asyncThunkConfig = {
   dispatch: AppDispatch;
@@ -71,6 +72,7 @@ export const loginAction = createAsyncThunk<AuthUserT, AuthDataT, asyncThunkConf
   async (authData, { dispatch, extra: api }) => {
     const { data } = await api.post<AuthUserT>(APIRoute.Login, authData);
     dispatch(fetchFavoriteOffersAction());
+    dispatch(redirectToRoute(AppRoute.Root));
     const { token } = data;
     saveToken(token);
     return data;
