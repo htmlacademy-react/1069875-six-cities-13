@@ -38,6 +38,7 @@ const NameSpace = {
   MainData: 'MAIN_DATA',
   OfferData: 'OFFER_DATA',
   FavoriteData: 'FAVORITE_DATA',
+  ReviewForm: 'REVIEW_FORM',
 } as const;
 
 export {

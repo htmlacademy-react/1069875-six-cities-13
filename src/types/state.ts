@@ -18,6 +18,8 @@ export type StatusDataT = {
 export type UserDataT = {
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
   userData: Omit<AuthUserT, 'token'> | null;
+  loginError: boolean;
+  loginDataSending: boolean;
 };
 
 export type MainDataT = {
@@ -35,11 +37,16 @@ export type OfferDataT = {
   nearbyOffers: OfferT[];
   offerError: boolean;
   isDataLoading: boolean;
-  reviewError: boolean;
-  isReviewSending: boolean;
 };
 
 export type FavoriteDataT = {
   favoriteOffers: OfferT[];
   isDataLoading: boolean;
+};
+
+export type ReviewFormT = {
+  comment: string;
+  rating: number;
+  reviewError: boolean;
+  isReviewSending: boolean;
 };

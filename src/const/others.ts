@@ -18,4 +18,9 @@ const ReviewTextLength = {
   Max: 300,
 } as const;
 
-export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength };
+const ReviewFormEmpty = {
+  Rating: 0,
+  Comment: '',
+};
+
+export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength, ReviewFormEmpty };
