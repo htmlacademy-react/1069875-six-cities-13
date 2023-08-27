@@ -10,7 +10,7 @@ import {
   MapMode,
   OffersListMode,
 } from '../../const/modes';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector, useAppDispatch, useOfferFavoriteFlag } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-action';
 import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
@@ -87,7 +87,7 @@ function OfferPage(): JSX.Element {
                 <BookmarkButton
                   mode={BookmarkMode.Page}
                   id={id}
-                  isActive={isFavorite}
+                  isActive={useOfferFavoriteFlag}
                 />
               </div>
               <RatingStars mode={RatingStarsMode.Page} rating={rating} />

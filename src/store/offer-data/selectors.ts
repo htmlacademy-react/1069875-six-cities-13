@@ -5,6 +5,8 @@ import { NameSpace } from '../../const/server';
 
 export const getOffer = (state: State): OfferFullT => state[NameSpace.OfferData].fullOffer;
 
+export const getOfferStatus = (state: State): boolean => state[NameSpace.OfferData].isFavorite;
+
 export const getReviews = (state: State): ReviewT[] => state[NameSpace.OfferData].reviews;
 
 export const getNearbyOffers = (state: State): OfferT[] => state[NameSpace.OfferData].nearbyOffers;

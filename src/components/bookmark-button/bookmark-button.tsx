@@ -10,7 +10,7 @@ import { setOfferStatusAction } from '../../store/api-action';
 type BookmarkButtonProps = {
   mode: typeof BookmarkMode[keyof typeof BookmarkMode];
   id: string;
-  isActive: boolean;
+  isActive: boolean | (() => boolean);
 };
 
 function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Element {
@@ -18,6 +18,7 @@ function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Elemen
   const isAuth = useAppSelector(isUserAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const status = typeof isActive === 'function' ? isActive() : isActive;
 
   const handleClick = () => {
     if (!isAuth) {
@@ -25,7 +26,7 @@ function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Elemen
       return;
     }
 
-    dispatch(setOfferStatusAction({id, status: isActive ? OfferStatus.NotFavorite : OfferStatus.Favorite}));
+    dispatch(setOfferStatusAction({id, status: status ? OfferStatus.NotFavorite : OfferStatus.Favorite}));
   };
   return (
     <button
@@ -33,7 +34,7 @@ function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Elemen
       className={cn(
         'button',
         `${StyleClass}__bookmark-button`,
-        {[`${StyleClass}__bookmark-button--active`]: isActive},
+        {[`${StyleClass}__bookmark-button--active`]: status},
       )}
       type="button"
     >
