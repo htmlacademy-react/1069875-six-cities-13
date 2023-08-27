@@ -7,6 +7,7 @@ import { AuthDataT, AuthUserT } from '../types/user';
 import { APIRoute, AppRoute } from '../const/server';
 import { dropToken, saveToken } from '../services/token';
 import { addReview } from './offer-data/offer-data';
+import { resetLoginData } from './login-form/login-form';
 import { redirectToRoute } from './action';
 
 type asyncThunkConfig = {
@@ -71,6 +72,7 @@ export const loginAction = createAsyncThunk<AuthUserT, AuthDataT, asyncThunkConf
   'user/login',
   async (authData, { dispatch, extra: api }) => {
     const { data } = await api.post<AuthUserT>(APIRoute.Login, authData);
+    dispatch(resetLoginData);
     dispatch(fetchFavoriteOffersAction());
     dispatch(redirectToRoute(AppRoute.Root));
     const { token } = data;
