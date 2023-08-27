@@ -6,7 +6,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import Sorting from '../../components/sorting/sorting';
 import { CityLocation } from '../../const/cities';
-import { MapMode, OffersListMode } from '../../const/modes';
+import { CardMode, MapMode, OffersListMode } from '../../const/modes';
 import { useAppSelector, useActiveOffer } from '../../hooks';
 import { getOffersByCity } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
@@ -34,11 +34,12 @@ function MainPage(): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offers.length} places to stay in {activeCity}
+                  {offers.length} place{offers.length > 1 ? 's' : null} to stay in {activeCity}
                 </b>
                 <Sorting />
                 <OffersList
                   mode={OffersListMode.All}
+                  cardMode={CardMode.Default}
                   offers={offers}
                   isInteractive
                 />
