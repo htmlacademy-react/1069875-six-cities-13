@@ -41,10 +41,12 @@ export const mainData = createSlice({
       })
       .addCase(setOfferStatusAction.fulfilled, (state, action) => {
         const newOffer = action.payload;
-        const place = state.offers.findIndex((offer) => offer.id === newOffer.id);
-        const freshOffers = state.offers.slice(0);
-        freshOffers[place].isFavorite = newOffer.isFavorite;
-        state.offers = freshOffers;
+        state.offers = state.offers.map((offer) => {
+          if (offer.id === newOffer.id) {
+            offer.isFavorite = newOffer.isFavorite;
+          }
+          return offer;
+        });
       });
   },
 });

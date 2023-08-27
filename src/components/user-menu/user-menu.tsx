@@ -3,11 +3,11 @@ import { AppRoute } from '../../const/server';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-action';
 import { getUserData } from '../../store/user-data/selectors';
-import { getFavoriteOffersCount } from '../../store/favorite-data/selectors';
+import { getFavoriteOffers } from '../../store/favorite-data/selectors';
 
 function UserMenu(): JSX.Element {
   const userData = useAppSelector(getUserData);
-  const favoritesOffersCount = useAppSelector(getFavoriteOffersCount);
+  const favoritesOffersCount = useAppSelector(getFavoriteOffers).length;
 
   const dispatch = useAppDispatch();
 

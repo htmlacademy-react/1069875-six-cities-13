@@ -3,22 +3,13 @@ import PageHeader from '../../components/page-header/page-header';
 import Logo from '../../components/logo/logo';
 import { City } from '../../const/cities';
 import { LogoMode } from '../../const/modes';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { fetchFavoriteOffersAction } from '../../store/api-action';
-import { getFavoriteOffers, isFavoriteDataActual } from '../../store/favorite-data/selectors';
-import { useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getFavoriteOffers } from '../../store/favorite-data/selectors';
 import FavoriteList from '../../components/favorite-list/favorite-list';
 import { getOffersByCity } from '../../utils/offers';
 
 function FavoritesPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const isDataActual = useAppSelector(isFavoriteDataActual);
   const favoriteOffers = useAppSelector(getFavoriteOffers);
-  useEffect(() => {
-    if (!isDataActual) {
-      dispatch(fetchFavoriteOffersAction());
-    }
-  }, [dispatch, isDataActual]);
 
   return (
     <div

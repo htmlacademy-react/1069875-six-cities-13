@@ -12,7 +12,7 @@ import { isUserAuth } from '../../store/user-data/selectors';
 import { isOffersLoading } from '../../store/main-data/selectors';
 import { isOfferLoading } from '../../store/offer-data/selectors';
 import { isFavoriteOffersLoading } from '../../store/favorite-data/selectors';
-import { checkAuthAction, fetchOffersAction, fetchFavoriteOffersAction } from '../../store/api-action';
+import { checkAuthAction, fetchOffersAction } from '../../store/api-action';
 import { useEffect } from 'react';
 
 function App(): JSX.Element {
@@ -26,7 +26,6 @@ function App(): JSX.Element {
   useEffect(() => {
     dispatch(checkAuthAction());
     dispatch(fetchOffersAction());
-    dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
 
   return (

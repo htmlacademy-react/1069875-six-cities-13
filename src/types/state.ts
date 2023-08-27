@@ -41,8 +41,5 @@ export type OfferDataT = {
 
 export type FavoriteDataT = {
   favoriteOffers: OfferT[];
-  favoriteOffersCount: number;
-  isFavoriteOffersActual: boolean;
   isDataLoading: boolean;
-  awaitedStatusData: null | StatusDataT;
 };

@@ -59,15 +59,17 @@ export const checkAuthAction = createAsyncThunk<
   AuthUserT,
   undefined,
   asyncThunkConfig
->('user/checkAuth', async (_arg, { extra: api }) => {
+>('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<AuthUserT>(APIRoute.Login);
+  dispatch(fetchFavoriteOffersAction());
   return data;
 });
 
 export const loginAction = createAsyncThunk<AuthUserT, AuthDataT, asyncThunkConfig>(
   'user/login',
-  async (authData, { extra: api }) => {
+  async (authData, { dispatch, extra: api }) => {
     const { data } = await api.post<AuthUserT>(APIRoute.Login, authData);
+    dispatch(fetchFavoriteOffersAction());
     const { token } = data;
     saveToken(token);
     return data;
