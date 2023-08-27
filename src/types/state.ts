@@ -18,8 +18,6 @@ export type StatusDataT = {
 export type UserDataT = {
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
   userData: Omit<AuthUserT, 'token'> | null;
-  loginError: boolean;
-  loginDataSending: boolean;
 };
 
 export type MainDataT = {
@@ -48,4 +46,10 @@ export type ReviewFormT = {
   comment: string;
   rating: number;
   isReviewSending: boolean;
+};
+
+export type LoginFormT = {
+  email: string;
+  password: string;
+  isLoginDataSending: boolean;
 };

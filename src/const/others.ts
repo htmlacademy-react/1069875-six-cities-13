@@ -21,6 +21,11 @@ const ReviewTextLength = {
 const ReviewFormEmpty = {
   Rating: 0,
   Comment: '',
-};
+} as const;
 
-export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength, ReviewFormEmpty };
+const LoginFormEmpty = {
+  Email: '',
+  Password: '',
+} as const;
+
+export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength, ReviewFormEmpty, LoginFormEmpty };
