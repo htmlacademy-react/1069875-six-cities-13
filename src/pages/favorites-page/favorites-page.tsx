@@ -14,7 +14,9 @@ function FavoritesPage(): JSX.Element {
   const isDataActual = useAppSelector(isFavoriteDataActual);
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   useEffect(() => {
-    dispatch(fetchFavoriteOffersAction());
+    if (!isDataActual) {
+      dispatch(fetchFavoriteOffersAction());
+    }
   }, [dispatch, isDataActual]);
 
   return (
