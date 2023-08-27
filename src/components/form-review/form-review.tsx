@@ -1,39 +1,42 @@
-import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
+import { ChangeEvent, Fragment, FormEvent } from 'react';
 import { Rating } from '../../const/rating';
-import { ReviewTextLength } from '../../const/others';
-import { ReviewDataT } from '../../types/review';
+import { ReviewFormEmpty, ReviewTextLength } from '../../const/others';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReviewAction } from '../../store/api-action';
-import { hasReviewError, isReviewSending } from '../../store/offer-data/selectors';
+import {
+  getComment,
+  getRating,
+  isReviewSending,
+} from '../../store/review-form/selectors';
+import { setComment, setRating } from '../../store/review-form/review-form';
 
 type FormReviewProps = {
   offerId: string;
 };
 
-const EMPTY_FORM = {
-  rating: 0,
-  comment: '',
-};
-
 function FormReview({ offerId }: FormReviewProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isSending = useAppSelector(isReviewSending);
-  const hasError = useAppSelector(hasReviewError);
+  const comment = useAppSelector(getComment);
+  const rating = useAppSelector(getRating);
 
-  const [review, setReview] = useState<ReviewDataT>(EMPTY_FORM);
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
-    dispatch(sendReviewAction({ id: offerId, review })).finally(() => {
-      if (!hasError) {
-        setReview(EMPTY_FORM);
-      }
-    });
+    dispatch(sendReviewAction({ id: offerId, review: {comment, rating} }));
   };
 
-  const isSubmitAvailable = (): boolean => !!review.rating && review.comment.length >= ReviewTextLength.Min;
+  const isSubmitAvailable = (): boolean =>
+    rating > ReviewFormEmpty.Rating &&
+    comment.length >= ReviewTextLength.Min &&
+    comment.length <= ReviewTextLength.Max;
 
   return (
-    <form onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
+    <form
+      onSubmit={handleSubmit}
+      className="reviews__form form"
+      action="#"
+      method="post"
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -49,10 +52,10 @@ function FormReview({ offerId }: FormReviewProps): JSX.Element {
                 id={`${numberKey}-stars`}
                 type="radio"
                 onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
-                  setReview({ ...review, rating: Number(target.value) });
+                  dispatch(setRating(Number(target.value)));
                 }}
                 disabled={isSending}
-                checked={review.rating === Number(numberKey)}
+                checked={rating === Number(numberKey)}
               />
               <label
                 htmlFor={`${numberKey}-stars`}
@@ -71,11 +74,9 @@ function FormReview({ offerId }: FormReviewProps): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={review.comment}
-        minLength={ReviewTextLength.Min}
-        maxLength={ReviewTextLength.Max}
+        value={comment}
         onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
-          setReview({ ...review, comment: target.value });
+          dispatch(setComment(target.value));
         }}
         disabled={isSending}
       />

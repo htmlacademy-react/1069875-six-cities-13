@@ -23,6 +23,7 @@ import { getPointsFromOffers } from '../../utils/map-points';
 import { getNearbyOffers, getOffer, hasOfferError } from '../../store/offer-data/selectors';
 import { isUserAuth } from '../../store/user-data/selectors';
 import cn from 'classnames';
+import { resetReviewData } from '../../store/review-form/review-form';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -34,6 +35,8 @@ function OfferPage(): JSX.Element {
   const isAuth = useAppSelector(isUserAuth);
 
   useEffect(() => {
+    document.body.scrollTo();
+    dispatch(resetReviewData());
     dispatch(fetchOfferAction(offerId as string));
   }, [dispatch, offerId]);
 
