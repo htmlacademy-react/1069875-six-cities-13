@@ -14,7 +14,3 @@ export const getNearbyOffers = (state: State): OfferT[] => state[NameSpace.Offer
 export const hasOfferError = (state: State): boolean => state[NameSpace.OfferData].offerError;
 
 export const isOfferLoading = (state: State): boolean => state[NameSpace.OfferData].isDataLoading;
-
-export const hasReviewError = (state: State): boolean => state[NameSpace.OfferData].reviewError;
-
-export const isReviewSending = (state: State): boolean => state[NameSpace.OfferData].isReviewSending;

@@ -6,6 +6,7 @@ import { ReviewT, ReviewDataT } from '../types/review';
 import { AuthDataT, AuthUserT } from '../types/user';
 import { APIRoute } from '../const/server';
 import { dropToken, saveToken } from '../services/token';
+import { addReview } from './offer-data/offer-data';
 
 type asyncThunkConfig = {
   dispatch: AppDispatch;
@@ -84,10 +85,10 @@ export const logoutAction = createAsyncThunk<void, undefined, asyncThunkConfig>(
   }
 );
 
-export const sendReviewAction = createAsyncThunk<ReviewT, {id: string; review: ReviewDataT}, asyncThunkConfig>(
+export const sendReviewAction = createAsyncThunk<void, {id: string; review: ReviewDataT}, asyncThunkConfig>(
   'data/sendReview',
-  async ({ id, review}, { extra: api }) => {
+  async ({ id, review}, { dispatch, extra: api }) => {
     const { data } = await api.post<ReviewT>(APIRoute.Offer.Reviews(id), review);
-    return data;
+    dispatch(addReview(data));
   }
 );

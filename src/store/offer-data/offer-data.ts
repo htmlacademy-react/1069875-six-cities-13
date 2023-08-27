@@ -1,8 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/server';
 import { FULL_OFFER_EXAMPLE } from '../../const/full-offer-example';
 import { OfferDataT } from '../../types/state';
-import { fetchOfferAction, sendReviewAction, setOfferStatusAction } from '../api-action';
+import { fetchOfferAction, setOfferStatusAction } from '../api-action';
+import { ReviewT } from '../../types/review';
 
 const initialState: OfferDataT = {
   fullOffer: FULL_OFFER_EXAMPLE,
@@ -11,14 +12,16 @@ const initialState: OfferDataT = {
   nearbyOffers: [],
   offerError: false,
   isDataLoading: false,
-  reviewError: false,
-  isReviewSending: false,
 };
 
 export const offerData = createSlice({
   name: NameSpace.OfferData,
   initialState,
-  reducers: {},
+  reducers: {
+    addReview: (state, action: PayloadAction<ReviewT>) => {
+      state.reviews.push(action.payload);
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOfferAction.pending, (state) => {
@@ -37,18 +40,6 @@ export const offerData = createSlice({
         state.isDataLoading = false;
         state.offerError = true;
       })
-      .addCase(sendReviewAction.pending, (state) => {
-        state.isReviewSending = true;
-        state.reviewError = false;
-      })
-      .addCase(sendReviewAction.fulfilled, (state, action) => {
-        state.reviews.push(action.payload);
-        state.isReviewSending = false;
-      })
-      .addCase(sendReviewAction.rejected, (state) => {
-        state.isReviewSending = false;
-        state.reviewError = true;
-      })
       .addCase(setOfferStatusAction.fulfilled, (state, action) => {
         const offer = action.payload;
         if (offer.id === state.fullOffer.id) {
@@ -57,3 +48,5 @@ export const offerData = createSlice({
       });
   },
 });
+
+export const { addReview } = offerData.actions;
