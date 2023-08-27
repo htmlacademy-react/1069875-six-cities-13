@@ -1,35 +1,15 @@
 import PageHeader from '../../components/page-header/page-header';
-import { FormEvent, useRef } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { loginAction } from '../../store/api-action';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const/server';
-import { isUserAuth } from '../../store/user-data/selectors';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks';
+import FormLogin from '../../components/form-login/form-login';
+import { resetLoginData } from '../../store/login-form/login-form';
 
 function LoginPage(): JSX.Element {
-  const emailInput = useRef<HTMLInputElement | null>(null);
-  const passwordInput = useRef<HTMLInputElement | null>(null);
-  const isAuth = useAppSelector(isUserAuth);
-
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  if (isAuth) {
-    navigate(AppRoute.Root);
-  }
-
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
-    evt.preventDefault();
-
-    if (emailInput.current && passwordInput.current) {
-      dispatch(
-        loginAction({
-          email: emailInput.current.value,
-          password: passwordInput.current.value,
-        })
-      );
-    }
-  };
+  useEffect(() => {
+    dispatch(resetLoginData());
+  }, [dispatch]);
 
   return (
     <div className="page page--gray page--login">
@@ -38,41 +18,7 @@ function LoginPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form
-              onSubmit={handleSubmit}
-              className="login__form form"
-              action="#"
-              method="post"
-            >
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input
-                  ref={emailInput}
-                  className="login__input form__input"
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  required
-                />
-              </div>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input
-                  ref={passwordInput}
-                  className="login__input form__input"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-              <button
-                className="login__submit form__submit button"
-                type="submit"
-              >
-                Sign in
-              </button>
-            </form>
+            <FormLogin />
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
