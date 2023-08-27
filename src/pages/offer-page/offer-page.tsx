@@ -17,20 +17,19 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import lodash from 'lodash';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { AuthorizationStatus } from '../../const/server';
-import { getLastReviews } from '../../utils/reviews';
 import { getRandomNearbyOffers } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
+import { getNearbyOffers, getOffer, hasOfferError } from '../../store/offer-data/selectors';
+import { isUserAuth } from '../../store/user-data/selectors';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
 
   const dispatch = useAppDispatch();
-  const offer = useAppSelector((state) => state.fullOffer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const offersNearby = getRandomNearbyOffers(useAppSelector((state) => state.nearbyOffers));
-  const hasError = useAppSelector((state) => state.offerError);
-  const isUserAuth = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
+  const offer = useAppSelector(getOffer);
+  const offersNearby = getRandomNearbyOffers(useAppSelector(getNearbyOffers));
+  const hasError = useAppSelector(hasOfferError);
+  const isAuth = useAppSelector(isUserAuth);
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId as string));
@@ -136,19 +135,14 @@ function OfferPage(): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews ·{' '}
-                  <span className="reviews__amount">{reviews.length}</span>
-                </h2>
-                <ReviewsList reviews={getLastReviews(reviews)} />
-                {isUserAuth ? <FormReview offerId={id} /> : null}
+                <ReviewsList />
+                {isAuth ? <FormReview offerId={id} /> : null}
               </section>
             </div>
           </div>
           <Map
             mode={MapMode.OfferPage}
             city={city.location}
-            activePoint={id}
             points={getPointsFromOffers([...offersNearby, offer])}
           />
         </section>
@@ -158,7 +152,7 @@ function OfferPage(): JSX.Element {
               <h2 className="near-places__title">
                 Other places in the neighbourhood
               </h2>
-              <OffersList mode={OffersListMode.Nearby} offers={offersNearby} />
+              <OffersList mode={OffersListMode.Nearby} offers={offersNearby} isInteractive={false} />
             </section>
           </div>
         ) : null}

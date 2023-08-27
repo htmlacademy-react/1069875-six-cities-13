@@ -6,14 +6,15 @@ import { City } from '../../const/cities';
 import { CardMode, LogoMode } from '../../const/modes';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-action';
+import { getFavoriteOffers, isFavoriteDataActual } from '../../store/favorite-data/selectors';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const isDataActual = useAppSelector((state) => state.isFavoriteOffersActual);
+  const isDataActual = useAppSelector(isFavoriteDataActual);
   if (!isDataActual) {
     dispatch(fetchFavoriteOffersAction());
   }
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   return (
     <div

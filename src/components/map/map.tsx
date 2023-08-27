@@ -7,15 +7,17 @@ import { LocationT } from '../../types/location';
 import MarkerIcon from './marker-icon';
 import MapModeDiffs from './map-mode-diffs';
 import { MapMode } from '../../const/modes';
+import { useAppSelector } from '../../hooks';
+import { getActiveOffer } from '../../store/main-data/selectors';
 
 type MapProps = {
   mode: typeof MapMode[keyof typeof MapMode];
   city: LocationT;
-  activePoint: string|null;
   points: Array<LocationT & {id: string}>;
 }
 
-function Map({ mode, city, activePoint, points }: MapProps): JSX.Element {
+function Map({ mode, city, points }: MapProps): JSX.Element {
+  const activePoint = useAppSelector(getActiveOffer);
   const { StyleClass } = MapModeDiffs[mode];
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);

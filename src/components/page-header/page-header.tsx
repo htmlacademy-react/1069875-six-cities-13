@@ -1,6 +1,7 @@
 import Logo from '../logo/logo';
 import UserMenu from '../user-menu/user-menu';
 import { LogoMode } from '../../const/modes';
+import { memo } from 'react';
 
 type PageHeaderProps = {
   isUserMenuActive?: boolean;
@@ -22,4 +23,6 @@ function PageHeader({ isUserMenuActive = true, isMainPage = false }: PageHeaderP
   );
 }
 
-export default PageHeader;
+const PageHeaderMemo = memo(PageHeader);
+
+export default PageHeaderMemo;

@@ -1,30 +1,22 @@
 import cn from 'classnames';
-import { useState } from 'react';
+import { useMemo } from 'react';
 import PageHeader from '../../components/page-header/page-header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import Sorting from '../../components/sorting/sorting';
-import { City, CityLocation } from '../../const/cities';
+import { CityLocation } from '../../const/cities';
 import { MapMode, OffersListMode } from '../../const/modes';
-import { SortingType } from '../../const/others';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCity } from '../../store/action';
-import { getOffersByCity, getOffersSorted } from '../../utils/offers';
+import { useAppSelector } from '../../hooks';
+import { getOffersByCity } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
+import { getCurrentCity, getOffers } from '../../store/main-data/selectors';
 
 function MainPage(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = getOffersByCity(useAppSelector((state) => state.offers), activeCity);
-  const [activeOffer, setActiveOffer] = useState<null | string>(null);
-  const [activeSorting, setActiveSorting] = useState<typeof SortingType[keyof typeof SortingType]>(SortingType.Default);
+  const activeCity = useAppSelector(getCurrentCity);
+  const allOffers = useAppSelector(getOffers);
 
-  const dispatch = useAppDispatch();
-
-  const handleLocationTabClick = (city: typeof City[keyof typeof City]) => {
-    dispatch(setCity(city));
-    setActiveSorting(SortingType.Default);
-  };
+  const offers = useMemo(() => getOffersByCity(allOffers, activeCity), [activeCity, allOffers]);
 
   return (
     <div className="page page--gray page--main">
@@ -34,7 +26,6 @@ function MainPage(): JSX.Element {
         <div className="tabs">
           <LocationTabs
             activeCity={activeCity}
-            onClick={handleLocationTabClick}
           />
         </div>
         <div className="cities">
@@ -45,18 +36,17 @@ function MainPage(): JSX.Element {
                 <b className="places__found">
                   {offers.length} places to stay in {activeCity}
                 </b>
-                <Sorting activeSorting={activeSorting} onClick={setActiveSorting}/>
+                <Sorting />
                 <OffersList
                   mode={OffersListMode.All}
-                  offers={getOffersSorted(offers, activeSorting)}
-                  onMouseMove={setActiveOffer}
+                  offers={offers}
+                  isInteractive
                 />
               </section>
               <div className="cities__right-section">
                 <Map
                   mode={MapMode.MainPage}
                   city={CityLocation[activeCity]}
-                  activePoint={activeOffer}
                   points={getPointsFromOffers(offers)}
                 />
               </div>

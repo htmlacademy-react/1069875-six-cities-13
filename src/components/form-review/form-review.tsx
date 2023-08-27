@@ -4,6 +4,7 @@ import { ReviewTextLength } from '../../const/others';
 import { ReviewDataT } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReviewAction } from '../../store/api-action';
+import { hasReviewError, isReviewSending } from '../../store/offer-data/selectors';
 
 type FormReviewProps = {
   offerId: string;
@@ -16,13 +17,14 @@ const EMPTY_FORM = {
 
 function FormReview({ offerId }: FormReviewProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const isSending = useAppSelector((state) => state.isReviewSending);
+  const isSending = useAppSelector(isReviewSending);
+  const hasError = useAppSelector(hasReviewError);
 
   const [review, setReview] = useState<ReviewDataT>(EMPTY_FORM);
   const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
-    dispatch(sendReviewAction({ id: offerId, review })).then(({payload}) => {
-      if (payload) {
+    dispatch(sendReviewAction({ id: offerId, review })).finally(() => {
+      if (!hasError) {
         setReview(EMPTY_FORM);
       }
     });

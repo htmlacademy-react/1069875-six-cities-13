@@ -1,14 +1,15 @@
 import cn from 'classnames';
 import { SortingType } from '../../const/others';
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCurrentSorting } from '../../store/main-data/selectors';
+import { setActiveSorting } from '../../store/main-data/main-data';
 
-type SortingProps = {
-  activeSorting: typeof SortingType[keyof typeof SortingType];
-  onClick: (newType: typeof SortingType[keyof typeof SortingType]) => void;
-};
-
-function Sorting({ activeSorting, onClick }: SortingProps): JSX.Element {
+function Sorting(): JSX.Element {
+  const activeSorting = useAppSelector(getCurrentSorting);
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useAppDispatch();
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -32,7 +33,7 @@ function Sorting({ activeSorting, onClick }: SortingProps): JSX.Element {
           <li
             key={`sorting-${type}`}
             onClick={() => {
-              onClick(type);
+              dispatch(setActiveSorting(type));
               setIsOpen(false);
             }}
             className={cn('places__option', {

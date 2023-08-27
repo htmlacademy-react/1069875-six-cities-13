@@ -8,10 +8,17 @@ import PrivateRoute from '../private-route/private-route';
 import { AppRoute } from '../../const/server';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
 import { useAppSelector } from '../../hooks';
+import { isUserAuth } from '../../store/user-data/selectors';
+import { isOffersLoading } from '../../store/main-data/selectors';
+import { isOfferLoading } from '../../store/offer-data/selectors';
+import { isFavoriteOffersLoading } from '../../store/favorite-data/selectors';
 
 function App(): JSX.Element {
-  const isDataLoading = useAppSelector((state) => Object.values(state.isDataLoading).some((value) => value));
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offersLoading = useAppSelector(isOffersLoading);
+  const offerLoading = useAppSelector(isOfferLoading);
+  const favoriteLoading = useAppSelector(isFavoriteOffersLoading);
+  const isDataLoading = offersLoading || offerLoading || favoriteLoading;
+  const authorizationStatus = useAppSelector(isUserAuth);
 
   return (
     <>
@@ -23,7 +30,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute authorizationStatus={authorizationStatus}>
+              <PrivateRoute isUserAuth={authorizationStatus}>
                 <FavoritesPage />
               </PrivateRoute>
             }
