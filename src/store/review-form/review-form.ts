@@ -7,7 +7,6 @@ import { ReviewFormEmpty } from '../../const/others';
 const initialState: ReviewFormT = {
   comment: ReviewFormEmpty.Comment,
   rating: ReviewFormEmpty.Rating,
-  reviewError: false,
   isReviewSending: false,
 };
 
@@ -30,7 +29,6 @@ export const reviewForm = createSlice({
     builder
       .addCase(sendReviewAction.pending, (state) => {
         state.isReviewSending = true;
-        state.reviewError = false;
       })
       .addCase(sendReviewAction.fulfilled, (state) => {
         state.isReviewSending = false;
@@ -39,7 +37,6 @@ export const reviewForm = createSlice({
       })
       .addCase(sendReviewAction.rejected, (state) => {
         state.isReviewSending = false;
-        state.reviewError = true;
       });
   },
 });

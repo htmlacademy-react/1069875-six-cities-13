@@ -47,6 +47,5 @@ export type FavoriteDataT = {
 export type ReviewFormT = {
   comment: string;
   rating: number;
-  reviewError: boolean;
   isReviewSending: boolean;
 };
