@@ -1,13 +1,14 @@
 import cn from 'classnames';
 import PageHeader from '../../components/page-header/page-header';
-import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
 import { City } from '../../const/cities';
-import { CardMode, LogoMode } from '../../const/modes';
+import { LogoMode } from '../../const/modes';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-action';
 import { getFavoriteOffers, isFavoriteDataActual } from '../../store/favorite-data/selectors';
 import { useEffect } from 'react';
+import FavoriteList from '../../components/favorite-list/favorite-list';
+import { getOffersByCity } from '../../utils/offers';
 
 function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -37,29 +38,10 @@ function FavoritesPage(): JSX.Element {
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
                 {Object.values(City).map((cityName) => {
-                  const cityOffers = favoriteOffers.filter(
-                    ({ city }) => city.name === cityName
-                  );
+                  const cityOffers = getOffersByCity(favoriteOffers, cityName);
 
                   return cityOffers.length ? (
-                    <li className="favorites__locations-items" key={cityName}>
-                      <div className="favorites__locations locations locations--current">
-                        <div className="locations__item">
-                          <a className="locations__item-link" href="#">
-                            <span>{cityName}</span>
-                          </a>
-                        </div>
-                      </div>
-                      <div className="favorites__places">
-                        {cityOffers.map((offer) => (
-                          <OfferCard
-                            key={offer.id}
-                            offer={offer}
-                            mode={CardMode.Favorite}
-                          />
-                        ))}
-                      </div>
-                    </li>
+                    <FavoriteList key={`city${cityName}`} city={cityName} offers={cityOffers} />
                   ) : null;
                 })}
               </ul>
