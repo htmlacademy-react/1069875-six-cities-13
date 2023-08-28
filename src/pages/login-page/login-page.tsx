@@ -7,6 +7,9 @@ import { isAuthRequesting, isUserAuth } from '../../store/user-data/selectors';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const/server';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
+import { setCity } from '../../store/main-data/main-data';
+import { City } from '../../const/cities';
+import lodash from 'lodash';
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,6 +29,14 @@ function LoginPage(): JSX.Element {
     navigate(AppRoute.Root);
   }
 
+  const cities = Object.values(City);
+  const randomCity = cities[lodash.random(cities.length - 1)];
+
+  const handleCityClick = () => {
+    dispatch(setCity(randomCity));
+    navigate(AppRoute.Root);
+  };
+
   return (
     <div className="page page--gray page--login">
       <PageHeader isUserMenuActive={false} />
@@ -37,8 +48,8 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
+              <a onClick={handleCityClick} className="locations__item-link" href="#">
+                <span>{randomCity}</span>
               </a>
             </div>
           </section>

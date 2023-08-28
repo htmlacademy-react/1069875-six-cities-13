@@ -2,8 +2,7 @@ import cn from 'classnames';
 import { City } from '../../const/cities';
 import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { setCity, setActiveSorting } from '../../store/main-data/main-data';
-import { SortingType } from '../../const/others';
+import { setCity } from '../../store/main-data/main-data';
 
 type LocationTabsProps = {
   activeCity: typeof City[keyof typeof City];
@@ -15,7 +14,6 @@ function LocationTabs({ activeCity }: LocationTabsProps): JSX.Element {
 
   const handleClick = (city: typeof City[keyof typeof City]) => {
     dispatch(setCity(city));
-    dispatch(setActiveSorting(SortingType.Default));
   };
 
   return (

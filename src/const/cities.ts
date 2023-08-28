@@ -46,4 +46,6 @@ const CityLocation: CityLocationT = {
   },
 } as const;
 
-export { City, CityLocation };
+const DEFAULT_CITY = Object.values(City)[0];
+
+export { City, CityLocation, DEFAULT_CITY };
