@@ -6,17 +6,15 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { AppRoute } from '../../const/server';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { isUserAuth } from '../../store/user-data/selectors';
+import { useAppDispatch } from '../../hooks';
 import { checkAuthAction, fetchOffersAction } from '../../store/api-action';
 import { useEffect } from 'react';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(isUserAuth);
-
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(checkAuthAction());
     dispatch(fetchOffersAction());
@@ -30,7 +28,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute isUserAuth={authorizationStatus}>
+            <PrivateRoute >
               <FavoritesPage />
             </PrivateRoute>
           }
