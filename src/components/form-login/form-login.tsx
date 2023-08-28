@@ -7,6 +7,7 @@ import {
   isLoginDataSending,
 } from '../../store/login-form/selectors';
 import { setEmail, setPassword } from '../../store/login-form/login-form';
+import { PASSWORD_PATTERN } from '../../const/others';
 
 function FormLogin(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -53,7 +54,7 @@ function FormLogin(): JSX.Element {
           className="login__input form__input"
           type="password"
           name="password"
-          pattern={'(?=.*?[0-9])(?=.*?[A-Za-z]).+'}
+          pattern={PASSWORD_PATTERN}
           placeholder="Password"
           required
           disabled={isSending}

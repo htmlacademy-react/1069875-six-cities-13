@@ -1,5 +1,6 @@
 const REVIEWS_MAX_COUNT = 10;
 const NEARBY_OFFERS_MAX_COUNT = 3;
+const PASSWORD_PATTERN = '(?=.*?[0-9])(?=.*?[A-Za-z]).+';
 
 const DateFormat = {
   Default: 'YYYY-MM-DD',
@@ -28,4 +29,4 @@ const LoginFormEmpty = {
   Password: '',
 } as const;
 
-export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, DateFormat, SortingType, ReviewTextLength, ReviewFormEmpty, LoginFormEmpty };
+export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, PASSWORD_PATTERN, DateFormat, SortingType, ReviewTextLength, ReviewFormEmpty, LoginFormEmpty };
