@@ -20,7 +20,7 @@ function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Elemen
   const navigate = useNavigate();
   const status = typeof isActive === 'function' ? isActive() : isActive;
 
-  const handleClick = () => {
+  const handleButtonClick = () => {
     if (!isAuth) {
       navigate(AppRoute.Login);
       return;
@@ -30,7 +30,7 @@ function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Elemen
   };
   return (
     <button
-      onClick={handleClick}
+      onClick={handleButtonClick}
       className={cn(
         'button',
         `${StyleClass}__bookmark-button`,

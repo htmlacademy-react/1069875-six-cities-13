@@ -20,7 +20,7 @@ function FormReview({ offerId }: FormReviewProps): JSX.Element {
   const comment = useAppSelector(getComment);
   const rating = useAppSelector(getRating);
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
     dispatch(sendReviewAction({ id: offerId, review: {comment, rating} }));
   };
@@ -32,7 +32,7 @@ function FormReview({ offerId }: FormReviewProps): JSX.Element {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
       className="reviews__form form"
       action="#"
       method="post"

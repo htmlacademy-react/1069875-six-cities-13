@@ -16,14 +16,14 @@ function FormLogin(): JSX.Element {
   const password = useAppSelector(getPassword);
 
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
     dispatch(loginAction({email, password}));
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
       className="login__form form"
       action="#"
       method="post"
@@ -31,7 +31,6 @@ function FormLogin(): JSX.Element {
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
         <input
-          // ref={emailInput}
           onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
             dispatch(setEmail(target.value));
           }}

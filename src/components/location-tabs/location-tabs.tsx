@@ -12,7 +12,7 @@ function LocationTabs({ activeCity }: LocationTabsProps): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const handleClick = (city: typeof City[keyof typeof City]) => {
+  const handleTabClick = (city: typeof City[keyof typeof City]) => {
     dispatch(setCity(city));
   };
 
@@ -20,7 +20,7 @@ function LocationTabs({ activeCity }: LocationTabsProps): JSX.Element {
     <section className="locations container">
       <ul className="locations__list tabs__list">
         {Object.values(City).map((city) => (
-          <li key={`location-${city}`} onClick={() => handleClick(city)} className="locations__item">
+          <li key={`location-${city}`} onClick={() => handleTabClick(city)} className="locations__item">
             <a className={cn('locations__item-link tabs__item', {'tabs__item--active': activeCity === city})}>
               <span>{city}</span>
             </a>

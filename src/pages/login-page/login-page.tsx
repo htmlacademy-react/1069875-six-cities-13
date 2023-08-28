@@ -32,7 +32,7 @@ function LoginPage(): JSX.Element {
   const cities = Object.values(City);
   const randomCity = cities[lodash.random(cities.length - 1)];
 
-  const handleCityClick = () => {
+  const handleLinkClick = () => {
     dispatch(setCity(randomCity));
     navigate(AppRoute.Root);
   };
@@ -48,7 +48,7 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a onClick={handleCityClick} className="locations__item-link" href="#">
+              <a onClick={handleLinkClick} className="locations__item-link" href="#">
                 <span>{randomCity}</span>
               </a>
             </div>
