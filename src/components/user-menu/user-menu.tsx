@@ -48,7 +48,7 @@ function UserMenu(): JSX.Element {
           </Link>
         </li>
         <li className="header__nav-item">
-          <a onClick={handleLogout} className="header__nav-link" href="#">
+          <a onClick={handleLogout} className="header__nav-link">
             <span className="header__signout">Sign out</span>
           </a>
         </li>

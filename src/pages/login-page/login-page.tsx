@@ -3,11 +3,15 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import FormLogin from '../../components/form-login/form-login';
 import { resetLoginData } from '../../store/login-form/login-form';
-import { isAuthRequesting } from '../../store/user-data/selectors';
+import { isAuthRequesting, isUserAuth } from '../../store/user-data/selectors';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const/server';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isAuth = useAppSelector(isUserAuth);
   const isDataLoading = useAppSelector(isAuthRequesting);
 
   useEffect(() => {
@@ -16,6 +20,10 @@ function LoginPage(): JSX.Element {
 
   if (isDataLoading) {
     return <UIBlocker />;
+  }
+
+  if (isAuth) {
+    navigate(AppRoute.Root);
   }
 
   return (
