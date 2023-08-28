@@ -1,15 +1,22 @@
 import PageHeader from '../../components/page-header/page-header';
 import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import FormLogin from '../../components/form-login/form-login';
 import { resetLoginData } from '../../store/login-form/login-form';
+import { isAuthRequesting } from '../../store/user-data/selectors';
+import UIBlocker from '../../components/ui-blocker/ui-blocker';
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const isDataLoading = useAppSelector(isAuthRequesting);
 
   useEffect(() => {
     dispatch(resetLoginData());
   }, [dispatch]);
+
+  if (isDataLoading) {
+    return <UIBlocker />;
+  }
 
   return (
     <div className="page page--gray page--login">

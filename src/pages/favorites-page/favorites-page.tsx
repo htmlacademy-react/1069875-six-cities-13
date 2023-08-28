@@ -4,12 +4,18 @@ import Logo from '../../components/logo/logo';
 import { City } from '../../const/cities';
 import { LogoMode } from '../../const/modes';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteOffers } from '../../store/favorite-data/selectors';
+import { getFavoriteOffers, isFavoriteOffersLoading } from '../../store/favorite-data/selectors';
 import FavoriteList from '../../components/favorite-list/favorite-list';
 import { getOffersByCity } from '../../utils/offers';
+import UIBlocker from '../../components/ui-blocker/ui-blocker';
 
 function FavoritesPage(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const isDataLoading = useAppSelector(isFavoriteOffersLoading);
+
+  if (isDataLoading) {
+    return <UIBlocker />;
+  }
 
   return (
     <div

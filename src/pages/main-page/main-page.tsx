@@ -10,13 +10,19 @@ import { CardMode, MapMode, OffersListMode } from '../../const/modes';
 import { useAppSelector, useActiveOffer } from '../../hooks';
 import { getOffersByCity } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
-import { getCurrentCity, getOffers } from '../../store/main-data/selectors';
+import { getCurrentCity, getOffers, isOffersLoading } from '../../store/main-data/selectors';
+import UIBlocker from '../../components/ui-blocker/ui-blocker';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector(getCurrentCity);
   const allOffers = useAppSelector(getOffers);
+  const isDataLoading = useAppSelector(isOffersLoading);
 
   const offers = useMemo(() => getOffersByCity(allOffers, activeCity), [activeCity, allOffers]);
+
+  if (isDataLoading) {
+    return <UIBlocker />;
+  }
 
   return (
     <div className="page page--gray page--main">

@@ -20,10 +20,11 @@ import lodash from 'lodash';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { getRandomNearbyOffers } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
-import { getNearbyOffers, getOffer, hasOfferError } from '../../store/offer-data/selectors';
+import { getNearbyOffers, getOffer, hasOfferError, isOfferLoading } from '../../store/offer-data/selectors';
 import { isUserAuth } from '../../store/user-data/selectors';
 import cn from 'classnames';
 import { resetReviewData } from '../../store/review-form/review-form';
+import UIBlocker from '../../components/ui-blocker/ui-blocker';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -33,12 +34,17 @@ function OfferPage(): JSX.Element {
   const offersNearby = getRandomNearbyOffers(useAppSelector(getNearbyOffers));
   const hasError = useAppSelector(hasOfferError);
   const isAuth = useAppSelector(isUserAuth);
+  const isDataLoading = useAppSelector(isOfferLoading);
 
   useEffect(() => {
     document.body.scrollTo();
     dispatch(resetReviewData());
     dispatch(fetchOfferAction(offerId as string));
   }, [dispatch, offerId]);
+
+  if (isDataLoading) {
+    return <UIBlocker />;
+  }
 
   if (hasError) {
     return (<NotFoundPage />);
