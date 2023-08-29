@@ -13,10 +13,10 @@ const APIRoute = {
   Logout: '/logout',
   Favorite: '/favorite',
   Offer: {
-    Info: (id: string) => `/offers/${id}`,
-    NearbyOffers: (id: string) => `/offers/${id}/nearby`,
-    Reviews: (id: string) => `/comments/${id}`,
-    FavoriteStatus: (id: string, status: typeof OfferStatus[keyof typeof OfferStatus]) => `/favorite/${id}/${status}`,
+    getInfoPath: (id: string) => `/offers/${id}`,
+    getNearbyOffersPath: (id: string) => `/offers/${id}/nearby`,
+    getReviewsPath: (id: string) => `/comments/${id}`,
+    getFavoriteStatusPath: (id: string, status: typeof OfferStatus[keyof typeof OfferStatus]) => `/favorite/${id}/${status}`,
   },
 } as const;
 
