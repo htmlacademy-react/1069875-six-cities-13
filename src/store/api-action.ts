@@ -39,7 +39,7 @@ export const setOfferStatusAction = createAsyncThunk<
   StatusDataT,
   asyncThunkConfig
 >('data/setOfferStatus', async ({id, status}, { extra: api }) => {
-  const { data } = await api.post<OfferT & OfferAdditionT>(APIRoute.Offer.FavoriteStatus(id, status));
+  const { data } = await api.post<OfferT & OfferAdditionT>(APIRoute.Offer.getFavoriteStatusPath(id, status));
   return data;
 });
 
@@ -48,12 +48,12 @@ export const fetchOfferAction = createAsyncThunk<
   string,
   asyncThunkConfig
 >('data/fetchOffer', async (id, { extra: api }) => {
-  const { data: offer } = await api.get<OfferFullT>(APIRoute.Offer.Info(id));
+  const { data: offer } = await api.get<OfferFullT>(APIRoute.Offer.getInfoPath(id));
   const { data: reviews } = await api.get<ReviewT[]>(
-    APIRoute.Offer.Reviews(id)
+    APIRoute.Offer.getReviewsPath(id)
   );
   const { data: nearbyOffers } = await api.get<OfferT[]>(
-    APIRoute.Offer.NearbyOffers(id)
+    APIRoute.Offer.getNearbyOffersPath(id)
   );
   return {offer, reviews, nearbyOffers};
 });
@@ -92,7 +92,7 @@ export const logoutAction = createAsyncThunk<void, undefined, asyncThunkConfig>(
 export const sendReviewAction = createAsyncThunk<void, {id: string; review: ReviewDataT}, asyncThunkConfig>(
   'data/sendReview',
   async ({ id, review}, { dispatch, extra: api }) => {
-    const { data } = await api.post<ReviewT>(APIRoute.Offer.Reviews(id), review);
+    const { data } = await api.post<ReviewT>(APIRoute.Offer.getReviewsPath(id), review);
     dispatch(addReview(data));
   }
 );
