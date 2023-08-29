@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/server';
 import { MainDataT } from '../../types/state';
-import { City } from '../../const/cities';
+import { City, DEFAULT_CITY } from '../../const/cities';
 import { SortingType } from '../../const/others';
-import { fetchOffersAction } from '../api-action';
+import { fetchOffersAction, setOfferStatusAction } from '../api-action';
 
 const initialState: MainDataT = {
-  city: Object.values(City)[0],
+  city: DEFAULT_CITY,
   offers: [],
   isDataLoading: false,
   activeSorting: SortingType.Default,
@@ -19,6 +19,7 @@ export const mainData = createSlice({
   reducers: {
     setCity: (state, action: PayloadAction<typeof City[keyof typeof City]>) => {
       state.city = action.payload;
+      state.activeSorting = SortingType.Default;
     },
     setActiveSorting: (state, action: PayloadAction<typeof SortingType[keyof typeof SortingType]>) => {
       state.activeSorting = action.payload;
@@ -38,6 +39,15 @@ export const mainData = createSlice({
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isDataLoading = false;
+      })
+      .addCase(setOfferStatusAction.fulfilled, (state, action) => {
+        const newOffer = action.payload;
+        state.offers = state.offers.map((offer) => {
+          if (offer.id === newOffer.id) {
+            offer.isFavorite = newOffer.isFavorite;
+          }
+          return offer;
+        });
       });
   },
 });

@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/server';
 import { FavoriteDataT } from '../../types/state';
-import { fetchFavoriteOffersAction } from '../api-action';
+import { fetchFavoriteOffersAction, setOfferStatusAction } from '../api-action';
 
 const initialState: FavoriteDataT = {
   favoriteOffers: [],
-  favoriteOffersCount: 0,
-  isFavoriteOffersActual: false,
   isDataLoading: false,
 };
 
@@ -21,12 +19,18 @@ export const favoriteData = createSlice({
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
-        state.favoriteOffersCount = state.favoriteOffers.length;
         state.isDataLoading = false;
-        state.isFavoriteOffersActual = true;
       })
       .addCase(fetchFavoriteOffersAction.rejected, (state) => {
         state.isDataLoading = false;
+      })
+      .addCase(setOfferStatusAction.fulfilled, (state, action) => {
+        const offer = action.payload;
+        if (offer.isFavorite) {
+          state.favoriteOffers.push(offer);
+        } else {
+          state.favoriteOffers = state.favoriteOffers.filter((favoriteOffer) => offer.id !== favoriteOffer.id);
+        }
       });
   }
 });

@@ -6,17 +6,23 @@ import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import Sorting from '../../components/sorting/sorting';
 import { CityLocation } from '../../const/cities';
-import { MapMode, OffersListMode } from '../../const/modes';
-import { useAppSelector } from '../../hooks';
+import { CardMode, MapMode, OffersListMode } from '../../const/modes';
+import { useAppSelector, useActiveOffer } from '../../hooks';
 import { getOffersByCity } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
-import { getCurrentCity, getOffers } from '../../store/main-data/selectors';
+import { getCurrentCity, getOffers, isOffersLoading } from '../../store/main-data/selectors';
+import UIBlocker from '../../components/ui-blocker/ui-blocker';
 
 function MainPage(): JSX.Element {
   const activeCity = useAppSelector(getCurrentCity);
   const allOffers = useAppSelector(getOffers);
+  const isDataLoading = useAppSelector(isOffersLoading);
 
   const offers = useMemo(() => getOffersByCity(allOffers, activeCity), [activeCity, allOffers]);
+
+  if (isDataLoading) {
+    return <UIBlocker />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -34,11 +40,12 @@ function MainPage(): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offers.length} places to stay in {activeCity}
+                  {offers.length} place{offers.length > 1 ? 's' : null} to stay in {activeCity}
                 </b>
                 <Sorting />
                 <OffersList
                   mode={OffersListMode.All}
+                  cardMode={CardMode.Default}
                   offers={offers}
                   isInteractive
                 />
@@ -48,6 +55,7 @@ function MainPage(): JSX.Element {
                   mode={MapMode.MainPage}
                   city={CityLocation[activeCity]}
                   points={getPointsFromOffers(offers)}
+                  currentPoint={useActiveOffer}
                 />
               </div>
             </div>

@@ -2,7 +2,7 @@ import cn from 'classnames';
 import OfferCard from '../offer-card/offer-card';
 import { OfferT } from '../../types/offer';
 import OffersListModeDiffs from './offers-list-mode-diffs';
-import { OffersListMode } from '../../const/modes';
+import { OffersListMode, CardMode } from '../../const/modes';
 import { useCallback, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveOffer } from '../../store/main-data/main-data';
@@ -11,12 +11,14 @@ import { getOffersSorted } from '../../utils/offers';
 
 type OffersListProps = {
   mode: typeof OffersListMode[keyof typeof OffersListMode];
+  cardMode: typeof CardMode[keyof typeof CardMode];
   offers: OfferT[];
   isInteractive: boolean;
 };
 
 function OffersList({
   mode,
+  cardMode,
   offers,
   isInteractive = false,
 }: OffersListProps): JSX.Element {
@@ -26,7 +28,7 @@ function OffersList({
 
   const sortedOffers = useMemo(() => getOffersSorted(offers, activeSorting), [offers, activeSorting]);
 
-  const handleMouseMove = useCallback((id: string | null) => {
+  const handleCardMouseOver = useCallback((id: string) => {
     dispatch(setActiveOffer(id));
   }, [dispatch]);
 
@@ -41,7 +43,7 @@ function OffersList({
       onMouseOut={
         isInteractive ?
           (() => {
-            handleMouseMove(null);
+            dispatch(setActiveOffer(null));
           })
           :
           undefined
@@ -50,12 +52,11 @@ function OffersList({
       {sortedOffers.map((offer) => (
         <OfferCard
           key={offer.id}
+          mode={cardMode}
           offer={offer}
           onMouseOver={
             isInteractive ?
-              (() => {
-                handleMouseMove(offer.id);
-              })
+              handleCardMouseOver
               :
               undefined
           }

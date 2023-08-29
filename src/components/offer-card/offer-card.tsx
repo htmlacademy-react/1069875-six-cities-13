@@ -10,7 +10,7 @@ import { memo } from 'react';
 
 type OfferCardProps = {
   offer: OfferT;
-  onMouseOver?: () => void;
+  onMouseOver?: (id: string) => void;
   mode?: typeof CardMode[keyof typeof CardMode];
 };
 
@@ -31,7 +31,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
     <article
       className={`${StyleClass}__card place-card`}
       id={id}
-      onMouseOver={onMouseOver}
+      onMouseOver={onMouseOver ? () => onMouseOver(id) : undefined}
     >
       {isPremium ? (
         <div className="place-card__mark">
@@ -55,11 +55,11 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton mode={BookmarkMode.Card} isActive={isFavorite}/>
+          <BookmarkButton mode={BookmarkMode.Card} id={id} isActive={isFavorite}/>
         </div>
         <RatingStars mode={RatingStarsMode.Card} rating={rating}/>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{lodash.capitalize(type)}</p>
       </div>

@@ -3,11 +3,11 @@ import { AppRoute } from '../../const/server';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-action';
 import { getUserData } from '../../store/user-data/selectors';
-import { getFavoriteOffersCount } from '../../store/favorite-data/selectors';
+import { getFavoriteOffers } from '../../store/favorite-data/selectors';
 
 function UserMenu(): JSX.Element {
   const userData = useAppSelector(getUserData);
-  const favoritesOffersCount = useAppSelector(getFavoriteOffersCount);
+  const favoritesOffersCount = useAppSelector(getFavoriteOffers).length;
 
   const dispatch = useAppDispatch();
 
@@ -48,7 +48,7 @@ function UserMenu(): JSX.Element {
           </Link>
         </li>
         <li className="header__nav-item">
-          <a onClick={handleLogout} className="header__nav-link" href="#">
+          <a onClick={handleLogout} className="header__nav-link">
             <span className="header__signout">Sign out</span>
           </a>
         </li>
