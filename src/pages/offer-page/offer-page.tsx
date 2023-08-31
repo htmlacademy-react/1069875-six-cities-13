@@ -25,6 +25,7 @@ import { isUserAuth } from '../../store/user-data/selectors';
 import cn from 'classnames';
 import { resetReviewData } from '../../store/review-form/review-form';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
+import { setActiveOffer } from '../../store/main-data/main-data';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -41,6 +42,12 @@ function OfferPage(): JSX.Element {
     dispatch(resetReviewData());
     dispatch(fetchOfferAction(offerId as string));
   }, [dispatch, offerId]);
+
+  useEffect(() => {
+    if (offer.id) {
+      dispatch(setActiveOffer(offer.id));
+    }
+  }, [dispatch, offer]);
 
   if (isDataLoading) {
     return <UIBlocker />;
@@ -155,7 +162,6 @@ function OfferPage(): JSX.Element {
             mode={MapMode.OfferPage}
             city={city.location}
             points={getPointsFromOffers([...offersNearby, offer])}
-            currentPoint={id}
           />
         </section>
         {city.name ? (
