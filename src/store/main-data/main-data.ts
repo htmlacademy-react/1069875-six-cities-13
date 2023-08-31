@@ -3,7 +3,7 @@ import { NameSpace } from '../../const/server';
 import { MainDataT } from '../../types/state';
 import { City, DEFAULT_CITY } from '../../const/cities';
 import { SortingType } from '../../const/others';
-import { fetchOffersAction, setOfferStatusAction } from '../api-action';
+import { fetchOffersAction } from '../api-action';
 
 const initialState: MainDataT = {
   city: DEFAULT_CITY,
@@ -39,15 +39,6 @@ export const mainData = createSlice({
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isDataLoading = false;
-      })
-      .addCase(setOfferStatusAction.fulfilled, (state, action) => {
-        const newOffer = action.payload;
-        state.offers = state.offers.map((offer) => {
-          if (offer.id === newOffer.id) {
-            offer.isFavorite = newOffer.isFavorite;
-          }
-          return offer;
-        });
       });
   },
 });

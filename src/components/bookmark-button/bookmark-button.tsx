@@ -6,7 +6,7 @@ import { isUserAuth } from '../../store/user-data/selectors';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, OfferStatus } from '../../const/server';
 import { setOfferStatusAction } from '../../store/api-action';
-import { getOfferStatus } from '../../store/main-data/selectors';
+import { getOfferStatus } from '../../store/favorite-data/selectors';
 
 type BookmarkButtonProps = {
   mode: typeof BookmarkMode[keyof typeof BookmarkMode];

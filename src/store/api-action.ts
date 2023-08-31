@@ -75,7 +75,6 @@ export const loginAction = createAsyncThunk<AuthUserT, AuthDataT, asyncThunkConf
     dispatch(resetLoginData);
     const { token } = data;
     saveToken(token);
-    dispatch(fetchOffersAction());
     dispatch(fetchFavoriteOffersAction());
     dispatch(redirectToRoute(AppRoute.Root));
     return data;
@@ -84,10 +83,9 @@ export const loginAction = createAsyncThunk<AuthUserT, AuthDataT, asyncThunkConf
 
 export const logoutAction = createAsyncThunk<void, undefined, asyncThunkConfig>(
   'user/logout',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(fetchOffersAction());
   }
 );
 

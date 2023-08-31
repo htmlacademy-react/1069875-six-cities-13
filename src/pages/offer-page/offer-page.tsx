@@ -26,6 +26,7 @@ import cn from 'classnames';
 import { resetReviewData } from '../../store/review-form/review-form';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
 import { setActiveOffer } from '../../store/main-data/main-data';
+import { OFFER_PICTURES_MAX_COUNT } from '../../const/others';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -38,16 +39,15 @@ function OfferPage(): JSX.Element {
   const isDataLoading = useAppSelector(isOfferLoading);
 
   useEffect(() => {
-    document.body.scrollTo();
-    dispatch(resetReviewData());
-    dispatch(fetchOfferAction(offerId as string));
-  }, [dispatch, offerId]);
-
-  useEffect(() => {
+    if (offerId !== offer.id) {
+      document.body.scrollTo();
+      dispatch(resetReviewData());
+      dispatch(fetchOfferAction(offerId as string));
+    }
     if (offer.id) {
       dispatch(setActiveOffer(offer.id));
     }
-  }, [dispatch, offer]);
+  }, [dispatch, offerId, offer]);
 
   if (isDataLoading) {
     return <UIBlocker />;
@@ -81,7 +81,7 @@ function OfferPage(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image) => (
+              {images.slice(0, OFFER_PICTURES_MAX_COUNT).map((image) => (
                 <div key={`image-${image}`} className="offer__image-wrapper">
                   <img
                     className="offer__image"
