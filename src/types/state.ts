@@ -30,7 +30,6 @@ export type MainDataT = {
 
 export type OfferDataT = {
   fullOffer: OfferFullT;
-  isFavorite: boolean;
   reviews: ReviewT[];
   nearbyOffers: OfferT[];
   offerError: boolean;
