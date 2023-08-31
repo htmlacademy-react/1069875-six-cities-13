@@ -22,7 +22,6 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
     price,
     previewImage,
     isPremium,
-    isFavorite,
     rating,
   } = offer;
 
@@ -55,7 +54,7 @@ function OfferCard({ offer, mode = CardMode.Default, onMouseOver }: OfferCardPro
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton mode={BookmarkMode.Card} id={id} isActive={isFavorite}/>
+          <BookmarkButton mode={BookmarkMode.Card} id={id}/>
         </div>
         <RatingStars mode={RatingStarsMode.Card} rating={rating}/>
         <h2 className="place-card__name">

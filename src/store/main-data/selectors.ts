@@ -13,3 +13,8 @@ export const getActiveOffer = (state: State): null | string => state[NameSpace.M
 export const getOffers = (state: State): OfferT[] => state[NameSpace.MainData].offers;
 
 export const isOffersLoading = (state: State): boolean => state[NameSpace.MainData].isDataLoading;
+
+export const getOfferStatus = (id: string) => (state: State): boolean => {
+  const offer = state[NameSpace.MainData].offers.find((item) => item.id === id);
+  return offer ? offer.isFavorite : false;
+};
