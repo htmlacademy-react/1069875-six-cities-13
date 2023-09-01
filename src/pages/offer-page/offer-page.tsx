@@ -39,9 +39,9 @@ function OfferPage(): JSX.Element {
   const isDataLoading = useAppSelector(isOfferLoading);
 
   useEffect(() => {
+    document.body.scrollTo();
+    dispatch(resetReviewData());
     if (offerId !== offer.id) {
-      document.body.scrollTo();
-      dispatch(resetReviewData());
       dispatch(fetchOfferAction(offerId as string));
     }
     if (offer.id) {
