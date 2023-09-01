@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/server';
 import { FavoriteDataT } from '../../types/state';
-import { fetchFavoriteOffersAction, setOfferStatusAction } from '../api-action';
+import { fetchFavoriteOffersAction, logoutAction, setOfferStatusAction } from '../api-action';
 
 const initialState: FavoriteDataT = {
   favoriteOffers: [],
@@ -31,6 +31,9 @@ export const favoriteData = createSlice({
         } else {
           state.favoriteOffers = state.favoriteOffers.filter((favoriteOffer) => offer.id !== favoriteOffer.id);
         }
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favoriteOffers = [];
       });
   }
 });

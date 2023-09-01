@@ -1,5 +1,6 @@
 const REVIEWS_MAX_COUNT = 10;
 const NEARBY_OFFERS_MAX_COUNT = 3;
+const OFFER_PICTURES_MAX_COUNT = 6;
 const PASSWORD_PATTERN = '(?=.*?[0-9])(?=.*?[A-Za-z]).+';
 
 const DateFormat = {
@@ -29,4 +30,14 @@ const LoginFormEmpty = {
   Password: '',
 } as const;
 
-export { REVIEWS_MAX_COUNT, NEARBY_OFFERS_MAX_COUNT, PASSWORD_PATTERN, DateFormat, SortingType, ReviewTextLength, ReviewFormEmpty, LoginFormEmpty };
+export {
+  REVIEWS_MAX_COUNT,
+  NEARBY_OFFERS_MAX_COUNT,
+  OFFER_PICTURES_MAX_COUNT,
+  PASSWORD_PATTERN,
+  DateFormat,
+  SortingType,
+  ReviewTextLength,
+  ReviewFormEmpty,
+  LoginFormEmpty,
+};

@@ -11,7 +11,7 @@ import {
   OffersListMode,
   CardMode,
 } from '../../const/modes';
-import { useAppSelector, useAppDispatch, useOfferFavoriteFlag } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-action';
 import OffersList from '../../components/offers-list/offers-list';
 import { useEffect } from 'react';
@@ -25,6 +25,8 @@ import { isUserAuth } from '../../store/user-data/selectors';
 import cn from 'classnames';
 import { resetReviewData } from '../../store/review-form/review-form';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
+import { setActiveOffer } from '../../store/main-data/main-data';
+import { OFFER_PICTURES_MAX_COUNT } from '../../const/others';
 
 function OfferPage(): JSX.Element {
   const { offerId } = useParams();
@@ -39,8 +41,13 @@ function OfferPage(): JSX.Element {
   useEffect(() => {
     document.body.scrollTo();
     dispatch(resetReviewData());
-    dispatch(fetchOfferAction(offerId as string));
-  }, [dispatch, offerId]);
+    if (offerId !== offer.id) {
+      dispatch(fetchOfferAction(offerId as string));
+    }
+    if (offer.id) {
+      dispatch(setActiveOffer(offer.id));
+    }
+  }, [dispatch, offerId, offer]);
 
   if (isDataLoading) {
     return <UIBlocker />;
@@ -74,7 +81,7 @@ function OfferPage(): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.map((image) => (
+              {images.slice(0, OFFER_PICTURES_MAX_COUNT).map((image) => (
                 <div key={`image-${image}`} className="offer__image-wrapper">
                   <img
                     className="offer__image"
@@ -97,7 +104,6 @@ function OfferPage(): JSX.Element {
                 <BookmarkButton
                   mode={BookmarkMode.Page}
                   id={id}
-                  isActive={useOfferFavoriteFlag}
                 />
               </div>
               <RatingStars mode={RatingStarsMode.Page} rating={rating} />
@@ -155,7 +161,6 @@ function OfferPage(): JSX.Element {
             mode={MapMode.OfferPage}
             city={city.location}
             points={getPointsFromOffers([...offersNearby, offer])}
-            currentPoint={id}
           />
         </section>
         {city.name ? (

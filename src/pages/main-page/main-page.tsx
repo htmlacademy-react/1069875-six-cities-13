@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import PageHeader from '../../components/page-header/page-header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersList from '../../components/offers-list/offers-list';
@@ -7,18 +7,24 @@ import Map from '../../components/map/map';
 import Sorting from '../../components/sorting/sorting';
 import { CityLocation } from '../../const/cities';
 import { CardMode, MapMode, OffersListMode } from '../../const/modes';
-import { useAppSelector, useActiveOffer } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOffersByCity } from '../../utils/offers';
 import { getPointsFromOffers } from '../../utils/map-points';
 import { getCurrentCity, getOffers, isOffersLoading } from '../../store/main-data/selectors';
 import UIBlocker from '../../components/ui-blocker/ui-blocker';
+import { setActiveOffer } from '../../store/main-data/main-data';
 
 function MainPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const activeCity = useAppSelector(getCurrentCity);
   const allOffers = useAppSelector(getOffers);
   const isDataLoading = useAppSelector(isOffersLoading);
 
   const offers = useMemo(() => getOffersByCity(allOffers, activeCity), [activeCity, allOffers]);
+
+  useEffect(() => {
+    dispatch(setActiveOffer(null));
+  }, [dispatch]);
 
   if (isDataLoading) {
     return <UIBlocker />;
@@ -55,7 +61,6 @@ function MainPage(): JSX.Element {
                   mode={MapMode.MainPage}
                   city={CityLocation[activeCity]}
                   points={getPointsFromOffers(offers)}
-                  currentPoint={useActiveOffer}
                 />
               </div>
             </div>

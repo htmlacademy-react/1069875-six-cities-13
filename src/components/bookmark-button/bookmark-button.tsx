@@ -6,19 +6,19 @@ import { isUserAuth } from '../../store/user-data/selectors';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, OfferStatus } from '../../const/server';
 import { setOfferStatusAction } from '../../store/api-action';
+import { getOfferStatus } from '../../store/favorite-data/selectors';
 
 type BookmarkButtonProps = {
   mode: typeof BookmarkMode[keyof typeof BookmarkMode];
   id: string;
-  isActive: boolean | (() => boolean);
 };
 
-function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Element {
+function BookmarkButton({ mode, id }: BookmarkButtonProps): JSX.Element {
   const { StyleClass, ImgSize } = BookmarkModeDiffs[mode];
   const isAuth = useAppSelector(isUserAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const status = typeof isActive === 'function' ? isActive() : isActive;
+  const isFavorite = useAppSelector(getOfferStatus(id));
 
   const handleButtonClick = () => {
     if (!isAuth) {
@@ -26,7 +26,7 @@ function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Elemen
       return;
     }
 
-    dispatch(setOfferStatusAction({id, status: status ? OfferStatus.NotFavorite : OfferStatus.Favorite}));
+    dispatch(setOfferStatusAction({id, status: isFavorite ? OfferStatus.NotFavorite : OfferStatus.Favorite}));
   };
   return (
     <button
@@ -34,7 +34,7 @@ function BookmarkButton({ mode, id, isActive }: BookmarkButtonProps): JSX.Elemen
       className={cn(
         'button',
         `${StyleClass}__bookmark-button`,
-        {[`${StyleClass}__bookmark-button--active`]: status},
+        {[`${StyleClass}__bookmark-button--active`]: isFavorite},
       )}
       type="button"
     >
